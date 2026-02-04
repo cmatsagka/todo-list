@@ -93,10 +93,10 @@ export function setUI() {
 
 	submitTodo.addEventListener('click', () => {
 		let newTodo = createTodo(
-			formTitle.value,
-			formDescr.value,
-			formDate.value,
-			formPriority
+			todoTitle.value,
+			todoDescr.value,
+			todoDate.value,
+			todoPrior.value
 		);
 
 		let activeProject = getActiveProject();
