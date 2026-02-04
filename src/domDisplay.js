@@ -101,16 +101,17 @@ export function setUI() {
 
 		let activeProject = getActiveProject();
 
-		activeProject.addTodo(newTodo);
-		renderTodos();
+		if (todoTitle.value !== '') {
+			activeProject.addTodo(newTodo);
+			renderTodos();
 
-		todoTitle.value = '';
-		todoDescr.value = '';
-		todoDate.value = '';
+			todoTitle.value = '';
+			todoDescr.value = '';
+			todoDate.value = '';
+		} else {
+			alert('Please enter a title to your todo');
+		}
 	});
-
-	formDate.appendChild(labelDate);
-	formDate.appendChild(todoDate);
 
 	formContainer.appendChild(formTitle);
 	formContainer.appendChild(formDescr);
