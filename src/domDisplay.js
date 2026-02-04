@@ -66,7 +66,7 @@ export function renderProjects() {
 }
 
 export function renderTodos() {
-	const todoContainer = document.querySelector('todoContainer');
+	const todoContainer = document.querySelector('.todoContainer');
 	todoContainer.textContent = '';
 
 	let activeProject = getActiveProject();
