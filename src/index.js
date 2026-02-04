@@ -1,5 +1,6 @@
 import './styles.css';
 import { createTodo } from './todo.js';
+import { createProject } from './project.js';
 
 const todo1 = createTodo(
 	'say hi',
@@ -14,5 +15,8 @@ const todo2 = createTodo(
 	'high'
 );
 
-console.log(todo1);
-console.log(todo2);
+let myProject = createProject('Home');
+myProject.addTodo(todo1);
+myProject.addTodo(todo2);
+
+console.log(myProject.getTodos());
