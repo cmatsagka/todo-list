@@ -32,10 +32,14 @@ export function setUI() {
 		}
 	});
 
+	const todoContainer = document.createElement('div');
+	todoContainer.classList.add('todoContainer');
+
 	controls.appendChild(input);
 	controls.appendChild(addButton);
 	content.appendChild(controls);
 	content.appendChild(listContainer);
+	content.appendChild(todoContainer);
 }
 
 export function renderProjects() {
@@ -55,24 +59,25 @@ export function renderProjects() {
 			setActiveProject(project.getName());
 			let activeProject = getActiveProject();
 			console.log('Current project is:', activeProject.getName());
+
+			renderTodos();
 		});
 	});
 }
 
 export function renderTodos() {
-	let activeProject = getActiveProject();
+	const todoContainer = document.querySelector('todoContainer');
+	todoContainer.textContent = '';
 
+	let activeProject = getActiveProject();
 	let todos = activeProject.getTodos();
 
-	const content = document.querySelector('#content');
-
-	const todoContainer = document.createElement('div');
-	todoContainer.classList.add('todoContainer');
-
 	todos.forEach((todo) => {
-		const todoElement = document.createElement('p');
+		const todoElement = document.createElement('div');
 		todoElement.classList.add('todo-item');
 
-		todoContainer.appendChild(todo);
+		todoElement.textContent = `${todo.title} - Due: ${todo.dueDate}`;
+
+		todoContainer.appendChild(todoElement);
 	});
 }
