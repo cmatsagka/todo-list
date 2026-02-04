@@ -17,3 +17,15 @@ export const deleteProject = (projectName) => {
 };
 
 export const getAllProjects = () => [...projects];
+
+let activeProject = defaultProject;
+
+export const setActiveProject = (projectName) => {
+	const foundProject = projects.find((p) => p.getName() === projectName);
+
+	if (foundProject) {
+		activeProject = foundProject;
+	}
+};
+
+export const getActiveProject = () => activeProject;
