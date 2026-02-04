@@ -14,15 +14,20 @@ export function setUI() {
 	addButton.classList.add('add-btn');
 	addButton.textContent = 'Add Project';
 
+	const listContainer = document.createElement('div');
+	listContainer.id = 'project-list';
+
 	addButton.addEventListener('click', () => {
-		let name = input.textContent;
-		addProject(name);
+		let projectName = input.value;
+
+		addProject(projectName);
 		renderProjects();
 	});
 
 	controls.appendChild(input);
 	controls.appendChild(addButton);
 	content.appendChild(controls);
+	content.appendChild(listContainer);
 }
 
 export function renderProjects() {
