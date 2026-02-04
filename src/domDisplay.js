@@ -25,8 +25,11 @@ export function setUI() {
 	addButton.addEventListener('click', () => {
 		let projectName = input.value;
 
-		addProject(projectName);
-		renderProjects();
+		if (projectName !== '') {
+			addProject(projectName);
+			input.value = '';
+			renderProjects();
+		}
 	});
 
 	controls.appendChild(input);
