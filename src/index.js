@@ -17,11 +17,5 @@ const todo2 = createTodo(
 	'high'
 );
 
-addProject('work');
-addProject('gym');
-
-deleteProject('work');
-
-getAllProjects();
-renderProjects();
 setUI();
+renderProjects();
