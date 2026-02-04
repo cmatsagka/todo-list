@@ -4,6 +4,7 @@ import {
 	getAllProjects,
 	setActiveProject,
 } from './todoManager.js';
+import { createTodo } from './todo.js';
 
 export function setUI() {
 	const content = document.querySelector('#content');
@@ -89,6 +90,19 @@ export function setUI() {
 	const submitTodo = document.createElement('button');
 	submitTodo.classList.add('submit-btn');
 	submitTodo.textContent = 'Add todo';
+
+	submitTodo.addEventListener('click', () => {
+		let newTodo = createTodo(
+			formTitle.value,
+			formDescr.value,
+			formDate.value,
+			formPriority
+		);
+
+		let activeProject = getActiveProject();
+		activeProject.addTodo(newTodo);
+		renderTodos();
+	});
 
 	formDate.appendChild(labelDate);
 	formDate.appendChild(todoDate);
