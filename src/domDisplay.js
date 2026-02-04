@@ -31,7 +31,9 @@ export function setUI() {
 }
 
 export function renderProjects() {
-	content.textContent = '';
+	const listContainer = document.querySelector('#project-list');
+	listContainer.textContent = '';
+
 	const projects = getAllProjects();
 
 	projects.forEach((project) => {
@@ -39,6 +41,6 @@ export function renderProjects() {
 		projectElement.classList.add('project-item');
 		projectElement.textContent = project.getName();
 
-		content.appendChild(projectElement);
+		listContainer.appendChild(projectElement);
 	});
 }
