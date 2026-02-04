@@ -100,8 +100,13 @@ export function setUI() {
 		);
 
 		let activeProject = getActiveProject();
+
 		activeProject.addTodo(newTodo);
 		renderTodos();
+
+		todoTitle.value = '';
+		todoDescr.value = '';
+		todoDate.value = '';
 	});
 
 	formDate.appendChild(labelDate);
