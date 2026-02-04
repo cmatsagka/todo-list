@@ -1,9 +1,16 @@
-export function renderProject() {
+import { getAllProjects } from './todoManager.js';
+
+export function renderProjects() {
 	const content = document.querySelector('#content');
 
-	const project = document.createElement('p');
-	project.classList.add('project');
-	project.textContent = 'New project';
+	content.textContent = '';
+	const projects = getAllProjects();
 
-	content.appendChild(project);
+	projects.forEach((project) => {
+		const projectElement = document.createElement('p');
+		projectElement.classList.add('project-item');
+		projectElement.textContent = project.getName();
+
+		content.appendChild(projectElement);
+	});
 }

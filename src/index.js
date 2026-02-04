@@ -1,7 +1,7 @@
 import './styles.css';
 import { createTodo } from './todo.js';
 import { createProject } from './project.js';
-import { renderProject } from './domDisplay.js';
+import { renderProjects } from './domDisplay.js';
 import {
 	addProject,
 	deleteProject,
@@ -37,4 +37,4 @@ myProject.addTodo(todo2);
 
 console.log(myProject.getTodos());
 
-renderProject();
+renderProjects();
