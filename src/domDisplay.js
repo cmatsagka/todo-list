@@ -32,12 +32,80 @@ export function setUI() {
 		}
 	});
 
+	const formContainer = document.createElement('div');
+	formContainer.classList.add('form-group');
+
+	const formTitle = document.createElement('div');
+	formTitle.classList.add('form-group');
+
+	const labelTitle = document.createElement('label');
+	labelTitle.textContent = 'Add todo title';
+	const todoTitle = document.createElement('input');
+	todoTitle.placeholder = "I've got to do...";
+	todoTitle.required = true;
+
+	formTitle.appendChild(labelTitle);
+	formTitle.appendChild(todoTitle);
+
+	const formDescr = document.createElement('div');
+	formDescr.classList.add('form-group');
+
+	const labelDescr = document.createElement('label');
+	labelDescr.textContent = 'Describe it';
+	const todoDescr = document.createElement('input');
+	todoDescr.placeholder = "It's a task about...";
+
+	formDescr.appendChild(labelDescr);
+	formDescr.appendChild(todoDescr);
+
+	const formDate = document.createElement('div');
+	formDate.classList.add('form-group');
+
+	const labelDate = document.createElement('label');
+	labelDate.textContent = 'Due Date';
+	const todoDate = document.createElement('input');
+	todoDate.type = 'date';
+
+	formDate.appendChild(labelDate);
+	formDate.appendChild(todoDate);
+
+	const formPriority = document.createElement('div');
+	formPriority.classList.add('form-group');
+
+	const labelPrior = document.createElement('label');
+	labelPrior.textContent = 'Priority';
+	const todoPrior = document.createElement('select');
+
+	['Low', 'Medium', 'High'].forEach((level) => {
+		const option = document.createElement('option');
+		option.value = level.toLocaleLowerCase();
+		option.textContent = level;
+		todoPrior.appendChild(option);
+	});
+
+	formPriority.appendChild(labelPrior);
+	formPriority.appendChild(todoPrior);
+
+	const submitTodo = document.createElement('button');
+	submitTodo.classList.add('submit-btn');
+	submitTodo.textContent = 'Add todo';
+
+	formDate.appendChild(labelDate);
+	formDate.appendChild(todoDate);
+
+	formContainer.appendChild(formTitle);
+	formContainer.appendChild(formDescr);
+	formContainer.appendChild(formDate);
+	formContainer.appendChild(formPriority);
+	formContainer.appendChild(submitTodo);
+
 	const todoContainer = document.createElement('div');
 	todoContainer.classList.add('todoContainer');
 
 	controls.appendChild(input);
 	controls.appendChild(addButton);
 	content.appendChild(controls);
+	content.appendChild(formContainer);
 	content.appendChild(listContainer);
 	content.appendChild(todoContainer);
 }
