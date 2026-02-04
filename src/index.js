@@ -1,6 +1,7 @@
 import './styles.css';
 import { createTodo } from './todo.js';
 import { createProject } from './project.js';
+import { todoManager } from './todoManager.js';
 
 const todo1 = createTodo(
 	'say hi',
