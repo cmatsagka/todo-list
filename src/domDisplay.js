@@ -1,4 +1,9 @@
-import { addProject, getAllProjects } from './todoManager.js';
+import {
+	addProject,
+	getActiveProject,
+	getAllProjects,
+	setActiveProject,
+} from './todoManager.js';
 
 export function setUI() {
 	const content = document.querySelector('#content');
@@ -42,5 +47,11 @@ export function renderProjects() {
 		projectElement.textContent = project.getName();
 
 		listContainer.appendChild(projectElement);
+
+		projectElement.addEventListener('click', () => {
+			setActiveProject(project.getName());
+			let activeProject = getActiveProject();
+			console.log('Current project is:', activeProject.getName());
+		});
 	});
 }
