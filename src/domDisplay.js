@@ -1,8 +1,21 @@
-import { getAllProjects } from './todoManager.js';
+import { addProject, getAllProjects } from './todoManager.js';
+
+const content = document.querySelector('#content');
+
+export function setInitialUI(name) {
+	const addButton = document.createElement('button');
+	addButton.classList.add('add-btn');
+	addButton.textContent = 'Add Project';
+
+	addButton.addEventListener('click', () => {
+		addProject(name);
+	});
+
+	renderProjects();
+	content.appendChild(addButton);
+}
 
 export function renderProjects() {
-	const content = document.querySelector('#content');
-
 	content.textContent = '';
 	const projects = getAllProjects();
 
