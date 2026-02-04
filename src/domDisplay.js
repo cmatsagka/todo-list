@@ -58,3 +58,21 @@ export function renderProjects() {
 		});
 	});
 }
+
+export function renderTodos() {
+	let activeProject = getActiveProject();
+
+	let todos = activeProject.getTodos();
+
+	const content = document.querySelector('#content');
+
+	const todoContainer = document.createElement('div');
+	todoContainer.classList.add('todoContainer');
+
+	todos.forEach((todo) => {
+		const todoElement = document.createElement('p');
+		todoElement.classList.add('todo-item');
+
+		todoContainer.appendChild(todo);
+	});
+}
