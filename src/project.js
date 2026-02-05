@@ -2,16 +2,20 @@ export function createProject(name) {
 	let todos = [];
 
 	const getName = () => {
-		return name;
+		name;
 	};
 
 	const addTodo = (todo) => {
-		return todos.push(todo);
+		todos.push(todo);
 	};
 
 	const getTodos = () => {
-		return todos.slice();
+		todos.slice();
 	};
 
-	return { getName, addTodo, getTodos };
+	const deleteTodo = (index) => {
+		todos.splice(index, 1);
+	};
+
+	return { getName, addTodo, getTodos, deleteTodo };
 }
