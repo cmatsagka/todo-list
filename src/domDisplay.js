@@ -105,6 +105,7 @@ export function renderTodos() {
 	todoListContainer.textContent = '';
 
 	const activeProject = getActiveProject();
+	if (!activeProject) return;
 
 	const titleHeader = document.querySelector('#active-project-name');
 
