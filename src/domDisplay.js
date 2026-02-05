@@ -4,6 +4,8 @@ import {
 	getAllProjects,
 	setActiveProject,
 	deleteProject,
+	addTodoToProject,
+	removeTodoFromProject,
 } from './todoManager.js';
 import { createTodo } from './todo.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
@@ -45,7 +47,7 @@ export function setUI() {
 				data.date,
 				data.priority
 			);
-			activeProject.addTodo(newTodo);
+			addTodoToProject(activeProject, newTodo);
 			renderTodos();
 		} else {
 			alert('Please enter a title!');
@@ -128,7 +130,7 @@ export function renderTodos() {
 		deleteBtn.textContent = 'X';
 
 		deleteBtn.addEventListener('click', () => {
-			activeProject.deleteTodo(index);
+			removeTodoFromProject(activeProject, index);
 			renderTodos();
 		});
 
