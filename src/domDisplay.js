@@ -3,6 +3,7 @@ import {
 	getActiveProject,
 	getAllProjects,
 	setActiveProject,
+	deleteProject,
 } from './todoManager.js';
 import { createTodo } from './todo.js';
 
@@ -141,15 +142,32 @@ export function renderProjects() {
 		projectElement.classList.add('project-item');
 		projectElement.textContent = project.getName();
 
-		listContainer.appendChild(projectElement);
+		const deleteProjectBtn = document.createElement('button');
+		deleteProjectBtn.classList.add('delete-btn');
+		deleteProjectBtn.textContent = 'X';
+
+		deleteProjectBtn.addEventListener('click', (e) => {
+			e.stopPropagation();
+
+			const projectName = project.getName();
+			if (projectName === 'General') {
+				return alert('Cannot delete General project');
+			}
+
+			deleteProject(projectName);
+			setActiveProject('General');
+			renderProjects();
+			renderTodos();
+		});
 
 		projectElement.addEventListener('click', () => {
 			setActiveProject(project.getName());
-			let activeProject = getActiveProject();
-			console.log('Current project is:', activeProject.getName());
-
+			renderProjects();
 			renderTodos();
 		});
+
+		projectElement.appendChild(deleteProjectBtn);
+		listContainer.appendChild(projectElement);
 	});
 }
 
