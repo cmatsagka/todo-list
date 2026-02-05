@@ -8,6 +8,7 @@ import {
 import { createTodo } from './todo.js';
 
 export function setUI() {
+	//sidebar - project control
 	const sidebar = document.querySelector('#sidebar');
 
 	const sidebarTitle = document.createElement('h2');
@@ -44,8 +45,11 @@ export function setUI() {
 		}
 	});
 
+	//-------------------------------------//
+
+	//form creation
 	const formContainer = document.createElement('div');
-	formContainer.classList.add('form-group');
+	formContainer.id = 'form-container';
 
 	const formTitle = document.createElement('div');
 	formTitle.classList.add('form-group');
@@ -130,11 +134,9 @@ export function setUI() {
 	formContainer.appendChild(formPriority);
 	formContainer.appendChild(submitTodo);
 
-	const todoContainer = document.createElement('div');
-	todoContainer.classList.add('todoContainer');
+	const todoFormSlot = document.querySelector('#todo-form-slot');
 
-	sidebar.appendChild(formContainer);
-	sidebar.appendChild(todoContainer);
+	todoFormSlot.appendChild(formContainer);
 }
 
 export function renderProjects() {
@@ -178,8 +180,8 @@ export function renderProjects() {
 }
 
 export function renderTodos() {
-	const todoContainer = document.querySelector('.todoContainer');
-	todoContainer.textContent = '';
+	const todoFormContainer = document.querySelector('#todo-form-container');
+	todoFormContainer.textContent = '';
 
 	let activeProject = getActiveProject();
 
@@ -208,6 +210,6 @@ export function renderTodos() {
 		});
 
 		todoElement.appendChild(deleteBtn);
-		todoContainer.appendChild(todoElement);
+		todoFormContainer.appendChild(todoElement);
 	});
 }
