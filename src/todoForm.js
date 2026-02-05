@@ -1,4 +1,4 @@
-function createFormElement(
+export function createFormElement(
 	label,
 	placeholder,
 	required = false,

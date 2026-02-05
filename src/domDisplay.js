@@ -6,42 +6,29 @@ import {
 	deleteProject,
 } from './todoManager.js';
 import { createTodo } from './todo.js';
-import { getTodoForm } from './todoForm.js';
+import { createFormElement, getTodoForm } from './todoForm.js';
 
 export function setUI() {
-	//sidebar - project control
 	const sidebar = document.querySelector('#sidebar');
-
-	const sidebarTitle = document.createElement('h2');
-	sidebarTitle.textContent = 'Projects';
-
-	const projectControls = document.createElement('div');
-	projectControls.id = 'project-controls';
-	projectControls.textContent = 'Here is the project control panel';
-
-	const input = document.createElement('input');
-	input.placeholder = 'New Project Name';
-	input.id = 'project-input';
-
-	const addButton = document.createElement('button');
-	addButton.classList.add('add-btn');
-	addButton.textContent = 'Add Project';
-
-	projectControls.appendChild(input);
-	projectControls.appendChild(addButton);
-
 	const projectList = document.querySelector('#project-list');
 
-	sidebar.appendChild(sidebarTitle);
-	sidebar.appendChild(projectControls);
+	const projectInput = createFormElement(
+		'Project Name',
+		'New Project...',
+		true
+	);
+	const addProjectBtn = createFormElement('Add Project', '', false, 'button');
+
+	sidebar.appendChild(projectInput.group);
+	sidebar.appendChild(addProjectBtn.group);
 	sidebar.appendChild(projectList);
 
-	addButton.addEventListener('click', () => {
-		let projectName = input.value;
+	addProjectBtn.element.addEventListener('click', () => {
+		let name = projectInput.element.value;
 
-		if (projectName !== '') {
-			addProject(projectName);
-			input.value = '';
+		if (name !== '') {
+			addProject(name);
+			projectInput.element.value = '';
 			renderProjects();
 		}
 	});

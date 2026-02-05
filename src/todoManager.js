@@ -14,7 +14,10 @@ export const addProject = (name) => {
 
 export const deleteProject = (projectName) => {
 	projects = projects.filter((p) => p.getName() !== projectName);
-	activeProject = deleteProject;
+
+	if (activeProject.getName() === projectName) {
+		activeProject = defaultProject;
+	}
 };
 
 export const getAllProjects = () => [...projects];
