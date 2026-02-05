@@ -88,6 +88,23 @@ button:hover {
 	flex-direction: column;
 }
 
+#project-list {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.project-item,
+.todo-item {
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+.delete-btn {
+	margin-left: auto;
+}
+
 #todo-display {
 	padding: 2rem;
 	max-width: 900px;
@@ -115,16 +132,6 @@ button:hover {
 #todo-items:hover {
 	transform: translateY(-2px);
 	box-shadow: var(--shadow-md);
-}
-
-.todo-item {
-	display: flex;
-	align-items: center;
-	gap: 1.5rem;
-}
-
-.delete-btn {
-	margin-left: auto;
 }
 
 .site-footer {
