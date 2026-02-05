@@ -1,3 +1,27 @@
+@import url('https://rsms.me/inter/inter.css');
+
+:root {
+	--bg-primary: hsl(16, 30%, 96%);
+	--bg-secondary: hsl(16, 25%, 92%);
+
+	--txt-primary: hsl(16, 40%, 12%);
+	--txt-secondary: hsl(16, 15%, 45%);
+
+	--action-primary: hsl(16, 75%, 45%);
+	--action-hover: hsl(16, 85%, 35%);
+	--action-light: hsl(0, 0%, 100%);
+
+	--error: hsl(0, 70%, 50%);
+	--border-clr: hsla(16, 40%, 12%, 0.1);
+	--shadow-sm: 0 2px 8px -2px hsla(16, 40%, 12%, 0.15);
+	--shadow-md: 0 12px 24px -4px hsla(16, 40%, 12%, 0.2);
+	--gradient-action: linear-gradient(
+		135deg,
+		var(--action-primary),
+		var(--action-hover)
+	);
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -6,4 +30,11 @@
 
 body {
 	min-height: 100vh;
+	background-color: var(--bg-primary);
+	color: var(--txt-primary);
+	letter-spacing: -0.01em;
+	font-family: 'Inter', sans-serif;
+	@supports (font-variation-settings: normal) {
+		font-family: 'Inter var', sans-serif;
+	}
 }
