@@ -134,6 +134,28 @@ button:hover {
 	box-shadow: var(--shadow-md);
 }
 
+.form-group,
+.form-dropdown,
+.form-submit {
+	display: flex;
+	flex-direction: column;
+}
+
+input,
+select {
+	border: none;
+	border-bottom: 1px solid var(--border-clr);
+	background-color: transparent;
+	color: var(--txt-main);
+	padding: 0.8rem 0;
+	transition: border-color 0.3s ease;
+}
+
+input:focus {
+	outline: none;
+	border-bottom: 1px solid var(--action-primary);
+}
+
 .site-footer {
 	margin: 0 auto;
 	padding: 1.5rem;
