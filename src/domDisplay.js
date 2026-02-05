@@ -160,12 +160,22 @@ export function renderTodos() {
 	let activeProject = getActiveProject();
 	let todos = activeProject.getTodos();
 
-	todos.forEach((todo) => {
+	todos.forEach((todo, index) => {
 		const todoElement = document.createElement('div');
 		todoElement.classList.add('todo-item');
 
 		todoElement.textContent = `${todo.title} - Due: ${todo.dueDate}`;
 
+		const deleteBtn = document.createElement('button');
+		deleteBtn.classList.add('delete-btn');
+		deleteBtn.textContent = 'X';
+
+		deleteBtn.addEventListener('click', () => {
+			activeProject.deleteTodo(index);
+			renderTodos();
+		});
+
+		todoElement.appendChild(deleteBtn);
 		todoContainer.appendChild(todoElement);
 	});
 }
