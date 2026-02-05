@@ -29,6 +29,8 @@
 }
 
 body {
+	display: flex;
+	flex-direction: column;
 	min-height: 100vh;
 	background-color: var(--bg-primary);
 	color: var(--txt-primary);
@@ -37,4 +39,43 @@ body {
 	@supports (font-variation-settings: normal) {
 		font-family: 'Inter var', sans-serif;
 	}
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+button,
+input,
+select {
+	font: inherit;
+}
+
+button {
+	background-color: transparent;
+	color: var(--action-primary);
+	padding: 0.6rem 0.8rem;
+	border-radius: 4px;
+	border: none;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+	background: var(--gradient-action);
+	color: var(--action-light);
+}
+
+.app-container {
+	flex: 1;
+}
+
+.site-footer {
+	margin: 0 auto;
+	padding: 1.5rem;
 }
