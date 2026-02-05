@@ -74,6 +74,10 @@ button:hover {
 	color: var(--action-light);
 }
 
+header {
+	padding-left: 1.5rem;
+}
+
 .app-container {
 	flex: 1;
 	display: grid;
@@ -117,11 +121,14 @@ button:hover {
 #todo-items {
 	display: flex;
 	flex-direction: column;
-	gap: 1.5rem;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.todo-item {
 	background: var(--action-light);
 	border-radius: 12px;
-	padding: 2rem;
-	margin-bottom: 1rem;
+	padding: 1.2rem 1.5rem;
 	border: 1px solid var(--border-clr);
 	box-shadow: var(--shadow-sm);
 	transition:
@@ -129,7 +136,7 @@ button:hover {
 		box-shadow 0.2s ease;
 }
 
-#todo-items:hover {
+.todo-item:hover {
 	transform: translateY(-2px);
 	box-shadow: var(--shadow-md);
 }
