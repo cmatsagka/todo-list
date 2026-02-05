@@ -21,21 +21,23 @@ if (!rawData) {
 		projects.push(newProject);
 	});
 }
-activeProject = projects[0];
+activeProject = projects[0] || null;
 
 export const addProject = (name) => {
 	if (projects.some((p) => p.getName() === name)) return;
 
 	const newProject = createProject(name);
 	projects.push(newProject);
+	save(projects);
 };
 
 export const deleteProject = (projectName) => {
 	projects = projects.filter((p) => p.getName() !== projectName);
 
 	if (activeProject.getName() === projectName) {
-		activeProject = defaultProject;
+		activeProject = projects[0];
 	}
+	save(projects);
 };
 
 export const getAllProjects = () => [...projects];
