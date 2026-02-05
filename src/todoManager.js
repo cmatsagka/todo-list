@@ -1,9 +1,27 @@
 import { createProject } from './project.js';
+import { load } from './storage.js';
 
 let projects = [];
+let activeProject;
 
-const defaultProject = createProject('General');
-projects.push(defaultProject);
+const rawData = load();
+
+if (!rawData) {
+	const defaultProject = createProject('General');
+	projects.push(defaultProject);
+} else {
+	rawData.forEach((projectData) => {
+		let newProject = createProject(projectData.name);
+
+		const todos = projectData.todos;
+
+		todos.forEach((todo) => {
+			newProject.addTodo(todo);
+		});
+		projects.push(newProject);
+	});
+}
+activeProject = projects[0];
 
 export const addProject = (name) => {
 	if (projects.some((p) => p.getName() === name)) return;
@@ -21,8 +39,6 @@ export const deleteProject = (projectName) => {
 };
 
 export const getAllProjects = () => [...projects];
-
-let activeProject = defaultProject;
 
 export const setActiveProject = (projectName) => {
 	const foundProject = projects.find((p) => p.getName() === projectName);
