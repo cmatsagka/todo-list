@@ -14,6 +14,7 @@ export const addProject = (name) => {
 
 export const deleteProject = (projectName) => {
 	projects = projects.filter((p) => p.getName() !== projectName);
+	activeProject = deleteProject;
 };
 
 export const getAllProjects = () => [...projects];
