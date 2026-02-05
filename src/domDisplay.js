@@ -180,14 +180,15 @@ export function renderProjects() {
 }
 
 export function renderTodos() {
-	const todoFormContainer = document.querySelector('#todo-form-container');
-	todoFormContainer.textContent = '';
+	const todoListContainer = document.querySelector('#todo-items');
+	todoListContainer.textContent = '';
 
-	let activeProject = getActiveProject();
+	const activeProject = getActiveProject();
 
-	if (!activeProject) {
-		console.warn('No active project selected');
-		return;
+	const titleHeader = document.querySelector('#active-project-name');
+
+	if (titleHeader) {
+		titleHeader.textContent = activeProject.getName();
 	}
 
 	const todos = activeProject.getTodos();
@@ -210,6 +211,6 @@ export function renderTodos() {
 		});
 
 		todoElement.appendChild(deleteBtn);
-		todoFormContainer.appendChild(todoElement);
+		todoListContainer.appendChild(todoElement);
 	});
 }
