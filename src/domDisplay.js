@@ -170,9 +170,14 @@ export function renderProjects() {
 
 		projectElement.addEventListener('click', () => {
 			setActiveProject(project.getName());
+
 			renderProjects();
 			renderTodos();
 		});
+
+		if (project.getName() === getActiveProject().getName()) {
+			projectElement.classList.add('active');
+		}
 
 		projectElement.appendChild(deleteProjectBtn);
 		listContainer.appendChild(projectElement);
