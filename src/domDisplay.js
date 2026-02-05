@@ -8,10 +8,14 @@ import {
 import { createTodo } from './todo.js';
 
 export function setUI() {
-	const content = document.querySelector('#content');
+	const sidebar = document.querySelector('#sidebar');
 
-	const controls = document.createElement('div');
-	controls.classList.add('controls');
+	const sidebarTitle = document.createElement('h2');
+	sidebarTitle.textContent = 'Projects';
+
+	const projectControls = document.createElement('div');
+	projectControls.id = 'project-controls';
+	projectControls.textContent = 'Here is the project control panel';
 
 	const input = document.createElement('input');
 	input.placeholder = 'New Project Name';
@@ -21,8 +25,14 @@ export function setUI() {
 	addButton.classList.add('add-btn');
 	addButton.textContent = 'Add Project';
 
-	const listContainer = document.createElement('div');
-	listContainer.id = 'project-list';
+	projectControls.appendChild(input);
+	projectControls.appendChild(addButton);
+
+	const projectList = document.querySelector('#project-list');
+
+	sidebar.appendChild(sidebarTitle);
+	sidebar.appendChild(projectControls);
+	sidebar.appendChild(projectList);
 
 	addButton.addEventListener('click', () => {
 		let projectName = input.value;
@@ -123,12 +133,8 @@ export function setUI() {
 	const todoContainer = document.createElement('div');
 	todoContainer.classList.add('todoContainer');
 
-	controls.appendChild(input);
-	controls.appendChild(addButton);
-	content.appendChild(controls);
-	content.appendChild(formContainer);
-	content.appendChild(listContainer);
-	content.appendChild(todoContainer);
+	sidebar.appendChild(formContainer);
+	sidebar.appendChild(todoContainer);
 }
 
 export function renderProjects() {
