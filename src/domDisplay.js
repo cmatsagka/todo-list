@@ -158,7 +158,15 @@ export function renderTodos() {
 	todoContainer.textContent = '';
 
 	let activeProject = getActiveProject();
-	let todos = activeProject.getTodos();
+
+	if (!activeProject) {
+		console.warn('No active project selected');
+		return;
+	}
+
+	const todos = activeProject.getTodos();
+
+	if (!todos) return;
 
 	todos.forEach((todo, index) => {
 		const todoElement = document.createElement('div');
