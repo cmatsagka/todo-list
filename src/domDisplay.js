@@ -46,10 +46,25 @@ export function setUI() {
 		}
 	});
 
-	//-------------------------------------//
-
 	const todoFormSlot = document.querySelector('#todo-form-slot');
-	const formContainer = getTodoForm();
+
+	const handleTodoSubmit = (data) => {
+		let activeProject = getActiveProject();
+
+		if (data.title !== '') {
+			const newTodo = createTodo(
+				data.title,
+				data.description,
+				data.date,
+				data.priority
+			);
+			activeProject.addTodo(newTodo);
+			renderTodos();
+		} else {
+			alert('Please enter a title!');
+		}
+	};
+	const formContainer = getTodoForm(handleTodoSubmit);
 	todoFormSlot.appendChild(formContainer);
 }
 
