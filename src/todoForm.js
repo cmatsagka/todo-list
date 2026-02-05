@@ -1,4 +1,9 @@
-function createInputField(label, placeholder, required = false, type = 'text') {
+function createFormElement(
+	label,
+	placeholder,
+	required = false,
+	type = 'text'
+) {
 	const formGroup = document.createElement('div');
 	formGroup.classList.add('form-group');
 
@@ -35,16 +40,19 @@ function createInputField(label, placeholder, required = false, type = 'text') {
 	return { group: formGroup, element: field };
 }
 
-export function getTodoForm() {
+export function getTodoForm(onSubmit) {
 	const formContainer = document.createElement('div');
 	formContainer.id = 'form-container';
 
-	const titleField = createInputField('Title', "I've got to do", true);
-	const descrField = createInputField('Description', 'The task is...', false);
-
-	const dateField = createInputField('Due Date', '', false, 'date');
-	const priorField = createInputField('Priority', '', false, 'select');
-	const button = createInputField('button', '', true, 'button');
+	const titleField = createFormElement('Title', "I've got to do", true);
+	const descrField = createFormElement(
+		'Description',
+		'The task is...',
+		false
+	);
+	const dateField = createFormElement('Due Date', '', false, 'date');
+	const priorField = createFormElement('Priority', '', false, 'select');
+	const button = createFormElement('button', '', true, 'button');
 
 	formContainer.appendChild(titleField.group);
 	formContainer.appendChild(descrField.group);
