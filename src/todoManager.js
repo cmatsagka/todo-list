@@ -1,5 +1,5 @@
 import { createProject } from './project.js';
-import { load } from './storage.js';
+import { load, save } from './storage.js';
 
 let projects = [];
 let activeProject;
@@ -49,3 +49,13 @@ export const setActiveProject = (projectName) => {
 };
 
 export const getActiveProject = () => activeProject;
+
+export const addTodoToProject = (project, todoData) => {
+	project.addTodo(todoData);
+	save(projects);
+};
+
+export const removeTodoFromProject = (project, index) => {
+	project.deleteTodo(index);
+	save(projects);
+};
