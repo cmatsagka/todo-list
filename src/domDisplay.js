@@ -123,6 +123,14 @@ export function renderTodos() {
 		const todoElement = document.createElement('div');
 		todoElement.classList.add('todo-item');
 
+		if (todo.priority === 'high') {
+			todoElement.classList.add('high-priority');
+		}
+
+		if (todo.priority === 'medium') {
+			todoElement.classList.add('medium-priority');
+		}
+
 		todoElement.textContent = `${todo.title} - Due: ${todo.dueDate}`;
 
 		const deleteBtn = document.createElement('button');

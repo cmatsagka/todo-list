@@ -134,6 +134,28 @@ header {
 	transition:
 		transform 0.2s ease,
 		box-shadow 0.2s ease;
+	position: relative;
+	overflow: hidden;
+}
+
+.todo-item::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 6px;
+	background-color: transparent;
+}
+
+.todo-item.high-priority::before {
+	background-color: var(--priority-high-alt);
+	box-shadow: 2px 0 10px hsla(29, 96%, 56%, 0.3);
+}
+
+.todo-item.medium-priority::before {
+	background-color: var(--priority-high-soft);
+	box-shadow: 2px 0 10px hsla(358, 33%, 59%, 0.2);
 }
 
 .todo-item:hover {
