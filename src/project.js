@@ -2,7 +2,7 @@ export function createProject(name) {
 	let todos = [];
 
 	const getName = () => {
-		name;
+		return name;
 	};
 
 	const addTodo = (todo) => {
@@ -10,7 +10,7 @@ export function createProject(name) {
 	};
 
 	const getTodos = () => {
-		todos.slice();
+		return todos.slice();
 	};
 
 	const deleteTodo = (index) => {

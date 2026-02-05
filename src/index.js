@@ -1,12 +1,7 @@
 import './styles.css';
 import { createTodo } from './todo.js';
 import { createProject } from './project.js';
-import {
-	renderProjects,
-	renderTodos,
-	setInitialUI,
-	setUI,
-} from './domDisplay.js';
+import { renderProjects, renderTodos, setUI } from './domDisplay.js';
 import { addProject, deleteProject, getAllProjects } from './todoManager.js';
 
 const todo1 = createTodo(
