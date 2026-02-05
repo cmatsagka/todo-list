@@ -52,12 +52,26 @@ export function getTodoForm(onSubmit) {
 	);
 	const dateField = createFormElement('Due Date', '', false, 'date');
 	const priorField = createFormElement('Priority', '', false, 'select');
-	const button = createFormElement('button', '', true, 'button');
+	const submitBtn = createFormElement('Add Todo', '', false, 'button');
+
+	submitBtn.element.addEventListener('click', () => {
+		onSubmit({
+			title: titleField.element.value,
+			description: descrField.element.value,
+			date: dateField.element.value,
+			priority: priorField.element.value,
+		});
+
+		titleField.element.value = '';
+		descrField.element.value = '';
+		dateField.element.value = '';
+	});
 
 	formContainer.appendChild(titleField.group);
 	formContainer.appendChild(descrField.group);
 	formContainer.appendChild(dateField.group);
 	formContainer.appendChild(priorField.group);
+	formContainer.appendChild(submitBtn.group);
 
 	return formContainer;
 }

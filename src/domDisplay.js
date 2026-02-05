@@ -48,28 +48,6 @@ export function setUI() {
 
 	//-------------------------------------//
 
-	submitTodo.addEventListener('click', () => {
-		let newTodo = createTodo(
-			todoTitle.value,
-			todoDescr.value,
-			todoDate.value,
-			todoPrior.value
-		);
-
-		let activeProject = getActiveProject();
-
-		if (todoTitle.value !== '') {
-			activeProject.addTodo(newTodo);
-			renderTodos();
-
-			todoTitle.value = '';
-			todoDescr.value = '';
-			todoDate.value = '';
-		} else {
-			alert('Please enter a title to your todo');
-		}
-	});
-
 	const todoFormSlot = document.querySelector('#todo-form-slot');
 	const formContainer = getTodoForm();
 	todoFormSlot.appendChild(formContainer);
