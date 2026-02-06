@@ -213,11 +213,25 @@ header {
 	margin-bottom: 0;
 }
 
-#todo-form-slot:active {
+#todo-form-slot.active {
 	max-height: 600px;
 	opacity: 1;
 	margin-bottom: 2rem;
 	padding-top: 1rem;
+}
+
+#toggle-form-btn {
+	color: var(--action-primary);
+	transition: all 0.3s ease;
+}
+
+#toggle-form-btn[data-state='cancel'] {
+	color: var(--priority-high-soft);
+}
+
+#toggle-form-btn:hover {
+	background: var(--gradient-action);
+	color: var(--action-light) !important;
 }
 
 .form-group,

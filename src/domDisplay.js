@@ -171,14 +171,10 @@ export function setupFormToggle() {
 
 		if (isActive) {
 			toggleBtn.textContent = 'Cancel';
+			toggleBtn.dataset.state = 'cancel';
 		} else {
 			toggleBtn.textContent = '+ New Task';
-		}
-
-		if (isActive) {
-			toggleBtn.style.color = 'var(--priority-high-soft)';
-		} else {
-			toggleBtn.style.color = 'var(--action-primary)';
+			toggleBtn.dataset.state = 'add';
 		}
 	});
 }
