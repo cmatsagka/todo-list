@@ -66,6 +66,8 @@ button {
 	border-radius: 4px;
 	border: none;
 	cursor: pointer;
+	background: transparent;
+
 	transition: all 0.2s ease-in-out;
 }
 
@@ -75,7 +77,7 @@ button:hover {
 }
 
 header {
-	padding-left: 1.5rem;
+	padding-left: 2rem;
 	color: var(--action-primary);
 }
 
@@ -127,20 +129,27 @@ header {
 .delete-btn {
 	margin-left: auto;
 	opacity: 0.6;
-	transition: opacity 0.2s ease;
+	color: var(--priority-high-soft);
 }
 
 .delete-btn:hover {
+	background: var(--priority-high-soft);
 	opacity: 1;
 }
 
 #todo-display {
 	padding: 2rem;
-	max-width: 900px;
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+}
+
+.todo-wrapper {
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
-	gap: 2rem;
+	gap: 1rem;
+	align-items: center;
 }
 
 #todo-items {
