@@ -76,6 +76,7 @@ button:hover {
 
 header {
 	padding-left: 1.5rem;
+	color: var(--action-primary);
 }
 
 .app-container {
@@ -95,14 +96,32 @@ header {
 #project-list {
 	display: flex;
 	flex-direction: column;
-	gap: 1.5rem;
+	gap: 1rem;
 }
 
 .project-item,
 .todo-item {
 	display: flex;
 	align-items: center;
-	gap: 1.5rem;
+	background: var(--action-light);
+	border-radius: 12px;
+	border: 1px solid var(--border-clr);
+	box-shadow: var(--shadow-sm);
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
+}
+
+.project-item {
+	padding: 0.8rem 1rem;
+	gap: 1rem;
+	font-weight: 600;
+}
+
+.project-item:hover,
+.todo-item:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
 }
 
 .delete-btn {
@@ -132,14 +151,9 @@ header {
 }
 
 .todo-item {
-	background: var(--action-light);
-	border-radius: 12px;
 	padding: 1.2rem 1.5rem;
-	border: 1px solid var(--border-clr);
-	box-shadow: var(--shadow-sm);
-	transition:
-		transform 0.2s ease,
-		box-shadow 0.2s ease;
+	gap: 1.5rem;
+
 	position: relative;
 	overflow: hidden;
 }
@@ -162,11 +176,6 @@ header {
 .todo-item.medium-priority::before {
 	background-color: var(--priority-high-soft);
 	box-shadow: 2px 0 10px hsla(358, 33%, 59%, 0.2);
-}
-
-.todo-item:hover {
-	transform: translateY(-2px);
-	box-shadow: var(--shadow-md);
 }
 
 .todo-title {
