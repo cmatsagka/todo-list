@@ -161,3 +161,24 @@ export function renderTodos() {
 		todoListContainer.appendChild(todoElement);
 	});
 }
+
+export function setupFormToggle() {
+	const formSlot = document.querySelector('#todo-form-slot');
+	const toggleBtn = document.querySelector('#toggle-form-btn');
+
+	toggleBtn.addEventListener('click', () => {
+		const isActive = formSlot.classList.toggle('active');
+
+		if (isActive) {
+			toggleBtn.textContent = 'Cancel';
+		} else {
+			toggleBtn.textContent = '+ New Task';
+		}
+
+		if (isActive) {
+			toggleBtn.style.color = 'var(--priority-high-soft)';
+		} else {
+			toggleBtn.style.color = 'var(--action-primary)';
+		}
+	});
+}
