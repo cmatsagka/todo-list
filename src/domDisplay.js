@@ -183,13 +183,12 @@ export function setupFocusMode() {
 	const sidebar = document.querySelector('#sidebar');
 	const toggleFocusBtn = document.querySelector('#toggle-focus-btn');
 	const toggleFormBtn = document.querySelector('#toggle-form-btn');
-	const formSlot = document.querySelector('#todo-form-slot');
 
 	toggleFocusBtn.addEventListener('click', () => {
 		const focusMode = sidebar.classList.toggle('focus-mode');
 
 		if (focusMode) {
-			toggleFocusBtn.textContent = 'Exit';
+			toggleFocusBtn.textContent = 'X';
 			toggleFocusBtn.dataset.state = 'exit';
 			toggleFormBtn.style.opacity = '0';
 		} else {
