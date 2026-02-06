@@ -234,12 +234,17 @@ header {
 	color: var(--action-light) !important;
 }
 
+#toggle-form-btn:hover[data-state='cancel'] {
+	background: var(--priority-high-soft);
+}
+
 .form-group,
 .form-dropdown,
 .form-submit {
 	display: flex;
 	flex-direction: column;
 	gap: 0.4rem;
+	margin-bottom: 1rem;
 }
 
 input,
@@ -249,7 +254,6 @@ select {
 	background-color: transparent;
 	color: var(--txt-main);
 	transition: border-color 0.3s ease;
-	margin-bottom: 1.5rem;
 }
 
 select {
@@ -259,10 +263,6 @@ select {
 input:focus {
 	outline: none;
 	border-bottom: 1px solid var(--action-primary);
-}
-
-#sidebar input {
-	margin-bottom: 1rem;
 }
 
 .site-footer {

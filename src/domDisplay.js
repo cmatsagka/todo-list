@@ -173,6 +173,7 @@ export function setupFormToggle() {
 			toggleBtn.textContent = 'Cancel';
 			toggleBtn.dataset.state = 'cancel';
 		} else {
+			toggleBtn.classList.remove('delete-btn');
 			toggleBtn.textContent = '+ New Task';
 			toggleBtn.dataset.state = 'add';
 		}
