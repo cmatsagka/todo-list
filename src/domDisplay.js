@@ -131,7 +131,13 @@ export function renderTodos() {
 			todoElement.classList.add('medium-priority');
 		}
 
-		todoElement.textContent = `${todo.title} - Due: ${todo.dueDate}`;
+		const todoTitle = document.createElement('div');
+		todoTitle.classList.add('todo-title');
+		todoTitle.textContent = `${todo.title}`;
+
+		const todoDate = document.createElement('div');
+		todoDate.classList.add('todo-date');
+		todoDate.textContent = `Due: ${todo.dueDate}`;
 
 		const deleteBtn = document.createElement('button');
 		deleteBtn.classList.add('delete-btn');
@@ -141,6 +147,9 @@ export function renderTodos() {
 			removeTodoFromProject(activeProject, index);
 			renderTodos();
 		});
+
+		todoElement.appendChild(todoTitle);
+		todoElement.appendChild(todoDate);
 
 		todoElement.appendChild(deleteBtn);
 		todoListContainer.appendChild(todoElement);

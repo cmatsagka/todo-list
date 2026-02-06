@@ -107,6 +107,12 @@ header {
 
 .delete-btn {
 	margin-left: auto;
+	opacity: 0.6;
+	transition: opacity 0.2s ease;
+}
+
+.delete-btn:hover {
+	opacity: 1;
 }
 
 #todo-display {
@@ -161,6 +167,16 @@ header {
 .todo-item:hover {
 	transform: translateY(-2px);
 	box-shadow: var(--shadow-md);
+}
+
+.todo-title {
+	font-weight: 600;
+}
+
+.todo-date {
+	font-size: 0.9rem;
+	color: var(--action-primary);
+	opacity: 0.8;
 }
 
 .form-group,
