@@ -182,6 +182,8 @@ export function setupFormToggle() {
 export function setupFocusMode() {
 	const sidebar = document.querySelector('#sidebar');
 	const toggleFocusBtn = document.querySelector('#toggle-focus-btn');
+	const toggleFormBtn = document.querySelector('#toggle-form-btn');
+	const formSlot = document.querySelector('#todo-form-slot');
 
 	toggleFocusBtn.addEventListener('click', () => {
 		const focusMode = sidebar.classList.toggle('focus-mode');
@@ -189,9 +191,11 @@ export function setupFocusMode() {
 		if (focusMode) {
 			toggleFocusBtn.textContent = 'Exit';
 			toggleFocusBtn.dataset.state = 'exit';
+			toggleFormBtn.style.opacity = '0';
 		} else {
 			toggleFocusBtn.textContent = 'Focus Mode';
 			toggleFocusBtn.dataset.state = 'focus';
+			toggleFormBtn.style.opacity = '1';
 		}
 	});
 }
