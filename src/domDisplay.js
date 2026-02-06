@@ -134,10 +134,15 @@ export function renderTodos() {
 		const todoTitle = document.createElement('div');
 		todoTitle.classList.add('todo-title');
 		todoTitle.textContent = `${todo.title}`;
+		todoElement.appendChild(todoTitle);
 
-		const todoDate = document.createElement('div');
-		todoDate.classList.add('todo-date');
-		todoDate.textContent = `Due: ${todo.dueDate}`;
+		if (todo.dueDate !== '') {
+			const todoDate = document.createElement('div');
+			todoDate.classList.add('todo-date');
+			todoDate.textContent = `Due: ${todo.dueDate}`;
+
+			todoElement.appendChild(todoDate);
+		}
 
 		const deleteBtn = document.createElement('button');
 		deleteBtn.classList.add('delete-btn');
@@ -147,9 +152,6 @@ export function renderTodos() {
 			removeTodoFromProject(activeProject, index);
 			renderTodos();
 		});
-
-		todoElement.appendChild(todoTitle);
-		todoElement.appendChild(todoDate);
 
 		todoElement.appendChild(deleteBtn);
 		todoListContainer.appendChild(todoElement);
