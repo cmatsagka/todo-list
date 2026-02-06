@@ -173,9 +173,25 @@ export function setupFormToggle() {
 			toggleBtn.textContent = 'Cancel';
 			toggleBtn.dataset.state = 'cancel';
 		} else {
-			toggleBtn.classList.remove('delete-btn');
 			toggleBtn.textContent = '+ New Task';
 			toggleBtn.dataset.state = 'add';
+		}
+	});
+}
+
+export function setupFocusMode() {
+	const sidebar = document.querySelector('#sidebar');
+	const toggleFocusBtn = document.querySelector('#toggle-focus-btn');
+
+	toggleFocusBtn.addEventListener('click', () => {
+		const focusMode = sidebar.classList.toggle('focus-mode');
+
+		if (focusMode) {
+			toggleFocusBtn.textContent = 'Exit';
+			toggleFocusBtn.dataset.state = 'exit';
+		} else {
+			toggleFocusBtn.textContent = 'Focus Mode';
+			toggleFocusBtn.dataset.state = 'focus';
 		}
 	});
 }

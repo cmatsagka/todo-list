@@ -164,7 +164,6 @@ header {
 
 .todo-item {
 	padding: 1.2rem 1.5rem;
-	gap: 1.5rem;
 
 	position: relative;
 	overflow: hidden;
@@ -192,17 +191,15 @@ header {
 
 .todo-title {
 	font-weight: 600;
+	flex: 1;
 }
 
 .todo-date {
 	font-size: 0.9rem;
 	color: var(--action-primary);
+	white-space: nowrap;
 	opacity: 0.8;
-	margin-left: auto;
-}
-
-.todo-date + .delete-btn {
-	margin-left: 0;
+	margin: 0 1.5rem;
 }
 
 #todo-form-slot {
