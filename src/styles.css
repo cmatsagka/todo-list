@@ -205,6 +205,21 @@ header {
 	margin-left: 0;
 }
 
+#todo-form-slot {
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	margin-bottom: 0;
+}
+
+#todo-form-slot:active {
+	max-height: 600px;
+	opacity: 1;
+	margin-bottom: 2rem;
+	padding-top: 1rem;
+}
+
 .form-group,
 .form-dropdown,
 .form-submit {
