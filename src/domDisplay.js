@@ -13,16 +13,20 @@ import { createFormElement, getTodoForm } from './todoForm.js';
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
 	const projectList = document.querySelector('#project-list');
+	const projectForm = document.createElement('div');
+	projectForm.classList.add('project-form-slot');
 
 	const projectInput = createFormElement(
 		'Project Name',
 		'New Project...',
 		true
 	);
+
 	const addProjectBtn = createFormElement('Add Project', '', false, 'button');
 
-	sidebar.appendChild(projectInput.group);
-	sidebar.appendChild(addProjectBtn.group);
+	projectForm.appendChild(projectInput.group);
+	projectForm.appendChild(addProjectBtn.group);
+	sidebar.appendChild(projectForm);
 	sidebar.appendChild(projectList);
 
 	addProjectBtn.element.addEventListener('click', () => {
