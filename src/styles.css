@@ -93,6 +93,33 @@ header {
 	gap: 1.5rem;
 	display: flex;
 	flex-direction: column;
+	opacity: 1;
+	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#sidebar.focus-mode {
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	margin-bottom: 0;
+}
+
+#toggle-focus-btn {
+	color: var(--action-primary);
+	transition: all 0.3s ease;
+}
+
+#toggle-focus-btn[data-state='exit'] {
+	color: var(--priority-high-soft);
+}
+
+#toggle-focus-btn:hover {
+	background: var(--gradient-action);
+	color: var(--action-light) !important;
+}
+
+#toggle-focus-btn:hover[data-state='exit'] {
+	background: var(--priority-high-soft);
 }
 
 #project-list {
