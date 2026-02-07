@@ -180,7 +180,7 @@ export function setupFormToggle() {
 }
 
 export function setupFocusMode() {
-	const container = document.querySelector('app-container');
+	const container = document.querySelector('.app-container');
 	const toggleFocusBtn = document.querySelector('#toggle-focus-btn');
 	const toggleFormBtn = document.querySelector('#toggle-form-btn');
 

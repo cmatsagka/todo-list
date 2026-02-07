@@ -85,28 +85,34 @@ header {
 	flex: 1;
 	display: grid;
 	grid-template-columns: var(--sidebar-width) 1fr;
+	transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-container.focus-mode {
+	grid-template-columns: 0px 1fr;
 }
 
 #sidebar {
 	border-right: 1px solid var(--border-clr);
 	padding: 2rem;
+	overflow: hidden;
+	transition:
+		opacity 0.3s ease,
+		padding 0.5s ease;
 	gap: 1.5rem;
 	display: flex;
 	flex-direction: column;
-	opacity: 1;
-	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#sidebar.focus-mode {
-	max-height: 0;
-	overflow: hidden;
+.app-container.app-container.focus-mode #sidebar {
 	opacity: 0;
-	margin-bottom: 0;
+	padding: 0;
+	border-right: none;
 }
 
 #toggle-focus-btn {
 	color: var(--action-primary);
-	transition: all 0.3s ease;
+	transition: all 0.4s ease;
 }
 
 #toggle-focus-btn[data-state='exit'] {
