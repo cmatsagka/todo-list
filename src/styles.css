@@ -112,6 +112,7 @@ header {
 
 #toggle-focus-btn {
 	color: var(--action-primary);
+	min-width: 100px;
 	transition: all 0.4s ease;
 }
 
