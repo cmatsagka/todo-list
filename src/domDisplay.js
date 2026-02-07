@@ -180,21 +180,23 @@ export function setupFormToggle() {
 }
 
 export function setupFocusMode() {
-	const sidebar = document.querySelector('#sidebar');
+	const container = document.querySelector('app-container');
 	const toggleFocusBtn = document.querySelector('#toggle-focus-btn');
 	const toggleFormBtn = document.querySelector('#toggle-form-btn');
 
 	toggleFocusBtn.addEventListener('click', () => {
-		const focusMode = sidebar.classList.toggle('focus-mode');
+		const isFocus = container.classList.toggle('focus-mode');
 
-		if (focusMode) {
+		if (isFocus) {
 			toggleFocusBtn.textContent = 'X';
 			toggleFocusBtn.dataset.state = 'exit';
 			toggleFormBtn.style.opacity = '0';
+			toggleFormBtn.style.pointerEvents = 'none';
 		} else {
 			toggleFocusBtn.textContent = 'Focus Mode';
 			toggleFocusBtn.dataset.state = 'focus';
 			toggleFormBtn.style.opacity = '1';
+			toggleFormBtn.style.pointerEvents = 'auto';
 		}
 	});
 }
