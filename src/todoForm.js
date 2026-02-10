@@ -73,5 +73,12 @@ export function getTodoForm(onSubmit) {
 	formContainer.appendChild(priorField.group);
 	formContainer.appendChild(submitBtn.group);
 
-	return formContainer;
+	return {
+		formContainer,
+		titleField,
+		descrField,
+		dateField,
+		priorField,
+		submitBtn,
+	};
 }
