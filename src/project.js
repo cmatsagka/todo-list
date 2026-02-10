@@ -17,5 +17,9 @@ export function createProject(name) {
 		todos.splice(index, 1);
 	};
 
-	return { getName, addTodo, getTodos, deleteTodo };
+	const updateTodo = (index, newData) => {
+		todos[index] = newData;
+	};
+
+	return { getName, addTodo, getTodos, deleteTodo, updateTodo };
 }
