@@ -177,6 +177,7 @@ export function renderTodos() {
 		deleteBtn.textContent = 'X';
 
 		deleteBtn.addEventListener('click', () => {
+			e.stopPropagation();
 			removeTodoFromProject(activeProject, index);
 			renderTodos();
 		});
