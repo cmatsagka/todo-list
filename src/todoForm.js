@@ -80,6 +80,7 @@ export function getTodoForm(onSubmit) {
 			descrField,
 			dateField,
 			priorField,
+			submitBtn,
 		},
 	};
 }

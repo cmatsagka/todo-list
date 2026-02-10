@@ -57,9 +57,7 @@ export function setUI() {
 		if (editingTodoIndex !== null) {
 			activeProject.updateTodo(editingTodoIndex, data);
 			editingTodoIndex = null;
-
-			const toggleBtn = document.querySelector('#toggle-form-btn');
-			toggleBtn.textContent = '+ New Task';
+			formFields.submitBtn.element.textContent = 'Add todo';
 		} else {
 			const newTodo = createTodo(
 				data.title,
@@ -69,6 +67,10 @@ export function setUI() {
 			);
 			addTodoToProject(activeProject, newTodo);
 		}
+
+		document.querySelector('#todo-form-slot').classList.remove('active');
+		document.querySelector('#todo-form-btn').textContent = '+New Task';
+
 		save(getAllProjects());
 		renderTodos();
 	};
@@ -152,11 +154,12 @@ export function renderTodos() {
 			formFields.descrField.element.value = data.description;
 			formFields.dateField.element.value = data.dueDate;
 			formFields.priorField.element.value = data.priority;
+			formFields.submitBtn.element.textContent = 'Save changes';
 
 			const toggleBtn = document.querySelector('#toggle-form-btn');
 			const formSlot = document.querySelector('#todo-form-slot');
 
-			toggleBtn.textContent = 'Save Changes';
+			toggleBtn.textContent = 'Cancel';
 			formSlot.classList.add('active');
 		});
 
