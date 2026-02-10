@@ -126,6 +126,7 @@ export function renderTodos() {
 	if (!todos) return;
 
 	todos.forEach((todo, index) => {
+		if (!todo) return;
 		const todoElement = document.createElement('div');
 		todoElement.classList.add('todo-item');
 
@@ -154,7 +155,7 @@ export function renderTodos() {
 		deleteBtn.classList.add('delete-btn');
 		deleteBtn.textContent = 'X';
 
-		deleteBtn.addEventListener('click', () => {
+		deleteBtn.addEventListener('click', (e) => {
 			e.stopPropagation();
 			removeTodoFromProject(activeProject, index);
 			renderTodos();
@@ -164,6 +165,7 @@ export function renderTodos() {
 			const newForm = getTodoForm((newData) => {
 				updateTodo(activeProject, index, newData);
 			}, todo);
+			showModal(newForm);
 		});
 
 		todoElement.appendChild(deleteBtn);
@@ -213,5 +215,9 @@ export function setupFocusMode() {
 export function updateTodo(project, index, newData) {
 	updateTodoFromProject(project, index, newData);
 	renderTodos();
-	close();
+	const dialog = document.querySelector('#dialog');
+	if (dialog) {
+		dialog.close();
+		dialog.remove();
+	}
 }
