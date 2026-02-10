@@ -188,7 +188,7 @@ export function renderTodos() {
 		deleteBtn.classList.add('delete-btn');
 		deleteBtn.textContent = 'X';
 
-		deleteBtn.addEventListener('click', () => {
+		deleteBtn.addEventListener('click', (e) => {
 			e.stopPropagation();
 			removeTodoFromProject(activeProject, index);
 			renderTodos();
