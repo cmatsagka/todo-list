@@ -61,3 +61,8 @@ export const removeTodoFromProject = (project, index) => {
 	project.deleteTodo(index);
 	save(projects);
 };
+
+export const updateTodoFromProject = (project, index, newData) => {
+	project.updateTodo(index, newData);
+	save(projects);
+};
