@@ -75,10 +75,11 @@ export function getTodoForm(onSubmit) {
 
 	return {
 		formContainer,
-		titleField,
-		descrField,
-		dateField,
-		priorField,
-		submitBtn,
+		fields: {
+			titleField,
+			descrField,
+			dateField,
+			priorField,
+		},
 	};
 }

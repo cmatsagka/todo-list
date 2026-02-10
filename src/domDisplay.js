@@ -8,10 +8,12 @@ import {
 	removeTodoFromProject,
 } from './todoManager.js';
 import { createTodo } from './todo.js';
+import { updateTodo } from './project.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
 import { save } from './storage.js';
 
 let editingTodoIndex = null;
+let formFields = null;
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
@@ -62,7 +64,8 @@ export function setUI() {
 		save(getAllProjects());
 		renderTodos();
 	};
-	const formContainer = getTodoForm(handleTodoSubmit);
+	const { formContainer, fields } = getTodoForm(handleTodoSubmit);
+	formFields = fields;
 	todoFormSlot.appendChild(formContainer);
 }
 
@@ -134,12 +137,12 @@ export function renderTodos() {
 
 		todoElement.addEventListener('click', () => {
 			editingTodoIndex = index;
-			const data = getActiveProject().getTodos()[index];
+			const data = activeProject.getTodos()[index];
 
-			titleField.element.value = data.title;
-			descrField.element.value = data.description;
-			dateField.element.value = data.dueDate;
-			priorField.element.value = data.priority;
+			formFields.titleField.element.value = data.title;
+			formFields.descrField.element.value = data.description;
+			formFields.dateField.element.value = data.dueDate;
+			formFields.priorField.element.value = data.priority;
 
 			const toggleBtn = document.querySelector('#toggle-form-btn');
 			const formSlot = document.querySelector('#todo-form-slot');
