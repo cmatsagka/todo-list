@@ -40,7 +40,7 @@ export function createFormElement(
 	return { group: formGroup, element: field };
 }
 
-export function getTodoForm(onSubmit, initialData) {
+export function getTodoForm(onSubmit, initialData = null) {
 	const formContainer = document.createElement('div');
 	formContainer.id = 'form-container';
 
