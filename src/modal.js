@@ -1,6 +1,6 @@
 import { createFormElement, getTodoForm } from './todoForm';
 
-export function showModal(contentElement, content, action) {
+export function showModal(contentElement) {
 	const dialog = document.createElement('dialog');
 	dialog.id = 'dialog';
 	dialog.textContent = '';
