@@ -49,9 +49,17 @@ export function setUI() {
 	const handleTodoSubmit = (data) => {
 		let activeProject = getActiveProject();
 
+		if (data.title === '') {
+			alert('Please add title to task');
+			return;
+		}
+
 		if (editingTodoIndex !== null) {
 			activeProject.updateTodo(editingTodoIndex, data);
 			editingTodoIndex = null;
+
+			const toggleBtn = document.querySelector('#toggle-form-btn');
+			toggleBtn.textContent = '+ New Task';
 		} else {
 			const newTodo = createTodo(
 				data.title,
@@ -64,6 +72,7 @@ export function setUI() {
 		save(getAllProjects());
 		renderTodos();
 	};
+
 	const { formContainer, fields } = getTodoForm(handleTodoSubmit);
 	formFields = fields;
 	todoFormSlot.appendChild(formContainer);
