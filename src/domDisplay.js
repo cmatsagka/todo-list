@@ -9,6 +9,7 @@ import {
 } from './todoManager.js';
 import { createTodo } from './todo.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
+import { save } from './storage.js';
 
 let editingTodoIndex = null;
 
@@ -46,7 +47,10 @@ export function setUI() {
 	const handleTodoSubmit = (data) => {
 		let activeProject = getActiveProject();
 
-		if (data.title !== '') {
+		if (editingTodoIndex !== null) {
+			activeProject.updateTodo(editingTodoIndex, data);
+			editingTodoIndex = null;
+		} else {
 			const newTodo = createTodo(
 				data.title,
 				data.description,
@@ -54,10 +58,9 @@ export function setUI() {
 				data.priority
 			);
 			addTodoToProject(activeProject, newTodo);
-			renderTodos();
-		} else {
-			alert('Please enter a title!');
 		}
+		save(getAllProjects());
+		renderTodos();
 	};
 	const formContainer = getTodoForm(handleTodoSubmit);
 	todoFormSlot.appendChild(formContainer);
