@@ -10,6 +10,8 @@ import {
 import { createTodo } from './todo.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
 
+let editingTodoIndex = null;
+
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
 	const projectList = document.querySelector('#project-list');
@@ -126,6 +128,22 @@ export function renderTodos() {
 	todos.forEach((todo, index) => {
 		const todoElement = document.createElement('div');
 		todoElement.classList.add('todo-item');
+
+		todoElement.addEventListener('click', () => {
+			editingTodoIndex = index;
+			const data = getActiveProject().getTodos()[index];
+
+			titleField.element.value = data.title;
+			descrField.element.value = data.description;
+			dateField.element.value = data.dueDate;
+			priorField.element.value = data.priority;
+
+			const toggleBtn = document.querySelector('#toggle-form-btn');
+			const formSlot = document.querySelector('#todo-form-slot');
+
+			toggleBtn.textContent = 'Save Changes';
+			formSlot.classList.add('active');
+		});
 
 		if (todo.priority === 'high') {
 			todoElement.classList.add('high-priority');
