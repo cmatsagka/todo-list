@@ -6,9 +6,11 @@ import {
 	deleteProject,
 	addTodoToProject,
 	removeTodoFromProject,
+	updateTodoFromProject,
 } from './todoManager.js';
 import { createTodo } from './todo.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
+import { showModal } from './modal.js';
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
@@ -153,8 +155,15 @@ export function renderTodos() {
 		deleteBtn.textContent = 'X';
 
 		deleteBtn.addEventListener('click', () => {
+			e.stopPropagation();
 			removeTodoFromProject(activeProject, index);
 			renderTodos();
+		});
+
+		todoElement.addEventListener('click', () => {
+			const newForm = getTodoForm((newData) => {
+				updateTodo(activeProject, index, newData);
+			}, todo);
 		});
 
 		todoElement.appendChild(deleteBtn);
@@ -199,4 +208,10 @@ export function setupFocusMode() {
 			toggleFormBtn.style.pointerEvents = 'auto';
 		}
 	});
+}
+
+export function updateTodo(project, index, newData) {
+	updateTodoFromProject(project, index, newData);
+	renderTodos();
+	close();
 }

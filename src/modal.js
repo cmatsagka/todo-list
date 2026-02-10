@@ -1,4 +1,4 @@
-import { createFormElement, getTodoForm } from './todoForm';
+import { createFormElement, getTodoForm } from './todoForm.js';
 
 export function showModal(contentElement) {
 	const dialog = document.createElement('dialog');
