@@ -165,19 +165,6 @@ export function renderTodos() {
 	});
 }
 
-export function setupAddTodoButton() {
-	const addButtons = document.querySelectorAll(
-		'#toggle-form-btn, #floating-add-btn'
-	);
-
-	addButtons.forEach((btn) => {
-		btn.addEventListener('click', () => {
-			const newTodoForm = getTodoForm(handleTodoSubmit);
-			showModal(newTodoForm);
-		});
-	});
-}
-
 export function setupFocusMode() {
 	const container = document.querySelector('.app-container');
 	const toggleFocusBtn = document.querySelector('#toggle-focus-btn');
@@ -193,6 +180,16 @@ export function setupFocusMode() {
 			toggleFocusBtn.dataset.state = 'focus';
 		}
 	});
+}
+
+export function setupAddTodoButton() {
+	const fab = document.querySelectorAll('#floating-add-btn');
+
+	if (fab) {
+		fab.addEventListener('click', () => {
+			showAddChoiceModal();
+		});
+	}
 }
 
 export function showAddChoiceModal() {
