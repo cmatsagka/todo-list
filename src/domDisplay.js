@@ -184,6 +184,9 @@ export function setupFormToggle() {
 			toggleBtn.textContent = 'Cancel';
 			toggleBtn.dataset.state = 'cancel';
 		} else {
+			const inputs = formSlot.querySelectorAll('input, textarea, select');
+			inputs.forEach((input) => (input.value = ''));
+
 			toggleBtn.textContent = '+ New Task';
 			toggleBtn.dataset.state = 'add';
 		}

@@ -59,7 +59,15 @@ export function getTodoForm(onSubmit, initialData = null) {
 		'button'
 	);
 
-	if (initialData) {
+	const clearForm = () => {
+		titleField.element.value = '';
+		descrField.element.value = '';
+		dateField.element.value = '';
+	};
+
+	if (!initialData) {
+		clearForm();
+	} else {
 		titleField.element.value = initialData.title;
 		descrField.element.value = initialData.description;
 		dateField.element.value = initialData.dueDate;
@@ -70,18 +78,13 @@ export function getTodoForm(onSubmit, initialData = null) {
 		const data = {
 			title: titleField.element.value,
 			description: descrField.element.value,
-			date: dateField.element.value,
+			dueDate: dateField.element.value,
 			priority: priorField.element.value,
 		};
 
 		onSubmit(data);
+		clearForm();
 	});
-
-	if (!initialData) {
-		titleField.element.value = '';
-		descrField.element.value = '';
-		dateField.element.value = '';
-	}
 
 	formContainer.appendChild(titleField.group);
 	formContainer.appendChild(descrField.group);
