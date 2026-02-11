@@ -11,7 +11,7 @@ import {
 } from './todoManager.js';
 import { createTodo } from './todo.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
-import { showModal } from './modal.js';
+import { closeModal, showModal } from './modal.js';
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
@@ -202,8 +202,6 @@ export function showAddChoiceModal() {
 	taskBtn.textContent = '+ New Task';
 
 	taskBtn.onclick = () => {
-		const dialog = document.querySelector('#dialog');
-		if (dialog) dialog.remove();
 		showModal(getTodoForm(handleTodoSubmit));
 	};
 
@@ -211,8 +209,7 @@ export function showAddChoiceModal() {
 	projectBtn.textContent = '+ New Project';
 
 	projectBtn.onclick = () => {
-		const dialog = document.querySelector('#dialog');
-		if (dialog) dialog.remove();
+		closeModal();
 		showProjectModal();
 	};
 
@@ -237,8 +234,7 @@ export function showProjectModal() {
 		const name = input.element.value;
 		if (name !== '') {
 			addProject(name);
-			const dialog = document.querySelector('#dialog');
-			if (dialog) dialog.remove();
+			closeModal();
 			renderProjects();
 		}
 	});
@@ -274,8 +270,7 @@ export function showEditProjectModal(oldName) {
 
 			renameProject(oldName, newName);
 			setActiveProject(newName);
-			const dialog = document.querySelector('#dialog');
-			if (dialog) dialog.remove();
+			closeModal();
 			renderProjects();
 			renderTodos();
 		}
@@ -289,11 +284,7 @@ export function showEditProjectModal(oldName) {
 export function updateTodo(project, index, newData) {
 	updateTodoFromProject(project, index, newData);
 	renderTodos();
-	const dialog = document.querySelector('#dialog');
-	if (dialog) {
-		dialog.close();
-		dialog.remove();
-	}
+	closeModal();
 }
 
 export function handleTodoSubmit(data) {
@@ -314,11 +305,8 @@ export function handleTodoSubmit(data) {
 
 		addTodoToProject(activeProject, newTodo);
 
-		const dialog = document.querySelector('#dialog');
-
 		if (dialog) {
-			dialog.close();
-			dialog.remove();
+			closeModal();
 		}
 		renderTodos();
 	} else {

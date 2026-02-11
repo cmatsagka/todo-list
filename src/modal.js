@@ -1,6 +1,8 @@
 import { createFormElement, getTodoForm } from './todoForm.js';
 
 export function showModal(contentElement) {
+	closeModal();
+
 	const dialog = document.createElement('dialog');
 	dialog.id = 'dialog';
 	dialog.textContent = '';
@@ -35,9 +37,11 @@ export function showModal(contentElement) {
 }
 
 export function closeModal() {
-	const dialog = document.querySelector('#dialog');
+	const dialog = document.querySelector('dialog');
 	if (dialog) {
-		dialog.close();
+		if (dialog.open) {
+			dialog.close();
+		}
 		dialog.remove();
 	}
 }
