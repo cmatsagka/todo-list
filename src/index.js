@@ -1,6 +1,4 @@
 import './styles.css';
-import { createTodo } from './todo.js';
-import { createProject } from './project.js';
 import {
 	renderProjects,
 	renderTodos,
@@ -8,10 +6,26 @@ import {
 	setupFocusMode,
 	setupAddTodoButton,
 } from './domDisplay.js';
-import { addProject, deleteProject, getAllProjects } from './todoManager.js';
+import { loadDemoStory } from './demo.js';
+import { getAllProjects } from './todoManager.js';
 
-setUI();
-renderProjects();
-renderTodos();
-setupAddTodoButton();
-setupFocusMode();
+function init() {
+	setUI();
+	setupAddTodoButton();
+	setupFocusMode();
+
+	const existingProjects = getAllProjects();
+
+	const totalTodos = existingProjects.reduce(
+		(acc, p) => acc + p.getTodos().length,
+		0
+	);
+
+	if (existingProjects.length <= 1 && totalTodos === 0) {
+		loadDemoStory();
+	}
+	renderProjects();
+	renderTodos();
+}
+
+init();
