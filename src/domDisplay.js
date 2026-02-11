@@ -250,8 +250,16 @@ export function showEditProjectModal(oldName) {
 
 	saveBtn.addEventListener('click', () => {
 		const newName = input.element.value.trim();
+		const nameExists = getAllProjects().some(
+			(p) => p.getName() === newName
+		);
 
 		if (newName !== '' && newName !== oldName) {
+			if (nameExists) {
+				alert('A project with that name already exists!');
+				return;
+			}
+
 			renameProject(oldName, newName);
 			setActiveProject(newName);
 			const dialog = document.querySelector('#dialog');
