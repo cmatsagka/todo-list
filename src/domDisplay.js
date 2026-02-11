@@ -40,27 +40,6 @@ export function setUI() {
 			renderProjects();
 		}
 	});
-
-	const todoFormSlot = document.querySelector('#todo-form-slot');
-
-	const handleTodoSubmit = (data) => {
-		let activeProject = getActiveProject();
-
-		if (data.title !== '') {
-			const newTodo = createTodo(
-				data.title,
-				data.description,
-				data.date,
-				data.priority
-			);
-			addTodoToProject(activeProject, newTodo);
-			renderTodos();
-		} else {
-			alert('Please enter a title!');
-		}
-	};
-	const formContainer = getTodoForm(handleTodoSubmit);
-	todoFormSlot.appendChild(formContainer);
 }
 
 export function renderProjects() {
@@ -173,23 +152,12 @@ export function renderTodos() {
 	});
 }
 
-export function setupFormToggle() {
-	const formSlot = document.querySelector('#todo-form-slot');
+export function setupAddTodoButton() {
 	const toggleBtn = document.querySelector('#toggle-form-btn');
 
 	toggleBtn.addEventListener('click', () => {
-		const isActive = formSlot.classList.toggle('active');
-
-		if (isActive) {
-			toggleBtn.textContent = 'Cancel';
-			toggleBtn.dataset.state = 'cancel';
-		} else {
-			const inputs = formSlot.querySelectorAll('input, textarea, select');
-			inputs.forEach((input) => (input.value = ''));
-
-			toggleBtn.textContent = '+ New Task';
-			toggleBtn.dataset.state = 'add';
-		}
+		const newTodoForm = getTodoForm(handleTodoSubmit);
+		showModal(newTodoForm);
 	});
 }
 
@@ -222,5 +190,30 @@ export function updateTodo(project, index, newData) {
 	if (dialog) {
 		dialog.close();
 		dialog.remove();
+	}
+}
+
+export function handleTodoSubmit(data) {
+	let activeProject = getActiveProject();
+
+	if (data.title !== '') {
+		const newTodo = createTodo(
+			data.title,
+			data.description,
+			data.dueDate,
+			data.priority
+		);
+
+		addTodoToProject(activeProject, newTodo);
+
+		const dialog = document.querySelector('#dialog');
+
+		if (dialog) {
+			dialog.close();
+			dialog.remove();
+		}
+		renderTodos();
+	} else {
+		alert('Please enter a title!');
 	}
 }
