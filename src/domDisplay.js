@@ -15,8 +15,6 @@ import { showModal } from './modal.js';
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
 	const projectList = document.querySelector('#project-list');
-	const projectForm = document.createElement('div');
-	projectForm.classList.add('project-form-slot');
 
 	const projectInput = createFormElement(
 		'Project Name',
@@ -183,7 +181,6 @@ export function setupAddTodoButton() {
 export function setupFocusMode() {
 	const container = document.querySelector('.app-container');
 	const toggleFocusBtn = document.querySelector('#toggle-focus-btn');
-	const toggleFormBtn = document.querySelector('#toggle-form-btn');
 
 	toggleFocusBtn.addEventListener('click', () => {
 		const isFocus = container.classList.toggle('focus-mode');
@@ -191,15 +188,38 @@ export function setupFocusMode() {
 		if (isFocus) {
 			toggleFocusBtn.textContent = 'X';
 			toggleFocusBtn.dataset.state = 'exit';
-			toggleFormBtn.style.opacity = '0';
-			toggleFormBtn.style.pointerEvents = 'none';
 		} else {
 			toggleFocusBtn.textContent = 'Focus Mode';
 			toggleFocusBtn.dataset.state = 'focus';
-			toggleFormBtn.style.opacity = '1';
-			toggleFormBtn.style.pointerEvents = 'auto';
 		}
 	});
+}
+
+export function showAddChoiceModal() {
+	const container = document.createElement('div');
+	container.classList.add('choice-container');
+
+	const taskBtn = document.createElement('button');
+	taskBtn.textContent = '+ New Task';
+
+	taskBtn.onclick = () => {
+		const dialog = document.querySelector('#dialog');
+		dialog.remove();
+		showModal(getTodoForm(handleTodoSubmit));
+	};
+
+	const projectBtn = document.createElement('button');
+	projectBtn.textContent = '+ New Project';
+
+	projectBtn.onclick = () => {
+		const dialog = document.querySelector('#dialog');
+		dialog.remove();
+		showModal(getTodoForm(handleTodoSubmit));
+	};
+
+	container.appendChild(taskBtn);
+	container.appendChild(projectBtn);
+	showModal(container);
 }
 
 export function updateTodo(project, index, newData) {
@@ -217,6 +237,7 @@ export function handleTodoSubmit(data) {
 
 	if (!activeProject) {
 		alert('Please select or create a project first!');
+		return;
 	}
 
 	if (data.title !== '') {
