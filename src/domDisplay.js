@@ -168,11 +168,15 @@ export function renderTodos() {
 }
 
 export function setupAddTodoButton() {
-	const toggleBtn = document.querySelector('#toggle-form-btn');
+	const addButtons = document.querySelectorAll(
+		'#toggle-form-btn, #floating-add-btn'
+	);
 
-	toggleBtn.addEventListener('click', () => {
-		const newTodoForm = getTodoForm(handleTodoSubmit);
-		showModal(newTodoForm);
+	addButtons.addEventListener('click', () => {
+		btn.addEventListener('click', () => {
+			const newTodoForm = getTodoForm(handleTodoSubmit);
+			showModal(newTodoForm);
+		});
 	});
 }
 
