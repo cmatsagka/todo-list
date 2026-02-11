@@ -172,7 +172,7 @@ export function setupAddTodoButton() {
 		'#toggle-form-btn, #floating-add-btn'
 	);
 
-	addButtons.addEventListener('click', () => {
+	addButtons.forEach((btn) => {
 		btn.addEventListener('click', () => {
 			const newTodoForm = getTodoForm(handleTodoSubmit);
 			showModal(newTodoForm);
