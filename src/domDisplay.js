@@ -158,7 +158,7 @@ export function renderTodos() {
 			const newForm = getTodoForm((newData) => {
 				updateTodo(activeProject, index, newData);
 			}, todo);
-			showModal(newForm);
+			showModal(newForm.formContainer);
 		});
 
 		todoElement.appendChild(deleteBtn);
