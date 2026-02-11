@@ -180,7 +180,7 @@ export function showAddChoiceModal() {
 
 	taskBtn.onclick = () => {
 		const dialog = document.querySelector('#dialog');
-		dialog.remove();
+		if (dialog) dialog.remove();
 		showModal(getTodoForm(handleTodoSubmit));
 	};
 
@@ -189,7 +189,7 @@ export function showAddChoiceModal() {
 
 	projectBtn.onclick = () => {
 		const dialog = document.querySelector('#dialog');
-		dialog.remove();
+		if (dialog) dialog.remove();
 		showProjectModal();
 	};
 
