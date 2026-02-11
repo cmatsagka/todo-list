@@ -40,6 +40,16 @@ export const deleteProject = (projectName) => {
 	save(projects);
 };
 
+export const renameProject = (oldName, newName) => {
+	const project = projects.find((p) => p.getName() === oldName);
+
+	if (project) {
+		project.setName(newName);
+		save(projects);
+		activeProject = project;
+	}
+};
+
 export const getAllProjects = () => [...projects];
 
 export const setActiveProject = (projectName) => {
@@ -59,5 +69,10 @@ export const addTodoToProject = (project, todoData) => {
 
 export const removeTodoFromProject = (project, index) => {
 	project.deleteTodo(index);
+	save(projects);
+};
+
+export const updateTodoFromProject = (project, index, newData) => {
+	project.updateTodo(index, newData);
 	save(projects);
 };

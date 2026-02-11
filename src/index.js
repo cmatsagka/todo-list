@@ -5,13 +5,13 @@ import {
 	renderProjects,
 	renderTodos,
 	setUI,
-	setupFormToggle,
 	setupFocusMode,
+	setupAddTodoButton,
 } from './domDisplay.js';
 import { addProject, deleteProject, getAllProjects } from './todoManager.js';
 
 setUI();
 renderProjects();
 renderTodos();
-setupFormToggle();
+setupAddTodoButton();
 setupFocusMode();

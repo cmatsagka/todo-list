@@ -40,7 +40,7 @@ export function createFormElement(
 	return { group: formGroup, element: field };
 }
 
-export function getTodoForm(onSubmit) {
+export function getTodoForm(onSubmit, initialData = null) {
 	const formContainer = document.createElement('div');
 	formContainer.id = 'form-container';
 
@@ -52,19 +52,38 @@ export function getTodoForm(onSubmit) {
 	);
 	const dateField = createFormElement('Due Date', '', false, 'date');
 	const priorField = createFormElement('Priority', '', false, 'select');
-	const submitBtn = createFormElement('Add Todo', '', false, 'button');
+	const submitBtn = createFormElement(
+		initialData ? 'Save changed' : 'Add Todo',
+		'',
+		false,
+		'button'
+	);
 
-	submitBtn.element.addEventListener('click', () => {
-		onSubmit({
-			title: titleField.element.value,
-			description: descrField.element.value,
-			date: dateField.element.value,
-			priority: priorField.element.value,
-		});
-
+	const clearForm = () => {
 		titleField.element.value = '';
 		descrField.element.value = '';
 		dateField.element.value = '';
+	};
+
+	if (!initialData) {
+		clearForm();
+	} else {
+		titleField.element.value = initialData.title;
+		descrField.element.value = initialData.description;
+		dateField.element.value = initialData.dueDate;
+		priorField.element.value = initialData.priority;
+	}
+
+	submitBtn.element.addEventListener('click', () => {
+		const data = {
+			title: titleField.element.value,
+			description: descrField.element.value,
+			dueDate: dateField.element.value,
+			priority: priorField.element.value,
+		};
+
+		onSubmit(data);
+		clearForm();
 	});
 
 	formContainer.appendChild(titleField.group);

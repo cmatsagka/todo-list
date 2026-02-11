@@ -6,78 +6,18 @@ import {
 	deleteProject,
 	addTodoToProject,
 	removeTodoFromProject,
+	updateTodoFromProject,
+	renameProject,
 } from './todoManager.js';
 import { createTodo } from './todo.js';
-import { updateTodo } from './project.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
-import { save } from './storage.js';
-
-let editingTodoIndex = null;
-let formFields = null;
+import { showModal } from './modal.js';
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
 	const projectList = document.querySelector('#project-list');
-	const projectForm = document.createElement('div');
-	projectForm.classList.add('project-form-slot');
 
-	const projectInput = createFormElement(
-		'Project Name',
-		'New Project...',
-		true
-	);
-
-	const addProjectBtn = createFormElement('Add Project', '', false, 'button');
-
-	projectForm.appendChild(projectInput.group);
-	projectForm.appendChild(addProjectBtn.group);
-	sidebar.appendChild(projectForm);
 	sidebar.appendChild(projectList);
-
-	addProjectBtn.element.addEventListener('click', () => {
-		let name = projectInput.element.value;
-
-		if (name !== '') {
-			addProject(name);
-			projectInput.element.value = '';
-			renderProjects();
-		}
-	});
-
-	const todoFormSlot = document.querySelector('#todo-form-slot');
-
-	const handleTodoSubmit = (data) => {
-		let activeProject = getActiveProject();
-
-		if (data.title === '') {
-			alert('Please add title to task');
-			return;
-		}
-
-		if (editingTodoIndex !== null) {
-			activeProject.updateTodo(editingTodoIndex, data);
-			editingTodoIndex = null;
-			formFields.submitBtn.element.textContent = 'Add todo';
-		} else {
-			const newTodo = createTodo(
-				data.title,
-				data.description,
-				data.date,
-				data.priority
-			);
-			addTodoToProject(activeProject, newTodo);
-		}
-
-		document.querySelector('#todo-form-slot').classList.remove('active');
-		document.querySelector('#todo-form-btn').textContent = '+New Task';
-
-		save(getAllProjects());
-		renderTodos();
-	};
-
-	const { formContainer, fields } = getTodoForm(handleTodoSubmit);
-	formFields = fields;
-	todoFormSlot.appendChild(formContainer);
 }
 
 export function renderProjects() {
@@ -90,6 +30,15 @@ export function renderProjects() {
 		const projectElement = document.createElement('p');
 		projectElement.classList.add('project-item');
 		projectElement.textContent = project.getName();
+
+		const editProjectBtn = document.createElement('button');
+		editProjectBtn.classList.add('edit-btn');
+		editProjectBtn.textContent = '✎';
+
+		editProjectBtn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			showEditProjectModal(project.getName());
+		});
 
 		const deleteProjectBtn = document.createElement('button');
 		deleteProjectBtn.classList.add('delete-btn');
@@ -120,6 +69,7 @@ export function renderProjects() {
 			projectElement.classList.add('active');
 		}
 
+		projectElement.appendChild(editProjectBtn);
 		projectElement.appendChild(deleteProjectBtn);
 		listContainer.appendChild(projectElement);
 	});
@@ -127,41 +77,40 @@ export function renderProjects() {
 
 export function renderTodos() {
 	const todoListContainer = document.querySelector('#todo-items');
-	todoListContainer.textContent = '';
-
-	const activeProject = getActiveProject();
-	if (!activeProject) return;
-
 	const titleHeader = document.querySelector('#active-project-name');
+	todoListContainer.textContent = '';
+	const activeProject = getActiveProject();
 
+	if (!activeProject) {
+		if (titleHeader) {
+			titleHeader.textContent = 'No project Selected';
+			const message = document.createElement('p');
+			message.classList.add('empty-message');
+			message.textContent =
+				'Select a project from the sidebar to view tasks.';
+			todoListContainer.appendChild(message);
+		}
+		return;
+	}
 	if (titleHeader) {
 		titleHeader.textContent = activeProject.getName();
 	}
 
 	const todos = activeProject.getTodos();
 
-	if (!todos) return;
+	if (!todos || todos.length === 0) {
+		const message = document.createElement('p');
+		message.classList.add('empty-message');
+		message.textContent =
+			'This project is empty. Click "+ New Task" to start!';
+		todoListContainer.appendChild(message);
+		return;
+	}
 
 	todos.forEach((todo, index) => {
+		if (!todo) return;
 		const todoElement = document.createElement('div');
 		todoElement.classList.add('todo-item');
-
-		todoElement.addEventListener('click', () => {
-			editingTodoIndex = index;
-			const data = activeProject.getTodos()[index];
-
-			formFields.titleField.element.value = data.title;
-			formFields.descrField.element.value = data.description;
-			formFields.dateField.element.value = data.dueDate;
-			formFields.priorField.element.value = data.priority;
-			formFields.submitBtn.element.textContent = 'Save changes';
-
-			const toggleBtn = document.querySelector('#toggle-form-btn');
-			const formSlot = document.querySelector('#todo-form-slot');
-
-			toggleBtn.textContent = 'Cancel';
-			formSlot.classList.add('active');
-		});
 
 		if (todo.priority === 'high') {
 			todoElement.classList.add('high-priority');
@@ -194,32 +143,21 @@ export function renderTodos() {
 			renderTodos();
 		});
 
+		todoElement.addEventListener('click', () => {
+			const newForm = getTodoForm((newData) => {
+				updateTodo(activeProject, index, newData);
+			}, todo);
+			showModal(newForm);
+		});
+
 		todoElement.appendChild(deleteBtn);
 		todoListContainer.appendChild(todoElement);
-	});
-}
-
-export function setupFormToggle() {
-	const formSlot = document.querySelector('#todo-form-slot');
-	const toggleBtn = document.querySelector('#toggle-form-btn');
-
-	toggleBtn.addEventListener('click', () => {
-		const isActive = formSlot.classList.toggle('active');
-
-		if (isActive) {
-			toggleBtn.textContent = 'Cancel';
-			toggleBtn.dataset.state = 'cancel';
-		} else {
-			toggleBtn.textContent = '+ New Task';
-			toggleBtn.dataset.state = 'add';
-		}
 	});
 }
 
 export function setupFocusMode() {
 	const container = document.querySelector('.app-container');
 	const toggleFocusBtn = document.querySelector('#toggle-focus-btn');
-	const toggleFormBtn = document.querySelector('#toggle-form-btn');
 
 	toggleFocusBtn.addEventListener('click', () => {
 		const isFocus = container.classList.toggle('focus-mode');
@@ -227,13 +165,151 @@ export function setupFocusMode() {
 		if (isFocus) {
 			toggleFocusBtn.textContent = 'X';
 			toggleFocusBtn.dataset.state = 'exit';
-			toggleFormBtn.style.opacity = '0';
-			toggleFormBtn.style.pointerEvents = 'none';
 		} else {
 			toggleFocusBtn.textContent = 'Focus Mode';
 			toggleFocusBtn.dataset.state = 'focus';
-			toggleFormBtn.style.opacity = '1';
-			toggleFormBtn.style.pointerEvents = 'auto';
 		}
 	});
+}
+
+export function setupAddTodoButton() {
+	const fab = document.querySelector('#floating-add-btn');
+
+	if (fab) {
+		fab.addEventListener('click', () => {
+			showAddChoiceModal();
+		});
+	}
+}
+
+export function showAddChoiceModal() {
+	const container = document.createElement('div');
+	container.classList.add('choice-container');
+
+	const taskBtn = document.createElement('button');
+	taskBtn.textContent = '+ New Task';
+
+	taskBtn.onclick = () => {
+		const dialog = document.querySelector('#dialog');
+		if (dialog) dialog.remove();
+		showModal(getTodoForm(handleTodoSubmit));
+	};
+
+	const projectBtn = document.createElement('button');
+	projectBtn.textContent = '+ New Project';
+
+	projectBtn.onclick = () => {
+		const dialog = document.querySelector('#dialog');
+		if (dialog) dialog.remove();
+		showProjectModal();
+	};
+
+	container.appendChild(taskBtn);
+	container.appendChild(projectBtn);
+	showModal(container);
+}
+
+export function showProjectModal() {
+	const container = document.createElement('div');
+	container.classList.add('project-modal-form');
+
+	const input = createFormElement(
+		'Project Name',
+		'Enter project name...',
+		true
+	);
+	const saveBtn = document.createElement('button');
+	saveBtn.textContent = 'Create Project';
+
+	saveBtn.addEventListener('click', () => {
+		const name = input.element.value;
+		if (name !== '') {
+			addProject(name);
+			const dialog = document.querySelector('#dialog');
+			if (dialog) dialog.remove();
+			renderProjects();
+		}
+	});
+
+	container.appendChild(input.group);
+	container.appendChild(saveBtn);
+	showModal(container);
+}
+
+export function showEditProjectModal(oldName) {
+	if (oldName === 'General') return;
+
+	const container = document.createElement('div');
+	container.classList.add('project-modal-form');
+
+	const input = createFormElement('Rename Project', '', true);
+	input.element.value = oldName;
+
+	const saveBtn = document.createElement('button');
+	saveBtn.textContent = 'Save Changes';
+
+	saveBtn.addEventListener('click', () => {
+		const newName = input.element.value.trim();
+		const nameExists = getAllProjects().some(
+			(p) => p.getName() === newName
+		);
+
+		if (newName !== '' && newName !== oldName) {
+			if (nameExists) {
+				alert('A project with that name already exists!');
+				return;
+			}
+
+			renameProject(oldName, newName);
+			setActiveProject(newName);
+			const dialog = document.querySelector('#dialog');
+			if (dialog) dialog.remove();
+			renderProjects();
+			renderTodos();
+		}
+	});
+
+	container.appendChild(input.group);
+	container.appendChild(saveBtn);
+	showModal(container);
+}
+
+export function updateTodo(project, index, newData) {
+	updateTodoFromProject(project, index, newData);
+	renderTodos();
+	const dialog = document.querySelector('#dialog');
+	if (dialog) {
+		dialog.close();
+		dialog.remove();
+	}
+}
+
+export function handleTodoSubmit(data) {
+	let activeProject = getActiveProject();
+
+	if (!activeProject) {
+		alert('Please select or create a project first!');
+		return;
+	}
+
+	if (data.title !== '') {
+		const newTodo = createTodo(
+			data.title,
+			data.description,
+			data.dueDate,
+			data.priority
+		);
+
+		addTodoToProject(activeProject, newTodo);
+
+		const dialog = document.querySelector('#dialog');
+
+		if (dialog) {
+			dialog.close();
+			dialog.remove();
+		}
+		renderTodos();
+	} else {
+		alert('Please enter a title!');
+	}
 }
