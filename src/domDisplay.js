@@ -20,6 +20,7 @@ export function setUI() {
 
 	const resetBtn = document.createElement('button');
 	resetBtn.textContent = 'Restore Demo Story';
+	resetBtn.classList.add('reset-demo-btn');
 	resetBtn.addEventListener('click', () => {
 		if (
 			confirm('Restore the demo? This will clear your current projects.')
@@ -158,7 +159,7 @@ export function renderTodos() {
 			const newForm = getTodoForm((newData) => {
 				updateTodo(activeProject, index, newData);
 			}, todo);
-			showModal(newForm.formContainer);
+			showModal(newForm);
 		});
 
 		todoElement.appendChild(deleteBtn);
