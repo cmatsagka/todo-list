@@ -237,6 +237,8 @@ export function showProjectModal() {
 }
 
 export function showEditProjectModal(oldName) {
+	if (oldName === 'General') return;
+
 	const container = document.createElement('div');
 	container.classList.add('project-modal-form');
 
@@ -244,12 +246,14 @@ export function showEditProjectModal(oldName) {
 	input.element.value = oldName;
 
 	const saveBtn = document.createElement('button');
-	saveBtn.textContent = 'Create Project';
+	saveBtn.textContent = 'Save Changes';
 
 	saveBtn.addEventListener('click', () => {
-		const newName = input.element.value;
+		const newName = input.element.value.trim();
+
 		if (newName !== '' && newName !== oldName) {
 			renameProject(oldName, newName);
+			setActiveProject(newName);
 			const dialog = document.querySelector('#dialog');
 			if (dialog) dialog.remove();
 			renderProjects();

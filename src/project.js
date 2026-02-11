@@ -5,6 +5,10 @@ export function createProject(name) {
 		return name;
 	};
 
+	const setName = (newName) => {
+		name = newName;
+	};
+
 	const addTodo = (todo) => {
 		todos.push(todo);
 	};
@@ -21,5 +25,5 @@ export function createProject(name) {
 		todos[index] = newData;
 	};
 
-	return { getName, addTodo, getTodos, deleteTodo, updateTodo };
+	return { getName, setName, addTodo, getTodos, deleteTodo, updateTodo };
 }
