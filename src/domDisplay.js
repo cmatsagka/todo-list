@@ -215,6 +215,10 @@ export function updateTodo(project, index, newData) {
 export function handleTodoSubmit(data) {
 	let activeProject = getActiveProject();
 
+	if (!activeProject) {
+		alert('Please select or create a project first!');
+	}
+
 	if (data.title !== '') {
 		const newTodo = createTodo(
 			data.title,
