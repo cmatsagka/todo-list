@@ -89,20 +89,31 @@ export function renderProjects() {
 
 export function renderTodos() {
 	const todoListContainer = document.querySelector('#todo-items');
-	todoListContainer.textContent = '';
-
-	const activeProject = getActiveProject();
-	if (!activeProject) return;
-
 	const titleHeader = document.querySelector('#active-project-name');
+	todoListContainer.textContent = '';
+	const activeProject = getActiveProject();
 
+	if (!activeProject) {
+		if (titleHeader) {
+			titleHeader.textContent = 'No project Selected';
+			const message = document.createElement(p);
+			message.textContent =
+				'Select a project from the sidebar to view tasks.';
+			todoListContainer.appendChild(message);
+		}
+		return;
+	}
 	if (titleHeader) {
 		titleHeader.textContent = activeProject.getName();
 	}
 
 	const todos = activeProject.getTodos();
 
-	if (!todos) return;
+	if (!todos || todos.length === 0) {
+		todoListContainer.textContent =
+			'This project is empty. Click "+ New Task" to start!';
+		return;
+	}
 
 	todos.forEach((todo, index) => {
 		if (!todo) return;
