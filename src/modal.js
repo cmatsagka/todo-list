@@ -16,8 +16,20 @@ export function showModal(contentElement) {
 	dialog.appendChild(closeBtn);
 	dialog.appendChild(contentElement);
 
+	dialog.addEventListener('click', (e) => {
+		const dialogDimensions = dialog.getBoundingClientRect();
+		if (
+			e.clientX < dialogDimensions.left ||
+			e.clientX > dialogDimensions.right ||
+			e.clientY < dialogDimensions.top ||
+			e.clientY > dialogDimensions.bottom
+		) {
+			dialog.close();
+			dialog.remove();
+		}
+	});
+
 	document.body.appendChild(dialog);
 	dialog.showModal();
-
 	return dialog;
 }
