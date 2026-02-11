@@ -20,10 +20,10 @@ export function createFormElement(
 			option.textContent = level;
 			field.appendChild(option);
 		});
-	} else if (type === 'button') {
+	} else if (type === 'button' || type === 'submit') {
 		field = document.createElement('button');
 		field.textContent = label;
-		field.type = 'button';
+		field.type = type;
 	} else {
 		field = document.createElement('input');
 		field.type = type;
