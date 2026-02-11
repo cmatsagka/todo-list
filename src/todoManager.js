@@ -40,6 +40,14 @@ export const deleteProject = (projectName) => {
 	save(projects);
 };
 
+export const renameProject = (oldName, newName) => {
+	const project = projects.find((p) => p.getName() === oldName);
+	if (project) {
+		project.name = newName;
+		save(projects);
+	}
+};
+
 export const getAllProjects = () => [...projects];
 
 export const setActiveProject = (projectName) => {
