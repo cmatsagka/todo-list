@@ -33,3 +33,11 @@ export function showModal(contentElement) {
 	dialog.showModal();
 	return dialog;
 }
+
+export function closeModal() {
+	const dialog = document.querySelector('#dialog');
+	if (dialog) {
+		dialog.close();
+		dialog.remove();
+	}
+}
