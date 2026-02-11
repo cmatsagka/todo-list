@@ -16,28 +16,7 @@ export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
 	const projectList = document.querySelector('#project-list');
 
-	const projectInput = createFormElement(
-		'Project Name',
-		'New Project...',
-		true
-	);
-
-	const addProjectBtn = createFormElement('Add Project', '', false, 'button');
-
-	projectForm.appendChild(projectInput.group);
-	projectForm.appendChild(addProjectBtn.group);
-	sidebar.appendChild(projectForm);
 	sidebar.appendChild(projectList);
-
-	addProjectBtn.element.addEventListener('click', () => {
-		let name = projectInput.element.value;
-
-		if (name !== '') {
-			addProject(name);
-			projectInput.element.value = '';
-			renderProjects();
-		}
-	});
 }
 
 export function renderProjects() {
@@ -183,7 +162,7 @@ export function setupFocusMode() {
 }
 
 export function setupAddTodoButton() {
-	const fab = document.querySelectorAll('#floating-add-btn');
+	const fab = document.querySelector('#floating-add-btn');
 
 	if (fab) {
 		fab.addEventListener('click', () => {
@@ -211,7 +190,7 @@ export function showAddChoiceModal() {
 	projectBtn.onclick = () => {
 		const dialog = document.querySelector('#dialog');
 		dialog.remove();
-		showModal(getTodoForm(handleTodoSubmit));
+		showProjectModal();
 	};
 
 	container.appendChild(taskBtn);
