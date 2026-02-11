@@ -104,7 +104,7 @@ header {
 	flex-direction: column;
 }
 
-.app-container.app-container.focus-mode #sidebar {
+.app-container.focus-mode #sidebar {
 	opacity: 0;
 	padding: 0;
 	border-right: none;
@@ -235,42 +235,7 @@ header {
 	margin: 0 1.5rem;
 }
 
-#todo-form-slot {
-	max-height: 0;
-	overflow: hidden;
-	opacity: 0;
-	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-	margin-bottom: 0;
-}
-
-#todo-form-slot.active {
-	max-height: 600px;
-	opacity: 1;
-	margin-bottom: 2rem;
-	padding-top: 1rem;
-}
-
-#toggle-form-btn {
-	color: var(--action-primary);
-	transition: all 0.3s ease;
-}
-
-#toggle-form-btn[data-state='cancel'] {
-	color: var(--priority-high-soft);
-}
-
-#toggle-form-btn:hover {
-	background: var(--gradient-action);
-	color: var(--action-light) !important;
-}
-
-#toggle-form-btn:hover[data-state='cancel'] {
-	background: var(--priority-high-soft);
-}
-
-.form-group,
-.form-dropdown,
-.form-submit {
+.form-group {
 	display: flex;
 	flex-direction: column;
 	gap: 0.4rem;
@@ -279,6 +244,8 @@ header {
 
 input,
 select {
+	padding: 8px 4px;
+	width: 100%;
 	border: none;
 	border-bottom: 1px solid var(--border-clr);
 	background-color: transparent;
