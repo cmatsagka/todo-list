@@ -16,8 +16,19 @@ import { showModal } from './modal.js';
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
 	const projectList = document.querySelector('#project-list');
-
 	sidebar.appendChild(projectList);
+
+	const resetBtn = document.createElement('button');
+	resetBtn.textContent = 'Restore Demo Story';
+	resetBtn.addEventListener('click', () => {
+		if (
+			confirm('Restore the demo? This will clear your current projects.')
+		) {
+			localStorage.clear();
+			window.location.reload();
+		}
+	});
+	sidebar.appendChild(resetBtn);
 }
 
 export function renderProjects() {
