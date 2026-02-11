@@ -222,6 +222,33 @@ export function showAddChoiceModal() {
 	showModal(container);
 }
 
+export function showProjectModal() {
+	const container = document.createElement('div');
+	container.classList.add('project-modal-form');
+
+	const input = createFormElement(
+		'Project Name',
+		'Enter project name...',
+		true
+	);
+	const saveBtn = document.createElement('button');
+	saveBtn.textContent = 'Create Project';
+
+	saveBtn.addEventListener('click', () => {
+		const name = input.element.value;
+		if (name !== '') {
+			addProject(name);
+			const dialog = document.querySelector('#dialog');
+			dialog.remove();
+			renderProjects();
+		}
+	});
+
+	container.appendChild(input.group);
+	container.appendChild(saveBtn);
+	showModal(container);
+}
+
 export function updateTodo(project, index, newData) {
 	updateTodoFromProject(project, index, newData);
 	renderTodos();
