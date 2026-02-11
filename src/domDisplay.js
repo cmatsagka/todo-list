@@ -96,7 +96,8 @@ export function renderTodos() {
 	if (!activeProject) {
 		if (titleHeader) {
 			titleHeader.textContent = 'No project Selected';
-			const message = document.createElement(p);
+			const message = document.createElement('p');
+			message.classList.add('empty-message');
 			message.textContent =
 				'Select a project from the sidebar to view tasks.';
 			todoListContainer.appendChild(message);
@@ -110,8 +111,11 @@ export function renderTodos() {
 	const todos = activeProject.getTodos();
 
 	if (!todos || todos.length === 0) {
-		todoListContainer.textContent =
+		const message = document.createElement('p');
+		message.classList.add('empty-message');
+		message.textContent =
 			'This project is empty. Click "+ New Task" to start!';
+		todoListContainer.appendChild(message);
 		return;
 	}
 
