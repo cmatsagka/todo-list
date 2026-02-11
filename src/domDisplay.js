@@ -7,6 +7,7 @@ import {
 	addTodoToProject,
 	removeTodoFromProject,
 	updateTodoFromProject,
+	renameProject,
 } from './todoManager.js';
 import { createTodo } from './todo.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
@@ -29,6 +30,15 @@ export function renderProjects() {
 		const projectElement = document.createElement('p');
 		projectElement.classList.add('project-item');
 		projectElement.textContent = project.getName();
+
+		const editProjectBtn = document.createElement('button');
+		editProjectBtn.classList.add('edit-btn');
+		editProjectBtn.textContent = '✎';
+
+		editProjectBtn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			showEditProjectModal(project.getName());
+		});
 
 		const deleteProjectBtn = document.createElement('button');
 		deleteProjectBtn.classList.add('delete-btn');
@@ -59,6 +69,7 @@ export function renderProjects() {
 			projectElement.classList.add('active');
 		}
 
+		projectElement.appendChild(editProjectBtn);
 		projectElement.appendChild(deleteProjectBtn);
 		listContainer.appendChild(projectElement);
 	});
@@ -215,8 +226,34 @@ export function showProjectModal() {
 		if (name !== '') {
 			addProject(name);
 			const dialog = document.querySelector('#dialog');
-			dialog.remove();
+			if (dialog) dialog.remove();
 			renderProjects();
+		}
+	});
+
+	container.appendChild(input.group);
+	container.appendChild(saveBtn);
+	showModal(container);
+}
+
+export function showEditProjectModal(oldName) {
+	const container = document.createElement('div');
+	container.classList.add('project-modal-form');
+
+	const input = createFormElement('Rename Project', '', true);
+	input.element.value = oldName;
+
+	const saveBtn = document.createElement('button');
+	saveBtn.textContent = 'Create Project';
+
+	saveBtn.addEventListener('click', () => {
+		const newName = input.element.value;
+		if (newName !== '' && newName !== oldName) {
+			renameProject(oldName, newName);
+			const dialog = document.querySelector('#dialog');
+			if (dialog) dialog.remove();
+			renderProjects();
+			renderTodos();
 		}
 	});
 
