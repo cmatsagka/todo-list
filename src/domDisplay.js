@@ -209,7 +209,6 @@ export function showAddChoiceModal() {
 	projectBtn.textContent = '+ New Project';
 
 	projectBtn.onclick = () => {
-		closeModal();
 		showProjectModal();
 	};
 
@@ -305,9 +304,7 @@ export function handleTodoSubmit(data) {
 
 		addTodoToProject(activeProject, newTodo);
 
-		if (dialog) {
-			closeModal();
-		}
+		closeModal();
 		renderTodos();
 	} else {
 		alert('Please enter a title!');

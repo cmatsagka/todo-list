@@ -1,5 +1,3 @@
-import { createFormElement, getTodoForm } from './todoForm.js';
-
 export function showModal(contentElement) {
 	closeModal();
 

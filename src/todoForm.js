@@ -42,7 +42,7 @@ export function createFormElement(
 
 export function getTodoForm(onSubmit, initialData = null) {
 	const form = document.createElement('form');
-	form.id = 'form-container';
+	form.id = 'todo-form';
 
 	const titleField = createFormElement('Title', "I've got to do", true);
 	const descrField = createFormElement(
@@ -58,12 +58,6 @@ export function getTodoForm(onSubmit, initialData = null) {
 		false,
 		'submit'
 	);
-
-	const clearForm = () => {
-		titleField.element.value = '';
-		descrField.element.value = '';
-		dateField.element.value = '';
-	};
 
 	if (initialData) {
 		titleField.element.value = initialData.title;
