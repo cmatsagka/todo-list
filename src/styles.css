@@ -200,6 +200,22 @@ header {
 	flex-direction: column;
 }
 
+.reset-demo-btn {
+	margin-top: auto;
+	padding: 0.6rem;
+	font-size: 0.8rem;
+	border: 1px solid var(--priority-high-soft);
+	color: var(--priority-high-soft);
+	border-radius: 6px;
+	opacity: 0.7;
+}
+
+.reset-demo-btn:hover {
+	opacity: 1;
+	background: hsla(358, 33%, 59%, 0.1);
+	color: var(--priority-high-soft);
+}
+
 .app-container.focus-mode #sidebar {
 	opacity: 0;
 	padding: 0;
