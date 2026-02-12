@@ -103,6 +103,39 @@ dialog::backdrop {
 	color: var(--action-light);
 }
 
+#floating-add-btn {
+	position: fixed;
+	top: 40px;
+	right: 40px;
+
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+
+	background: var(--gradient-action);
+	color: var(--action-light);
+	font-size: 1.8rem;
+	font-weight: 300;
+
+	border: none;
+	cursor: pointer;
+	box-shadow: var(--shadow-md);
+	z-index: 100;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#floating-add-btn:hover {
+	transform: scale(1.1) rotate(90deg);
+}
+
+#floating-add-btn:active {
+	transform: scale(0.95);
+}
+
 header {
 	padding-left: 2rem;
 	color: var(--action-primary);
