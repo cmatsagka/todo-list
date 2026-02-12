@@ -168,6 +168,10 @@ dialog:has(.choice-container) {
 	padding: 1.5rem;
 }
 
+dialog:has(.choice-container) .close-dialog-btn {
+	display: none;
+}
+
 header {
 	padding-left: 2rem;
 	color: var(--action-primary);
