@@ -76,6 +76,33 @@ button:hover {
 	color: var(--action-light);
 }
 
+dialog {
+	background-color: var(--action-light);
+	border: 1px solid var(--border-clr);
+	border-radius: 16px;
+	padding: 2.5rem;
+	box-shadow: var(--shadow-md);
+	margin: auto;
+}
+
+dialog::backdrop {
+	background: hsla(240, 7%, 19%, 0.4);
+	backdrop-filter: blur(2px);
+}
+
+.close-dialog-btn {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	font-size: 0.8rem;
+	color: var(--priority-high-soft);
+}
+
+.close-dialog-btn:hover {
+	background: var(--priority-high-soft);
+	color: var(--action-light);
+}
+
 header {
 	padding-left: 2rem;
 	color: var(--action-primary);
