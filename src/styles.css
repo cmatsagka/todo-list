@@ -390,6 +390,7 @@ input:focus {
 	right: 0;
 	width: calc(100% - var(--sidebar-width));
 	padding-bottom: 1rem;
+	transition: width 0.4s ease;
 }
 
 .app-container.app-container.focus-mode ~ .site-footer {
