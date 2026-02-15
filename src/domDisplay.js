@@ -32,6 +32,19 @@ export function setUI() {
 	sidebar.appendChild(resetBtn);
 }
 
+export function createBoard(contextData) {
+	const wrapper = document.querySelector('.todo-wrapper');
+	const container = document.createElement('div');
+	container.classList.add('boardContainer');
+	createTodoCard();
+}
+
+export function createList(contextData) {
+	createTodoCard(contextData);
+}
+
+export function createTodoCard() {}
+
 export function renderProjects() {
 	const listContainer = document.querySelector('#project-list');
 	listContainer.textContent = '';
