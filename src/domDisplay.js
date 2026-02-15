@@ -40,21 +40,15 @@ export function createBoard(contextData) {
 
 	projects.forEach((project) => {
 		const projectCard = document.createElement('div');
-		const titleHeader = document.createElement('h2');
-		titleHeader.textContent = contextData.getName();
+		projectCard.classList.add('project-Card');
+		const titleHeader = document.createElement('h3');
+		titleHeader.textContent = project.getName();
 		projectCard.appendChild(titleHeader);
 
-		project.forEach((todo) => {
-			const projectElement = document.createElement('div');
-			const todos = contextData.getTodos();
-			todos.forEach((todo) => {
-				const todoElement = createTodoElement(todo);
-
-				projectCard.appendChild(todoElement);
-				projectElement.appendChild(todoElement);
-			});
-
-			projectCard.appendChild(projectElement);
+		const todos = project.getTodos();
+		todos.forEach((todo, index) => {
+			const todoElement = createTodoElement(todo, index, project);
+			projectCard.appendChild(todoElement);
 		});
 
 		container.appendChild(projectCard);
@@ -76,13 +70,13 @@ export function createList(contextData) {
 
 	const todos = contextData.getTodos();
 
-	todos.forEach((todo) => {
-		const todoElement = createTodoElement(todo);
+	todos.forEach((todo, index) => {
+		const todoElement = createTodoElement(todo, index, contextData);
 
 		projectCard.appendChild(todoElement);
 	});
-
-	wrapper.appendChild(projectCard);
+	container.appendChild(projectCard);
+	wrapper.appendChild(container);
 }
 
 export function createTodoElement(todo, index, project) {
@@ -117,7 +111,7 @@ export function createTodoElement(todo, index, project) {
 
 	deleteBtn.addEventListener('click', (e) => {
 		e.stopPropagation();
-		removeTodoFromProject(activeProject, index);
+		removeTodoFromProject(project, index);
 		renderTodos();
 	});
 
