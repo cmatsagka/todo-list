@@ -254,7 +254,8 @@ header {
 }
 
 .project-item,
-.todo-item {
+.todo-item,
+#overview-btn {
 	display: flex;
 	align-items: center;
 	background: var(--action-light);
@@ -266,16 +267,24 @@ header {
 		box-shadow 0.2s ease;
 }
 
-.project-item {
+.project-item,
+#overview-btn {
 	padding: 0.8rem 1rem;
 	gap: 1rem;
 	font-weight: 600;
+	cursor: pointer;
 }
 
 .project-item:hover,
-.todo-item:hover {
+.todo-item:hover,
+#overview-btn:hover {
 	transform: translateY(-2px);
 	box-shadow: var(--shadow-md);
+}
+
+#overview-btn:hover {
+	color: var(--action-light);
+	background: var(--action-primary);
 }
 
 .delete-btn {
