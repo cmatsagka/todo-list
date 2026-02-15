@@ -283,16 +283,20 @@ header {
 	gap: 4px;
 }
 
-#overview-btn.active-project {
-	background: var(--action-primary);
-	color: var(--action-light);
-	border-radius: 8px;
+.active-project {
+	background-color: var(--bg-sidebar);
+	border-left: 4px solid var(--action-primary);
+	padding-left: calc(1rem - 4px) !important;
+	color: var(--action-primary);
+	font-weight: 600;
 }
 
-.project-item.active-project {
-	background: var(--bg-sidebar);
-	border-left: 4px solid var(--action-primary);
-	padding-left: calc(1rem -4px);
+#overview.active-project {
+	background: var(--action-primary);
+	color: var(--action-light);
+	border-left: none;
+	padding-left: 1rem;
+	border-radius: 8px;
 }
 
 .edit-btn {
