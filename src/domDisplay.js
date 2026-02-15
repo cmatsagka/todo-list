@@ -52,10 +52,14 @@ export function createBoard(contextData) {
 		projectCard.appendChild(titleHeader);
 
 		const todos = project.getTodos();
-		todos.sort((a, b) => a.completed - b.completed);
+		const sortedTodos = [...todos].sort(
+			(a, b) => a.completed - b.completed
+		);
 
-		todos.forEach((todo, index) => {
-			const todoElement = createTodoElement(todo, index, project);
+		sortedTodos.forEach((todo) => {
+			const realIndex = todos.indexOf(todo);
+
+			const todoElement = createTodoElement(todo, realIndex, project);
 			projectCard.appendChild(todoElement);
 		});
 
@@ -75,10 +79,12 @@ export function createList(contextData) {
 	projectCard.classList.add('project-card');
 
 	const todos = contextData.getTodos();
-	todos.sort((a, b) => a.completed - b.completed);
+	const sortedTodos = [...todos].sort((a, b) => a.completed - b.completed);
 
-	todos.forEach((todo, index) => {
-		const todoElement = createTodoElement(todo, index, contextData);
+	sortedTodos.forEach((todo) => {
+		const realIndex = todos.indexOf(todo);
+
+		const todoElement = createTodoElement(todo, realIndex, contextData);
 
 		projectCard.appendChild(todoElement);
 	});
@@ -147,6 +153,7 @@ export function createTodoElement(todo, index, project) {
 	});
 
 	todoElement.addEventListener('click', () => {
+		if (todo.completed) return;
 		const newForm = getTodoForm((newData) => {
 			updateTodo(project, index, newData);
 		}, todo);
