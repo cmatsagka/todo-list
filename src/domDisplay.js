@@ -12,6 +12,7 @@ import {
 import { createTodo } from './todo.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
 import { closeModal, showModal } from './modal.js';
+import { switchView } from './viewController.js';
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
@@ -203,6 +204,14 @@ export function renderTodos() {
 			'This project is empty. Click "+ New Task" to start!';
 		todoListContainer.appendChild(message);
 		return;
+	}
+
+	currentView = switchView();
+
+	if (currentView === 'DASHBOARD') {
+		createBoard();
+	} else {
+		createList(activeProject);
 	}
 }
 

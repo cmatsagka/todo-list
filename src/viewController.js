@@ -14,6 +14,7 @@ export function switchView(viewType, contextData) {
 		case viewSingleProject:
 			createList(contextData);
 	}
-
 	currentView = viewType;
+
+	return currentView;
 }
