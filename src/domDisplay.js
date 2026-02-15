@@ -52,6 +52,8 @@ export function createBoard(contextData) {
 		projectCard.appendChild(titleHeader);
 
 		const todos = project.getTodos();
+		todos.sort((a, b) => a.completed - b.completed);
+
 		todos.forEach((todo, index) => {
 			const todoElement = createTodoElement(todo, index, project);
 			projectCard.appendChild(todoElement);
@@ -73,6 +75,7 @@ export function createList(contextData) {
 	projectCard.classList.add('project-card');
 
 	const todos = contextData.getTodos();
+	todos.sort((a, b) => a.completed - b.completed);
 
 	todos.forEach((todo, index) => {
 		const todoElement = createTodoElement(todo, index, contextData);
@@ -109,6 +112,7 @@ export function createTodoElement(todo, index, project) {
 		checkBtn.classList.toggle('checked');
 
 		save(getAllProjects());
+		renderTodos();
 	});
 
 	if (todo.priority === 'high') {

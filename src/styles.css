@@ -425,8 +425,8 @@ header {
 
 .todo-item.completed {
 	opacity: 0.6;
-	background-color: hsal(0, 0%, 90%, 0.4);
-	border-left-color: hsl(0, 0%, 80%) !important;
+	background-color: var(--bg-sidebar);
+	border-left-color: hsl(0, 0%, 63%) !important;
 }
 
 .todo-item.completed .todo-title {
