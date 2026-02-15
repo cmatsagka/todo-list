@@ -21,6 +21,7 @@ export function setUI() {
 	const overviewBtn = document.querySelector('#overview-btn');
 	overviewBtn.addEventListener('click', () => {
 		switchView('DASHBOARD', getAllProjects());
+		renderProjects();
 	});
 
 	const resetBtn = document.createElement('button');
@@ -133,6 +134,14 @@ export function createTodoElement(todo, index, project) {
 export function renderProjects() {
 	const listContainer = document.querySelector('#project-list');
 	listContainer.textContent = '';
+	const overviewBtn = document.querySelector('#overview-btn');
+	const currentView = getView();
+
+	if (currentView === 'DASHBOARD') {
+		overviewBtn.classList.add('active-project');
+	} else {
+		overviewBtn.classList.remove('active-project');
+	}
 
 	const projects = getAllProjects();
 

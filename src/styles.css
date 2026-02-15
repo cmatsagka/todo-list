@@ -291,12 +291,20 @@ header {
 	font-weight: 600;
 }
 
-#overview.active-project {
+#overview-btn.active-project {
 	background: var(--action-primary);
 	color: var(--action-light);
 	border-left: none;
 	padding-left: 1rem;
 	border-radius: 8px;
+}
+
+#overview-btn.active-project ~ #project-list .project-item.active-project {
+	background: transparent;
+	border-left: 4px solid transparent;
+	padding-left: 1rem !important;
+	color: inherit;
+	font-weight: normal;
 }
 
 .edit-btn {
