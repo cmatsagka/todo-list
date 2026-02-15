@@ -1,11 +1,13 @@
+import { createBoard, createList } from './domDisplay.js';
+
 let viewDashBoard = 'DASHBOARD';
 let viewSingleProject = 'SINGLE';
 
 let currentView = viewDashBoard;
 
 export function switchView(viewType, contextData) {
-	const mainArea = document.querySelector('#todo-items');
-	mainArea.textContent = '';
+	const wrapper = document.querySelector('.todo-wrapper');
+	wrapper.textContent = '';
 
 	switch (viewType) {
 		case viewDashBoard:

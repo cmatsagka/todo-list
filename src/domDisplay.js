@@ -81,6 +81,15 @@ export function createList(contextData) {
 }
 
 export function createTodoElement(todo, index, project) {
+	if (!todo || todo.length === 0) {
+		const message = document.createElement('p');
+		message.classList.add('empty-message');
+		message.textContent =
+			'This project is empty. Click "+ New Task" to start!';
+		todoListContainer.appendChild(message);
+		return;
+	}
+
 	if (!todo) return;
 	const todoElement = document.createElement('div');
 	todoElement.classList.add('todo-item');
@@ -196,22 +205,12 @@ export function renderTodos() {
 		}
 		return;
 	}
-
-	if (!todos || todos.length === 0) {
-		const message = document.createElement('p');
-		message.classList.add('empty-message');
-		message.textContent =
-			'This project is empty. Click "+ New Task" to start!';
-		todoListContainer.appendChild(message);
-		return;
-	}
-
-	currentView = switchView();
+	const currentView = switchView();
 
 	if (currentView === 'DASHBOARD') {
-		createBoard();
+		switchView('DASHBOARD', getAllProjects());
 	} else {
-		createList(activeProject);
+		switchView('SINGLE', activeProject);
 	}
 }
 
