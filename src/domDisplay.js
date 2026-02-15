@@ -36,14 +36,101 @@ export function createBoard(contextData) {
 	const wrapper = document.querySelector('.todo-wrapper');
 	const container = document.createElement('div');
 	container.classList.add('boardContainer');
-	createTodoCard();
+	const projects = getAllProjects();
+
+	projects.forEach((project) => {
+		const projectCard = document.createElement('div');
+		const titleHeader = document.createElement('h2');
+		titleHeader.textContent = contextData.getName();
+		projectCard.appendChild(titleHeader);
+
+		project.forEach((todo) => {
+			const projectElement = document.createElement('div');
+			const todos = contextData.getTodos();
+			todos.forEach((todo) => {
+				const todoElement = createTodoElement(todo);
+
+				projectCard.appendChild(todoElement);
+				projectElement.appendChild(todoElement);
+			});
+
+			projectCard.appendChild(projectElement);
+		});
+
+		container.appendChild(projectCard);
+	});
+	wrapper.appendChild(container);
 }
 
 export function createList(contextData) {
-	createTodoCard(contextData);
+	const wrapper = document.querySelector('.todo-wrapper');
+	const container = document.createElement('div');
+	container.classList.add('listContainer');
+	const titleHeader = document.createElement('h2');
+	titleHeader.textContent = contextData.getName();
+	const projectCard = document.createElement('div');
+
+	if (titleHeader) {
+		titleHeader.textContent = contextData.getName();
+	}
+
+	const todos = contextData.getTodos();
+
+	todos.forEach((todo) => {
+		const todoElement = createTodoElement(todo);
+
+		projectCard.appendChild(todoElement);
+	});
+
+	wrapper.appendChild(projectCard);
 }
 
-export function createTodoCard() {}
+export function createTodoElement(todo, index, project) {
+	if (!todo) return;
+	const todoElement = document.createElement('div');
+	todoElement.classList.add('todo-item');
+
+	if (todo.priority === 'high') {
+		todoElement.classList.add('high-priority');
+	}
+
+	if (todo.priority === 'medium') {
+		todoElement.classList.add('medium-priority');
+	}
+
+	const todoTitle = document.createElement('div');
+	todoTitle.classList.add('todo-title');
+	todoTitle.textContent = `${todo.title}`;
+	todoElement.appendChild(todoTitle);
+
+	if (todo.dueDate !== '') {
+		const todoDate = document.createElement('div');
+		todoDate.classList.add('todo-date');
+		todoDate.textContent = `Due: ${todo.dueDate}`;
+
+		todoElement.appendChild(todoDate);
+	}
+
+	const deleteBtn = document.createElement('button');
+	deleteBtn.classList.add('delete-btn');
+	deleteBtn.textContent = 'X';
+
+	deleteBtn.addEventListener('click', (e) => {
+		e.stopPropagation();
+		removeTodoFromProject(activeProject, index);
+		renderTodos();
+	});
+
+	todoElement.addEventListener('click', () => {
+		const newForm = getTodoForm((newData) => {
+			updateTodo(project, index, newData);
+		}, todo);
+		showModal(newForm);
+	});
+
+	todoElement.appendChild(deleteBtn);
+	return todoElement;
+}
 
 export function renderProjects() {
 	const listContainer = document.querySelector('#project-list');
@@ -102,8 +189,8 @@ export function renderProjects() {
 
 export function renderTodos() {
 	const todoListContainer = document.querySelector('#todo-items');
-	const titleHeader = document.querySelector('#active-project-name');
 	todoListContainer.textContent = '';
+	const titleHeader = document.querySelector('#active-project-name');
 	const activeProject = getActiveProject();
 
 	if (!activeProject) {
