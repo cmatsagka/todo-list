@@ -182,9 +182,6 @@ export function renderProjects() {
 }
 
 export function renderTodos() {
-	const todoListContainer = document.querySelector('#todo-items');
-	todoListContainer.textContent = '';
-	const titleHeader = document.querySelector('#active-project-name');
 	const activeProject = getActiveProject();
 
 	if (!activeProject) {
@@ -198,11 +195,6 @@ export function renderTodos() {
 		}
 		return;
 	}
-	if (titleHeader) {
-		titleHeader.textContent = activeProject.getName();
-	}
-
-	const todos = activeProject.getTodos();
 
 	if (!todos || todos.length === 0) {
 		const message = document.createElement('p');
@@ -212,53 +204,6 @@ export function renderTodos() {
 		todoListContainer.appendChild(message);
 		return;
 	}
-
-	todos.forEach((todo, index) => {
-		if (!todo) return;
-		const todoElement = document.createElement('div');
-		todoElement.classList.add('todo-item');
-
-		if (todo.priority === 'high') {
-			todoElement.classList.add('high-priority');
-		}
-
-		if (todo.priority === 'medium') {
-			todoElement.classList.add('medium-priority');
-		}
-
-		const todoTitle = document.createElement('div');
-		todoTitle.classList.add('todo-title');
-		todoTitle.textContent = `${todo.title}`;
-		todoElement.appendChild(todoTitle);
-
-		if (todo.dueDate !== '') {
-			const todoDate = document.createElement('div');
-			todoDate.classList.add('todo-date');
-			todoDate.textContent = `Due: ${todo.dueDate}`;
-
-			todoElement.appendChild(todoDate);
-		}
-
-		const deleteBtn = document.createElement('button');
-		deleteBtn.classList.add('delete-btn');
-		deleteBtn.textContent = 'X';
-
-		deleteBtn.addEventListener('click', (e) => {
-			e.stopPropagation();
-			removeTodoFromProject(activeProject, index);
-			renderTodos();
-		});
-
-		todoElement.addEventListener('click', () => {
-			const newForm = getTodoForm((newData) => {
-				updateTodo(activeProject, index, newData);
-			}, todo);
-			showModal(newForm);
-		});
-
-		todoElement.appendChild(deleteBtn);
-		todoListContainer.appendChild(todoElement);
-	});
 }
 
 export function setupFocusMode() {
