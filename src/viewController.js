@@ -1,13 +1,13 @@
 import { setView, getView } from './todoManager.js';
 
 const renderers = {
-	DASHBOARD: null,
-	SINGLE: null,
+	board: null,
+	list: null,
 };
 
 export function registerRenderers(fns) {
-	renderers.DASHBOARD = fns.board;
-	renderers.SINGLE = fns.list;
+	renderers.board = fns.board;
+	renderers.list = fns.list;
 }
 
 export function switchView(viewType, contextData) {
@@ -16,10 +16,10 @@ export function switchView(viewType, contextData) {
 	const wrapper = document.querySelector('.todo-wrapper');
 	if (wrapper) wrapper.textContent = '';
 
-	if (viewType === 'DASHBOARD' && renderers.DASHBOARD) {
-		renderers.DASHBOARD(contextData);
-	} else if (viewType === 'SINGLE' && renderers.SINGLE) {
-		renderers.SINGLE(contextData);
+	if (viewType === 'DASHBOARD' && renderers.board) {
+		renderers.board(contextData);
+	} else if (viewType === 'SINGLE' && renderers.list) {
+		renderers.list(contextData);
 	}
 
 	return viewType;

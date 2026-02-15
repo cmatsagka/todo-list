@@ -42,7 +42,7 @@ export const addProject = (name) => {
 export const deleteProject = (projectName) => {
 	projects = projects.filter((p) => p.getName() !== projectName);
 
-	if (activeProject.getName() === projectName) {
+	if (activeProject && activeProject.getName() === projectName) {
 		activeProject = projects[0];
 	}
 	save(projects);

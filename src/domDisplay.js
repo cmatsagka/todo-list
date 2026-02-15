@@ -17,8 +17,6 @@ import { getView } from './todoManager.js';
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
-	const projectList = document.querySelector('#project-list');
-	sidebar.appendChild(projectList);
 
 	const overviewBtn = document.querySelector('#overview-btn');
 	overviewBtn.addEventListener('click', () => {
@@ -43,9 +41,8 @@ export function createBoard(contextData) {
 	const wrapper = document.querySelector('.todo-wrapper');
 	const container = document.createElement('div');
 	container.classList.add('boardContainer');
-	const projects = getAllProjects();
 
-	projects.forEach((project) => {
+	contextData.forEach((project) => {
 		const projectCard = document.createElement('div');
 		projectCard.classList.add('project-Card');
 		const titleHeader = document.createElement('h3');
