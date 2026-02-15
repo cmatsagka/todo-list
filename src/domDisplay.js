@@ -14,6 +14,7 @@ import { createFormElement, getTodoForm } from './todoForm.js';
 import { closeModal, showModal } from './modal.js';
 import { switchView } from './viewController.js';
 import { getView } from './todoManager.js';
+import { save } from './storage.js';
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
@@ -89,6 +90,27 @@ export function createTodoElement(todo, index, project) {
 	const todoElement = document.createElement('div');
 	todoElement.classList.add('todo-item');
 
+	if (todo.completed) {
+		todoElement.classList.add('completed');
+	}
+
+	const checkBtn = document.createElement('div');
+	checkBtn.classList.add('check-circle');
+
+	if (todo.completed) {
+		checkBtn.classList.add('checked');
+	}
+
+	checkBtn.addEventListener('click', (e) => {
+		e.stopPropagation();
+		todo.completed = !todo.completed;
+
+		todoElement.classList.toggle('completed');
+		checkBtn.classList.toggle('checked');
+
+		save(getAllProjects());
+	});
+
 	if (todo.priority === 'high') {
 		todoElement.classList.add('high-priority');
 	}
@@ -127,6 +149,7 @@ export function createTodoElement(todo, index, project) {
 		showModal(newForm);
 	});
 
+	todoElement.appendChild(checkBtn);
 	todoElement.appendChild(deleteBtn);
 	return todoElement;
 }
