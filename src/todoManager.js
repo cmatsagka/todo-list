@@ -23,6 +23,14 @@ if (!rawData) {
 }
 activeProject = projects[0] || null;
 
+let currentView = 'DASHBOARD';
+
+export const getView = () => currentView;
+
+export const setView = (newView) => {
+	currentView = newView;
+};
+
 export const addProject = (name) => {
 	if (projects.some((p) => p.getName() === name)) return;
 

@@ -1,17 +1,26 @@
-import { createBoard, createList } from './domDisplay.js';
+import { setView, getView } from './todoManager.js';
 
-let currentView = 'DASHBOARD';
+const renderers = {
+	DASHBOARD: null,
+	SINGLE: null,
+};
+
+export function registerRenderers(fns) {
+	renderers.DASHBOARD = fns.board;
+	renderers.SINGLE = fns.list;
+}
 
 export function switchView(viewType, contextData) {
-	currentView = viewType;
+	if (!viewType) return getView();
+	setView(viewType);
 	const wrapper = document.querySelector('.todo-wrapper');
-	wrapper.textContent = '';
+	if (wrapper) wrapper.textContent = '';
 
-	switch (viewType) {
-		case 'DASHBOARD':
-			createBoard(contextData);
-			break;
-		case 'SINGLE':
-			createList(contextData);
+	if (viewType === 'DASHBOARD' && renderers.DASHBOARD) {
+		renderers.DASHBOARD(contextData);
+	} else if (viewType === 'SINGLE' && renderers.SINGLE) {
+		renderers.SINGLE(contextData);
 	}
+
+	return viewType;
 }

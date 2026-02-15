@@ -1,15 +1,21 @@
 import './styles.css';
 import {
+	createBoard,
+	createList,
 	renderProjects,
-	renderTodos,
 	setUI,
 	setupFocusMode,
 	setupAddTodoButton,
 } from './domDisplay.js';
 import { loadDemoStory } from './demo.js';
 import { getAllProjects } from './todoManager.js';
+import { registerRenderers, switchView } from './viewController.js';
 
 function init() {
+	registerRenderers({
+		board: createBoard,
+		list: createList,
+	});
 	setUI();
 	setupAddTodoButton();
 	setupFocusMode();
@@ -25,7 +31,7 @@ function init() {
 		loadDemoStory();
 	}
 	renderProjects();
-	renderTodos();
+	switchView('DASHBOARD', getAllProjects());
 }
 
 init();

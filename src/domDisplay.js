@@ -13,6 +13,7 @@ import { createTodo } from './todo.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
 import { closeModal, showModal } from './modal.js';
 import { switchView } from './viewController.js';
+import { getView } from './todoManager.js';
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
@@ -86,7 +87,6 @@ export function createList(contextData) {
 export function createTodoElement(todo, index, project) {
 	if (!todo) return null;
 
-	if (!todo) return;
 	const todoElement = document.createElement('div');
 	todoElement.classList.add('todo-item');
 
@@ -172,9 +172,8 @@ export function renderProjects() {
 
 		projectElement.addEventListener('click', () => {
 			setActiveProject(project.getName());
-
+			switchView('SINGLE', project);
 			renderProjects();
-			renderTodos();
 		});
 
 		if (project.getName() === getActiveProject().getName()) {
@@ -189,24 +188,17 @@ export function renderProjects() {
 
 export function renderTodos() {
 	const activeProject = getActiveProject();
-	const currentView = switchView();
+	const view = getView();
+	const wrapper = document.querySelector('.todo-wrapper');
 
-	if (!activeProject) {
-		if (titleHeader) {
-			titleHeader.textContent = 'No project Selected';
-			const message = document.createElement('p');
-			message.classList.add('empty-message');
-			message.textContent =
-				'Select a project from the sidebar to view tasks.';
-			todoListContainer.appendChild(message);
-		}
-		return;
-	}
+	if (!wrapper) return;
 
-	if (currentView === 'DASHBOARD') {
+	if (view === 'DASHBOARD') {
 		switchView('DASHBOARD', getAllProjects());
 	} else {
-		switchView('SINGLE', activeProject);
+		if (activeProject) {
+			switchView('SINGLE', activeProject);
+		}
 	}
 }
 
