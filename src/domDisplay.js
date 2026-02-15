@@ -19,6 +19,11 @@ export function setUI() {
 	const projectList = document.querySelector('#project-list');
 	sidebar.appendChild(projectList);
 
+	const overviewBtn = document.querySelector('#overview-btn');
+	overviewBtn.addEventListener('click', () => {
+		switchView('DASHBOARD', getAllProjects());
+	});
+
 	const resetBtn = document.createElement('button');
 	resetBtn.textContent = 'Restore Demo Story';
 	resetBtn.classList.add('reset-demo-btn');
@@ -189,7 +194,7 @@ export function renderProjects() {
 	});
 }
 
-export function renderTodos() {
+export function renderTodos(currentView) {
 	const activeProject = getActiveProject();
 
 	if (!activeProject) {
@@ -203,7 +208,6 @@ export function renderTodos() {
 		}
 		return;
 	}
-	const currentView = switchView();
 
 	if (currentView === 'DASHBOARD') {
 		switchView('DASHBOARD', getAllProjects());
