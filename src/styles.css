@@ -245,6 +245,30 @@ header {
 	background: var(--priority-high-soft);
 }
 
+.project-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1.5rem;
+}
+
+.clear-completed-btn {
+	background: transparent;
+	border: 1px solid var(--action-primary);
+	color: var(--action-primary);
+	padding: 5px 12px;
+	border-radius: 20px;
+	font-size: 0.8rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.clear-completed-btn:hover {
+	background: var(--action-primary);
+	color: var(--action-light);
+	opacity: 0.8;
+}
+
 #project-list {
 	display: flex;
 	flex-direction: column;

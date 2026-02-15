@@ -8,6 +8,7 @@ import {
 	removeTodoFromProject,
 	updateTodoFromProject,
 	renameProject,
+	clearCompletedTasks,
 } from './todoManager.js';
 import { createTodo } from './todo.js';
 import { createFormElement, getTodoForm } from './todoForm.js';
@@ -73,8 +74,25 @@ export function createList(contextData) {
 	const container = document.createElement('div');
 	container.classList.add('listContainer');
 
+	const headerContainer = document.createElement('div');
+	headerContainer.classList.add('project-header');
+
 	const titleHeader = document.createElement('h2');
 	titleHeader.textContent = contextData.getName();
+
+	const clearBtn = document.createElement('button');
+	clearBtn.textContent = 'Clear Completed';
+	clearBtn.classList.add('clear-completed-btn');
+
+	clearBtn.onclick = () => {
+		clearCompletedTasks(contextData);
+		renderTodos();
+	};
+
+	headerContainer.appendChild(titleHeader);
+	headerContainer.appendChild(clearBtn);
+	container.appendChild(headerContainer);
+
 	const projectCard = document.createElement('div');
 	projectCard.classList.add('project-card');
 
@@ -88,7 +106,7 @@ export function createList(contextData) {
 
 		projectCard.appendChild(todoElement);
 	});
-	container.appendChild(titleHeader);
+
 	container.appendChild(projectCard);
 	wrapper.appendChild(container);
 }
