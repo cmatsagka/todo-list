@@ -177,7 +177,7 @@ export function renderProjects() {
 		});
 
 		if (project.getName() === getActiveProject().getName()) {
-			projectElement.classList.add('active');
+			projectElement.classList.add('active-project');
 		}
 
 		btnGroup.appendChild(editProjectBtn);
@@ -191,6 +191,7 @@ export function renderTodos() {
 	const activeProject = getActiveProject();
 	const view = getView();
 	const wrapper = document.querySelector('.todo-wrapper');
+	const overviewBtn = document.querySelector('#overview-btn');
 
 	if (!wrapper) return;
 

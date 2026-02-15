@@ -283,6 +283,18 @@ header {
 	gap: 4px;
 }
 
+#overview-btn.active-project {
+	background: var(--action-primary);
+	color: var(--action-light);
+	border-radius: 8px;
+}
+
+.project-item.active-project {
+	background: var(--bg-sidebar);
+	border-left: 4px solid var(--action-primary);
+	padding-left: calc(1rem -4px);
+}
+
 .edit-btn {
 	opacity: 0.5;
 	transition: opacity 0.2s;
@@ -391,12 +403,12 @@ header {
 
 .todo-item.high-priority::before {
 	background-color: var(--priority-high-alt);
-	box-shadow: 2px 0 10px hsla(29, 96%, 56%, 0.3);
+	box-shadow: 2px 0 12px hsla(15, 61%, 51%, 0.3);
 }
 
 .todo-item.medium-priority::before {
 	background-color: var(--priority-high-soft);
-	box-shadow: 2px 0 10px hsla(358, 33%, 59%, 0.2);
+	box-shadow: 2px 0 12px hsla(37, 69%, 57%, 0.2);
 }
 
 .todo-title {
