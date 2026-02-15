@@ -44,7 +44,7 @@ export function createBoard(contextData) {
 
 	contextData.forEach((project) => {
 		const projectCard = document.createElement('div');
-		projectCard.classList.add('project-Card');
+		projectCard.classList.add('project-card');
 		const titleHeader = document.createElement('h3');
 		titleHeader.textContent = project.getName();
 		projectCard.appendChild(titleHeader);
@@ -68,6 +68,7 @@ export function createList(contextData) {
 	const titleHeader = document.createElement('h2');
 	titleHeader.textContent = contextData.getName();
 	const projectCard = document.createElement('div');
+	projectCard.classList.add('project-card');
 
 	const todos = contextData.getTodos();
 
