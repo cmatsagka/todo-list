@@ -440,6 +440,21 @@ header {
 	background-color: hsl(0, 0%, 73%);
 }
 
+.check-circle {
+	width: 20px;
+	height: 20px;
+	border: 2px solid var(--action-primary);
+	border-radius: 50%;
+	margin-right: 12px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	flex-shrink: 0;
+}
+
+.check-circle.checked {
+	background-color: var(--action-primary);
+}
+
 .todo-title {
 	font-weight: 600;
 	flex: 1;
