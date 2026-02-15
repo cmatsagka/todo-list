@@ -61,13 +61,10 @@ export function createList(contextData) {
 	const wrapper = document.querySelector('.todo-wrapper');
 	const container = document.createElement('div');
 	container.classList.add('listContainer');
+
 	const titleHeader = document.createElement('h2');
 	titleHeader.textContent = contextData.getName();
 	const projectCard = document.createElement('div');
-
-	if (titleHeader) {
-		titleHeader.textContent = contextData.getName();
-	}
 
 	const todos = contextData.getTodos();
 
@@ -76,6 +73,7 @@ export function createList(contextData) {
 
 		projectCard.appendChild(todoElement);
 	});
+	container.appendChild(titleHeader);
 	container.appendChild(projectCard);
 	wrapper.appendChild(container);
 }
