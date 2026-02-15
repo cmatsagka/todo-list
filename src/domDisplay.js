@@ -140,6 +140,8 @@ export function renderProjects() {
 		const projectElement = document.createElement('p');
 		projectElement.classList.add('project-item');
 		projectElement.textContent = project.getName();
+		const btnGroup = document.createElement('div');
+		btnGroup.classList.add('btn-group');
 
 		const editProjectBtn = document.createElement('button');
 		editProjectBtn.classList.add('edit-btn');
@@ -178,8 +180,9 @@ export function renderProjects() {
 			projectElement.classList.add('active');
 		}
 
-		projectElement.appendChild(editProjectBtn);
-		projectElement.appendChild(deleteProjectBtn);
+		btnGroup.appendChild(editProjectBtn);
+		btnGroup.appendChild(deleteProjectBtn);
+		projectElement.appendChild(btnGroup);
 		listContainer.appendChild(projectElement);
 	});
 }
