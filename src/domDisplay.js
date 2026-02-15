@@ -84,14 +84,7 @@ export function createList(contextData) {
 }
 
 export function createTodoElement(todo, index, project) {
-	if (!todo || todo.length === 0) {
-		const message = document.createElement('p');
-		message.classList.add('empty-message');
-		message.textContent =
-			'This project is empty. Click "+ New Task" to start!';
-		todoListContainer.appendChild(message);
-		return;
-	}
+	if (!todo) return null;
 
 	if (!todo) return;
 	const todoElement = document.createElement('div');
@@ -194,8 +187,9 @@ export function renderProjects() {
 	});
 }
 
-export function renderTodos(currentView) {
+export function renderTodos() {
 	const activeProject = getActiveProject();
+	const currentView = switchView();
 
 	if (!activeProject) {
 		if (titleHeader) {
