@@ -423,6 +423,23 @@ header {
 	box-shadow: 2px 0 12px hsla(37, 69%, 57%, 0.2);
 }
 
+.todo-item.completed {
+	opacity: 0.6;
+	background-color: hsal(0, 0%, 90%, 0.4);
+	border-left-color: hsl(0, 0%, 80%) !important;
+}
+
+.todo-item.completed .todo-title {
+	text-decoration: line-through;
+	color: var(--txt-main);
+	opacity: 0.5;
+}
+
+.todo-item.completed::before {
+	box-shadow: none;
+	background-color: hsl(0, 0%, 73%);
+}
+
 .todo-title {
 	font-weight: 600;
 	flex: 1;
