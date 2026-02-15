@@ -10,8 +10,8 @@
 	--action-hover: hsl(179, 41%, 22%);
 	--action-light: hsl(0, 0%, 100%);
 
-	--priority-high-alt: hsl(354, 45%, 50%);
-	--priority-high-soft: hsl(38, 60%, 55%);
+	--priority-high-alt: hsl(355, 40%, 45%);
+	--priority-high-soft: hsl(40, 50%, 50%);
 
 	--border-clr: hsla(16, 40%, 12%, 0.1);
 	--shadow-sm: 0 2px 8px -2px hsla(240, 7%, 19%, 0.15);
@@ -106,12 +106,13 @@ dialog::backdrop {
 
 #floating-add-btn {
 	position: fixed;
-	bottom: 80px;
+	bottom: 40px;
 	right: 40px;
 
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
+	border: 2px solid hsla(0, 0, 100%, 0.1);
 
 	background: var(--gradient-action);
 	color: var(--action-light);
@@ -120,8 +121,7 @@ dialog::backdrop {
 
 	border: none;
 	cursor: pointer;
-	box-shadow: var(--shadow-md);
-
+	box-shadow: 0 8px 20px -4px hsla(179, 41%, 20%, 0.3);
 	display: flex;
 	align-items: center;
 	justify-content: center;
