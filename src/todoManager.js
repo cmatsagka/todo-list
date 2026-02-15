@@ -31,6 +31,12 @@ export const setView = (newView) => {
 	currentView = newView;
 };
 
+export const clearCompletedTasks = (project) => {
+	const activeTasks = project.getTodos().filter((todo) => !todo.completed);
+	project.setTodos(activeTasks);
+	save(getAllProjects());
+};
+
 export const addProject = (name) => {
 	if (projects.some((p) => p.getName() === name)) return;
 
