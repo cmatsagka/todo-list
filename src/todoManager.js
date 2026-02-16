@@ -1,5 +1,6 @@
 import { createProject } from './project.js';
 import { load, save } from './storage.js';
+import { getTodos } from './project.js';
 
 let projects = [];
 let activeProject;
@@ -32,9 +33,28 @@ export const setView = (newView) => {
 };
 
 export const clearCompletedTasks = (project) => {
-	const activeTasks = project.getTodos().filter((todo) => !todo.completed);
-	project.setTodos(activeTasks);
-	save(getAllProjects());
+	const allProjects = getAllProjects();
+	const liveProject = allProjects.find(
+		(p) => p.getName() === project.getName()
+	);
+
+	if (!liveProject) return;
+
+	let currentTasks;
+	if (typeof liveProject.getTodos === 'function') {
+		currentTasks = liveProject.getTodos();
+	} else {
+		currentTasks = liveProject.todos;
+	}
+
+	const activeTasks = currentTasks.filter((todo) => !todo.completed);
+
+	if (liveProject.setTodos) {
+		liveProject.setTodos(activeTasks);
+	} else {
+		liveProject.todos = activeTasks;
+	}
+	save(allProjects);
 };
 
 export const addProject = (name) => {

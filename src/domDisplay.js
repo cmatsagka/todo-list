@@ -52,6 +52,21 @@ export function createBoard(contextData) {
 		titleHeader.textContent = project.getName();
 		projectCard.appendChild(titleHeader);
 
+		const header = document.createElement('div');
+		header.classList.add('project-header');
+
+		const clearBtn = document.createElement('button');
+		clearBtn.textContent = 'Clear Completed';
+		clearBtn.classList.add('clear-completed-btn');
+
+		clearBtn.onclick = () => {
+			clearCompletedTasks(contextData);
+			renderTodos();
+		};
+
+		projectCard.appendChild(header);
+		projectCard.appendChild(clearBtn);
+
 		const todos = project.getTodos();
 		const sortedTodos = [...todos].sort(
 			(a, b) => a.completed - b.completed
@@ -91,7 +106,6 @@ export function createList(contextData) {
 
 	headerContainer.appendChild(titleHeader);
 	headerContainer.appendChild(clearBtn);
-	container.appendChild(headerContainer);
 
 	const projectCard = document.createElement('div');
 	projectCard.classList.add('project-card');
@@ -107,6 +121,7 @@ export function createList(contextData) {
 		projectCard.appendChild(todoElement);
 	});
 
+	container.appendChild(headerContainer);
 	container.appendChild(projectCard);
 	wrapper.appendChild(container);
 }
