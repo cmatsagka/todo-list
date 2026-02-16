@@ -541,21 +541,30 @@ input:focus {
 	width: 100%;
 }
 
-.empty-project-msg {
-	text-align: center;
-	margin-top: 3rem;
-	font-size: 1.1rem;
-	color: var(--action-primary);
-}
-
-.empty-task-msg {
+.empty-task-btn {
+	display: block;
+	width: 100%;
 	text-align: center;
 	padding: 1.5rem;
-	color: hsl(215, 20%, 65%);
-	font-size: 0.9rem;
+	color: var(--action-primary);
+	background: transparent;
 	border: 2px solid var(--border-clr);
-	border-radius: 8px;
-	margin: 10px 0;
+	border-radius: 12px;
+	font-size: 0.95rem;
+	font-weight: 600;
+	transition: all 0.2s ease-in-out;
+}
+
+.empty-task-btn:hover {
+	background-color: hsla(179, 41%, 32%, 0.05);
+	border-color: var(--action-primary);
+	color: var(--action-light);
+	transform: translateY(-2px);
+	cursor: pointer;
+}
+
+.empty-task-btn:active {
+	transform: translateY(0);
 }
 
 .todo-date.overdue {
