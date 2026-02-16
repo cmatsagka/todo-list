@@ -60,12 +60,8 @@ export const addProject = (name) => {
 export const deleteProject = (projectName) => {
 	projects = projects.filter((p) => p.getName() !== projectName);
 
-	if (projects.length === 0) {
-		const defaultProject = createProject('General');
-		projects.push(defaultProject);
-	}
 	if (activeProject && activeProject.getName() === projectName) {
-		activeProject = projects[0];
+		activeProject = projects.length > 0 ? projects[0] : null;
 	}
 	save(projects);
 };

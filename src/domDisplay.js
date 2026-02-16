@@ -261,12 +261,12 @@ export function renderProjects() {
 			e.stopPropagation();
 
 			const projectName = project.getName();
-			if (projectName === 'General') {
-				return alert('Cannot delete General project');
-			}
 
 			deleteProject(projectName);
-			setActiveProject('General');
+			const allProjects = getAllProjects();
+			if (allProjects.length > 0) {
+				setActiveProject(allProjects[0].getName());
+			}
 			renderProjects();
 			renderTodos();
 		});
@@ -300,6 +300,8 @@ export function renderTodos() {
 	} else {
 		if (activeProject) {
 			switchView('SINGLE', activeProject);
+		} else {
+			createBoard([]);
 		}
 	}
 }
@@ -427,7 +429,7 @@ export function handleTodoSubmit(data) {
 	let activeProject = getActiveProject();
 
 	if (!activeProject) {
-		alert('Please select or create a project first!');
+		alert('Please create a project firs before adding tasks!');
 		return;
 	}
 
