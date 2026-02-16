@@ -45,13 +45,6 @@ export function createBoard(contextData) {
 	const container = document.createElement('div');
 	container.classList.add('boardContainer');
 
-	if (contextData.length === 0) {
-		const msg = document.createElement('p');
-		msg.textContent = 'No  projects yet. Create one to get started!';
-		wrapper.appendChild(msg);
-		return;
-	}
-
 	contextData.forEach((project) => {
 		const projectCard = document.createElement('div');
 		projectCard.classList.add('project-card');
@@ -75,16 +68,24 @@ export function createBoard(contextData) {
 		projectCard.appendChild(clearBtn);
 
 		const todos = project.getTodos();
-		const sortedTodos = [...todos].sort(
-			(a, b) => a.completed - b.completed
-		);
 
-		sortedTodos.forEach((todo) => {
-			const realIndex = todos.indexOf(todo);
+		if (todos.length === 0) {
+			const emptyMsg = document.createElement('p');
+			emptyMsg.textContent = 'No tasks in this project!';
+			emptyMsg.classList.add('empty-task-msg');
+			projectCard.appendChild(emptyMsg);
+		} else {
+			const sortedTodos = [...todos].sort(
+				(a, b) => a.completed - b.completed
+			);
 
-			const todoElement = createTodoElement(todo, realIndex, project);
-			projectCard.appendChild(todoElement);
-		});
+			sortedTodos.forEach((todo) => {
+				const realIndex = todos.indexOf(todo);
+
+				const todoElement = createTodoElement(todo, realIndex, project);
+				projectCard.appendChild(todoElement);
+			});
+		}
 
 		container.appendChild(projectCard);
 	});
@@ -118,16 +119,25 @@ export function createList(project) {
 	projectCard.classList.add('project-card');
 
 	const todos = project.getTodos();
-	const sortedTodos = [...todos].sort((a, b) => a.completed - b.completed);
 
-	sortedTodos.forEach((todo) => {
-		const realIndex = todos.indexOf(todo);
+	if (todos.length === 0) {
+		const emptyMsg = document.createElement('p');
+		emptyMsg.textContent = 'No tasks in this project!';
+		emptyMsg.classList.add('empty-task-msg');
+		projectCard.appendChild(emptyMsg);
+	} else {
+		const sortedTodos = [...todos].sort(
+			(a, b) => a.completed - b.completed
+		);
 
-		const todoElement = createTodoElement(todo, realIndex, project);
+		sortedTodos.forEach((todo) => {
+			const realIndex = todos.indexOf(todo);
 
-		projectCard.appendChild(todoElement);
-	});
+			const todoElement = createTodoElement(todo, realIndex, project);
 
+			projectCard.appendChild(todoElement);
+		});
+	}
 	container.appendChild(headerContainer);
 	container.appendChild(projectCard);
 	wrapper.appendChild(container);
