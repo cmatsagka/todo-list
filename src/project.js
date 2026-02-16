@@ -17,7 +17,7 @@ export function createProject(name) {
 		return todos.slice();
 	};
 
-	const setTodos = () => {
+	const setTodos = (newTodos) => {
 		todos = newTodos;
 	};
 

@@ -267,7 +267,7 @@ export function renderTodos() {
 	const activeProject = getActiveProject();
 	const view = getView();
 	const wrapper = document.querySelector('.todo-wrapper');
-	const overviewBtn = document.querySelector('#overview-btn');
+	wrapper.textContent = '';
 
 	if (!wrapper) return;
 

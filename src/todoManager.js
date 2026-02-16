@@ -24,12 +24,8 @@ export const clearCompletedTasks = () => {
 	if (!liveProject) return;
 
 	const activeTasks = liveProject.getTodos().filter((t) => !t.completed);
-	const currentTodos = liveProject.getTodos();
-	currentTodos.length = 0;
+	liveProject.setTodos(activeTasks);
 
-	activeTasks.forEach((task) => {
-		liveProject.addTodo(task);
-	});
 	save(projects);
 };
 
