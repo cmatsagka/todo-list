@@ -374,7 +374,12 @@ export function showProjectModal() {
 		if (name !== '') {
 			addProject(name);
 			closeModal();
+
+			const newProject = getActiveProject();
+			setActiveProject(name);
+			switchView('SINGLE', newProject);
 			renderProjects();
+			renderTodos();
 		}
 	});
 

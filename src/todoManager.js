@@ -55,6 +55,7 @@ export const addProject = (name) => {
 	const newProject = createProject(name);
 	projects.push(newProject);
 	save(projects);
+	activeProject = newProject;
 };
 
 export const deleteProject = (projectName) => {
