@@ -46,8 +46,12 @@ export function createBoard(contextData) {
 	if (contextData.length === 0) {
 		const msg = document.createElement('p');
 		msg.classList.add('empty-project-msg');
-		msg.textContent = 'No  projects yet. Create one to get started!';
+		msg.textContent =
+			'No  projects yet. Click the + button below to get started!';
 		wrapper.appendChild(msg);
+
+		const fab = document.querySelector('#floating-add-btn');
+		fab.classList.add('pulse-hint');
 		return;
 	}
 
