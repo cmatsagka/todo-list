@@ -548,9 +548,10 @@ input:focus {
 
 .empty-task-btn {
 	display: block;
-	width: auto;
+	width: fit-content;
+	min-width: 200px;
 	text-align: center;
-	padding: 1rem;
+	padding: 1rem 2rem;
 	color: var(--action-primary);
 	background: transparent;
 	border: 2px dashed var(--border-clr);
@@ -558,6 +559,12 @@ input:focus {
 	font-size: 0.95rem;
 	font-weight: 600;
 	transition: all 0.2s ease-in-out;
+}
+
+.listContainer .empty-task-btn {
+	width: 100%;
+	max-width: none;
+	align-self: stretch;
 }
 
 .empty-task-btn:hover {
