@@ -76,10 +76,10 @@ export function createBoard(contextData) {
 		const todos = project.getTodos();
 
 		if (todos.length === 0) {
-			const emptyMsg = document.createElement('p');
-			emptyMsg.textContent = 'No tasks in this project!';
-			emptyMsg.classList.add('empty-task-msg');
-			projectCard.appendChild(emptyMsg);
+			const emptyAddBtn = document.createElement('button');
+			emptyAddBtn.textContent = '+Add your first task';
+			emptyAddBtn.classList.add('empty-task-btn');
+			projectCard.appendChild(emptyAddBtn);
 		} else {
 			const sortedTodos = [...todos].sort((a, b) => {
 				if (a.completed !== b.completed) {
@@ -133,10 +133,10 @@ export function createList(project) {
 	const todos = project.getTodos();
 
 	if (todos.length === 0) {
-		const emptyMsg = document.createElement('p');
-		emptyMsg.textContent = 'No tasks in this project!';
-		emptyMsg.classList.add('empty-task-msg');
-		projectCard.appendChild(emptyMsg);
+		const emptyAddBtn = document.createElement('button');
+		emptyAddBtn.textContent = '+Add your first task';
+		emptyAddBtn.classList.add('empty-task-btn');
+		projectCard.appendChild(emptyAddBtn);
 	} else {
 		const sortedTodos = [...todos].sort((a, b) => {
 			if (a.completed !== b.completed) {

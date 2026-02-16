@@ -106,8 +106,8 @@ dialog::backdrop {
 
 #floating-add-btn {
 	position: fixed;
-	bottom: 40px;
-	right: 40px;
+	bottom: 120px;
+	right: 60px;
 
 	width: 50px;
 	height: 50px;
@@ -578,7 +578,7 @@ input:focus {
 }
 
 .warning {
-	color: var(--priority-high-alt);
+	color: var(--priority-high-soft);
 	font-size: 0.9rem;
 	font-weight: 600;
 }
