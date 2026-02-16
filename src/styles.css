@@ -257,6 +257,7 @@ header {
 	color: var(--action-primary);
 	padding: 5px 12px;
 	border-radius: 20px;
+	margin-bottom: 0.5rem;
 	font-size: 0.8rem;
 	cursor: pointer;
 	transition: all 0.2s ease;
@@ -422,6 +423,10 @@ header {
 	height: max-content;
 }
 
+.project-card {
+	align-items: flex-start;
+}
+
 .todo-wrapper:has(.listContainer) {
 	justify-content: center;
 }
@@ -543,9 +548,9 @@ input:focus {
 
 .empty-task-btn {
 	display: block;
-	width: 100%;
+	width: auto;
 	text-align: center;
-	padding: 1.5rem;
+	padding: 1rem;
 	color: var(--action-primary);
 	background: transparent;
 	border: 2px dashed var(--border-clr);
