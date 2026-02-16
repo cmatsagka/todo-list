@@ -31,12 +31,7 @@ export function setUI() {
 	resetBtn.textContent = 'Restore Demo Story';
 	resetBtn.classList.add('reset-demo-btn');
 	resetBtn.addEventListener('click', () => {
-		if (
-			confirm('Restore the demo? This will clear your current projects.')
-		) {
-			localStorage.clear();
-			window.location.reload();
-		}
+		showResetConfirmation();
 	});
 	sidebar.appendChild(resetBtn);
 }
@@ -522,4 +517,38 @@ export function performDelete(projectName) {
 	deleteProject(projectName);
 	renderProjects();
 	renderTodos();
+}
+
+export function showResetConfirmation() {
+	const container = document.createElement('div');
+	container.classList.add('confirm-modal');
+
+	const title = document.createElement('h3');
+	title.textContent = 'Restore Demo Story?';
+
+	const msg = document.createElement('p');
+	msg.textContent = `This will clear all your current projects and tasks and restore the original demo. This action cannot be undone.`;
+
+	const cancelBtn = document.createElement('button');
+	cancelBtn.textContent = 'keep My Data';
+	cancelBtn.classList.add('cancel-btn');
+	cancelBtn.onclick = closeModal;
+
+	const resetBtn = document.createElement('button');
+	resetBtn.textContent = 'Delete Everything';
+	resetBtn.classList.add('danger-btn');
+	resetBtn.onclick = () => {
+		localStorage.clear();
+		window.location.reload();
+	};
+
+	const btnGroup = document.createElement('div');
+	btnGroup.classList.add('confirm-btns');
+	btnGroup.appendChild(cancelBtn);
+	btnGroup.appendChild(resetBtn);
+
+	container.appendChild(title);
+	container.appendChild(msg);
+	container.appendChild(btnGroup);
+	showModal(container);
 }
