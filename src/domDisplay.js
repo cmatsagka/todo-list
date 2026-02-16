@@ -370,7 +370,7 @@ export function showProjectModal() {
 	saveBtn.textContent = 'Create Project';
 
 	saveBtn.addEventListener('click', () => {
-		const name = input.element.value;
+		const name = input.element.value.trim();
 		if (name !== '') {
 			addProject(name);
 			closeModal();
