@@ -91,7 +91,7 @@ export function createBoard(contextData) {
 	wrapper.appendChild(container);
 }
 
-export function createList(contextData) {
+export function createList(project) {
 	const wrapper = document.querySelector('.todo-wrapper');
 	const container = document.createElement('div');
 	container.classList.add('listContainer');
@@ -100,14 +100,14 @@ export function createList(contextData) {
 	headerContainer.classList.add('project-header');
 
 	const titleHeader = document.createElement('h2');
-	titleHeader.textContent = contextData.getName();
+	titleHeader.textContent = project.getName();
 
 	const clearBtn = document.createElement('button');
 	clearBtn.textContent = 'Clear Completed';
 	clearBtn.classList.add('clear-completed-btn');
 
 	clearBtn.onclick = () => {
-		clearCompletedTasks(contextData);
+		clearCompletedTasks(project);
 		renderTodos();
 	};
 
@@ -117,13 +117,13 @@ export function createList(contextData) {
 	const projectCard = document.createElement('div');
 	projectCard.classList.add('project-card');
 
-	const todos = contextData.getTodos();
+	const todos = project.getTodos();
 	const sortedTodos = [...todos].sort((a, b) => a.completed - b.completed);
 
 	sortedTodos.forEach((todo) => {
 		const realIndex = todos.indexOf(todo);
 
-		const todoElement = createTodoElement(todo, realIndex, contextData);
+		const todoElement = createTodoElement(todo, realIndex, project);
 
 		projectCard.appendChild(todoElement);
 	});
