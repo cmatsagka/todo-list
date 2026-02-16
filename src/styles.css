@@ -552,3 +552,8 @@ input:focus {
 	border-radius: 8px;
 	margin: 10px 0;
 }
+
+.todo-date.overdue {
+	color: var(--priority-high-alt);
+	font-weight: 700;
+}

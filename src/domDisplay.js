@@ -1,4 +1,4 @@
-import { format, parseISO, isPast, isToday } from 'date-fns';
+import { format, parseISO, isPast, isToday, compareAsc } from 'date-fns';
 import {
 	addProject,
 	getActiveProject,
@@ -17,7 +17,6 @@ import { closeModal, showModal } from './modal.js';
 import { switchView } from './viewController.js';
 import { getView } from './todoManager.js';
 import { save } from './storage.js';
-import { is } from 'date-fns/locale';
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
@@ -44,6 +43,8 @@ export function setUI() {
 
 export function createBoard(contextData) {
 	const wrapper = document.querySelector('.todo-wrapper');
+	if (!wrapper) return;
+	wrapper.textContent = '';
 	const container = document.createElement('div');
 	container.classList.add('boardContainer');
 
@@ -85,9 +86,15 @@ export function createBoard(contextData) {
 			emptyMsg.classList.add('empty-task-msg');
 			projectCard.appendChild(emptyMsg);
 		} else {
-			const sortedTodos = [...todos].sort(
-				(a, b) => a.completed - b.completed
-			);
+			const sortedTodos = [...todos].sort((a, b) => {
+				if (a.completed !== b.completed) {
+					return a.completed - b.completed;
+				}
+				if (a.dueDate && b.dueDate) {
+					return compareAsc(parseISO(a.dueDate), parseISO(b.dueDate));
+				}
+				return 0;
+			});
 
 			sortedTodos.forEach((todo) => {
 				const realIndex = todos.indexOf(todo);
@@ -136,9 +143,15 @@ export function createList(project) {
 		emptyMsg.classList.add('empty-task-msg');
 		projectCard.appendChild(emptyMsg);
 	} else {
-		const sortedTodos = [...todos].sort(
-			(a, b) => a.completed - b.completed
-		);
+		const sortedTodos = [...todos].sort((a, b) => {
+			if (a.completed !== b.completed) {
+				return a.completed - b.completed;
+			}
+			if (a.dueDate && b.dueDate) {
+				return compareAsc(parseISO(a.dueDate), parseISO(b.dueDate));
+			}
+			return 0;
+		});
 
 		sortedTodos.forEach((todo) => {
 			const realIndex = todos.indexOf(todo);
@@ -205,7 +218,7 @@ export function createTodoElement(todo, index, project) {
 
 			if (isPast(dateObj) && !isToday(dateObj) && !todo.completed) {
 				todoDate.classList.add('overdue');
-				todoDate.textContent += ' ⚠️';
+				todoDate.textContent += ' !';
 			}
 		} catch (error) {
 			todoDate.textContent = `Due: ${todo.dueDate}`;
