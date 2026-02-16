@@ -19,14 +19,34 @@ export const setView = (newView) => {
 	currentView = newView;
 };
 
-export const clearCompletedTasks = () => {
-	const liveProject = getActiveProject();
-	if (!liveProject) return;
+export const clearCompletedTasks = (projectToClear) => {
+	const target = projectToClear || getActiveProject();
+	if (!target) return;
 
-	const activeTasks = liveProject.getTodos().filter((t) => !t.completed);
-	liveProject.setTodos(activeTasks);
+	const targetName =
+		typeof target.getName === 'function' ? target.getName() : target.name;
 
-	save(projects);
+	const liveProject = projects.find((p) => {
+		const pName = typeof p.getName === 'function' ? p.getName() : p.name;
+		return pName === targetName;
+	});
+
+	if (liveProject) {
+		const todos =
+			typeof liveProject.getTodos === 'function'
+				? liveProject.getTodos()
+				: liveProject.todos;
+
+		const activeTasks = todos.filter((t) => !t.completed);
+
+		if (typeof liveProject.setTodos === 'function') {
+			liveProject.setTodos(activeTasks);
+		} else {
+			liveProject.todos = activeTasks;
+		}
+
+		save(projects);
+	}
 };
 
 export const addProject = (name) => {
@@ -40,6 +60,10 @@ export const addProject = (name) => {
 export const deleteProject = (projectName) => {
 	projects = projects.filter((p) => p.getName() !== projectName);
 
+	if (projects.length === 0) {
+		const defaultProject = createProject('General');
+		projects.push(defaultProject);
+	}
 	if (activeProject && activeProject.getName() === projectName) {
 		activeProject = projects[0];
 	}

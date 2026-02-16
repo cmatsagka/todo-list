@@ -45,6 +45,13 @@ export function createBoard(contextData) {
 	const container = document.createElement('div');
 	container.classList.add('boardContainer');
 
+	if (contextData.length === 0) {
+		const msg = document.createElement('p');
+		msg.textContent = 'No  projects yet. Create one to get started!';
+		wrapper.appendChild(msg);
+		return;
+	}
+
 	contextData.forEach((project) => {
 		const projectCard = document.createElement('div');
 		projectCard.classList.add('project-card');
@@ -60,7 +67,7 @@ export function createBoard(contextData) {
 		clearBtn.classList.add('clear-completed-btn');
 
 		clearBtn.onclick = () => {
-			clearCompletedTasks(contextData);
+			clearCompletedTasks(project);
 			renderTodos();
 		};
 
@@ -100,7 +107,7 @@ export function createList(contextData) {
 	clearBtn.classList.add('clear-completed-btn');
 
 	clearBtn.onclick = () => {
-		clearCompletedTasks();
+		clearCompletedTasks(project);
 		renderTodos();
 	};
 
@@ -267,9 +274,8 @@ export function renderTodos() {
 	const activeProject = getActiveProject();
 	const view = getView();
 	const wrapper = document.querySelector('.todo-wrapper');
-	wrapper.textContent = '';
-
 	if (!wrapper) return;
+	wrapper.textContent = '';
 
 	if (view === 'DASHBOARD') {
 		switchView('DASHBOARD', getAllProjects());
