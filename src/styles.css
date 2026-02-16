@@ -535,3 +535,19 @@ input:focus {
 .app-container.focus-mode ~ .site-footer {
 	width: 100%;
 }
+
+.empty-project-msg {
+	text-align: center;
+	margin-top: 3rem;
+	font-size: 1.1rem;
+}
+
+.empty-task-msg {
+	text-align: center;
+	padding: 1.5rem;
+	color: hsl(215, 20%, 65%);
+	font-size: 0.9rem;
+	border: 2px solid var(--border-clr);
+	border-radius: 8px;
+	margin: 10px 0;
+}

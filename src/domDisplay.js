@@ -45,6 +45,14 @@ export function createBoard(contextData) {
 	const container = document.createElement('div');
 	container.classList.add('boardContainer');
 
+	if (contextData.length === 0) {
+		const msg = document.createElement('p');
+		msg.classList.add('empty-project-msg');
+		msg.textContent = 'No  projects yet. Create one to get started!';
+		wrapper.appendChild(msg);
+		return;
+	}
+
 	contextData.forEach((project) => {
 		const projectCard = document.createElement('div');
 		projectCard.classList.add('project-card');
