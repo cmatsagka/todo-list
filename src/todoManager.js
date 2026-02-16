@@ -1,28 +1,15 @@
 import { createProject } from './project.js';
 import { load, save } from './storage.js';
-import { getTodos } from './project.js';
 
-let projects = [];
-let activeProject;
+let projects = load() || [];
 
-const rawData = load();
-
-if (!rawData) {
+if (projects.length === 0) {
 	const defaultProject = createProject('General');
 	projects.push(defaultProject);
-} else {
-	rawData.forEach((projectData) => {
-		let newProject = createProject(projectData.name);
-
-		const todos = projectData.todos;
-
-		todos.forEach((todo) => {
-			newProject.addTodo(todo);
-		});
-		projects.push(newProject);
-	});
+	save(projects);
 }
-activeProject = projects[0] || null;
+
+let activeProject = projects[0];
 
 let currentView = 'DASHBOARD';
 
@@ -32,45 +19,18 @@ export const setView = (newView) => {
 	currentView = newView;
 };
 
-export const clearCompletedTasks = (project) => {
-	const allProjects = getAllProjects();
-	let targetName;
-
-	if (typeof project.getName === 'function') {
-		targetName = project.getName();
-	} else {
-		targetName = project.name;
-	}
-
-	const liveProject = allProjects.find((p) => {
-		let projectName;
-
-		if (typeof p.getName === 'function') {
-			projectName = p.getName();
-		} else {
-			projectName = p.name;
-		}
-
-		return projectName === targetName;
-	});
-
+export const clearCompletedTasks = () => {
+	const liveProject = getActiveProject();
 	if (!liveProject) return;
 
-	let currentTasks;
-	if (typeof liveProject.getTodos === 'function') {
-		currentTasks = liveProject.getTodos();
-	} else {
-		currentTasks = liveProject.todos;
-	}
+	const activeTasks = liveProject.getTodos().filter((t) => !t.completed);
+	const currentTodos = liveProject.getTodos();
+	currentTodos.length = 0;
 
-	const activeTasks = currentTasks.filter((todo) => !todo.completed);
-
-	if (liveProject.setTodos) {
-		liveProject.setTodos(activeTasks);
-	} else {
-		liveProject.todos = activeTasks;
-	}
-	save(allProjects);
+	activeTasks.forEach((task) => {
+		liveProject.addTodo(task);
+	});
+	save(projects);
 };
 
 export const addProject = (name) => {

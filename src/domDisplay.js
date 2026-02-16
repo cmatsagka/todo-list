@@ -100,7 +100,7 @@ export function createList(contextData) {
 	clearBtn.classList.add('clear-completed-btn');
 
 	clearBtn.onclick = () => {
-		clearCompletedTasks(contextData);
+		clearCompletedTasks();
 		renderTodos();
 	};
 

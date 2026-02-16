@@ -17,6 +17,10 @@ export function createProject(name) {
 		return todos.slice();
 	};
 
+	const setTodos = () => {
+		todos = newTodos;
+	};
+
 	const deleteTodo = (index) => {
 		todos.splice(index, 1);
 	};
@@ -25,5 +29,13 @@ export function createProject(name) {
 		todos[index] = newData;
 	};
 
-	return { getName, setName, addTodo, getTodos, deleteTodo, updateTodo };
+	return {
+		getName,
+		setName,
+		addTodo,
+		getTodos,
+		setTodos,
+		deleteTodo,
+		updateTodo,
+	};
 }

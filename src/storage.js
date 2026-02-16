@@ -1,3 +1,6 @@
+import { createProject } from './project.js';
+import { createTodo } from './todo.js';
+
 export function save(projects) {
 	const data = projects.map((project) => {
 		return { name: project.getName(), todos: project.getTodos() };
@@ -12,7 +15,6 @@ export function load() {
 	const key = 'todo_app_data';
 
 	const rawJSON = localStorage.getItem(key);
-
 	if (!rawJSON) return null;
 
 	const rawData = JSON.parse(rawJSON);
