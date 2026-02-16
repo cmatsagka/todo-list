@@ -1,3 +1,4 @@
+import { format, parseISO, isPast, isToday } from 'date-fns';
 import {
 	addProject,
 	getActiveProject,
@@ -16,6 +17,7 @@ import { closeModal, showModal } from './modal.js';
 import { switchView } from './viewController.js';
 import { getView } from './todoManager.js';
 import { save } from './storage.js';
+import { is } from 'date-fns/locale';
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
@@ -192,10 +194,22 @@ export function createTodoElement(todo, index, project) {
 	todoTitle.textContent = `${todo.title}`;
 	todoElement.appendChild(todoTitle);
 
-	if (todo.dueDate !== '') {
+	if (todo.dueDate && todo.dueDate !== '') {
 		const todoDate = document.createElement('div');
 		todoDate.classList.add('todo-date');
-		todoDate.textContent = `Due: ${todo.dueDate}`;
+
+		try {
+			const dateObj = parseISO(todo.dueDate);
+			const formattedDate = format(dateObj, 'MMM do, yyyy');
+			todoDate.textContent = `Due: ${formattedDate}`;
+
+			if (isPast(dateObj) && !isToday(dateObj) && !todo.completed) {
+				todoDate.classList.add('overdue');
+				todoDate.textContent += ' ⚠️';
+			}
+		} catch (error) {
+			todoDate.textContent = `Due: ${todo.dueDate}`;
+		}
 
 		todoElement.appendChild(todoDate);
 	}
