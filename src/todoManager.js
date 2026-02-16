@@ -34,9 +34,25 @@ export const setView = (newView) => {
 
 export const clearCompletedTasks = (project) => {
 	const allProjects = getAllProjects();
-	const liveProject = allProjects.find(
-		(p) => p.getName() === project.getName()
-	);
+	let targetName;
+
+	if (typeof project.getName === 'function') {
+		targetName = project.getName();
+	} else {
+		targetName = project.name;
+	}
+
+	const liveProject = allProjects.find((p) => {
+		let projectName;
+
+		if (typeof p.getName === 'function') {
+			projectName = p.getName();
+		} else {
+			projectName = p.name;
+		}
+
+		return projectName === targetName;
+	});
 
 	if (!liveProject) return;
 
