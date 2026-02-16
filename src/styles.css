@@ -583,6 +583,48 @@ input:focus {
 	font-weight: 600;
 }
 
+.ghost-card {
+	border: 2px dashed var(--border-clr) !important;
+	background: transparent !important;
+	box-shadow: none io !important;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 3rem 2rem !important;
+	min-width: 300px;
+	gap: 1rem;
+	cursor: default;
+}
+
+.ghost-card h3 {
+	color: var(--action-primary);
+	opacity: 0.8;
+}
+
+.ghost-card p {
+	font-size: 0.9rem;
+	color: var(--txt-main);
+	opacity: 0.6;
+	max-width: 200px;
+}
+
+.ghost-cta-btn {
+	margin-top: 1rem;
+	background: var(--action-primary);
+	color: var(--action-light);
+	font-weight: 600;
+	border-radius: 8px;
+	padding: 0.8rem 1.5rem;
+	transition: transform 0.2s ease;
+}
+
+.ghost-cta-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
+}
+
 .pulse-hint {
 	animation: pulse-animation 2s infinite;
 }

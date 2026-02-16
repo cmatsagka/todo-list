@@ -44,14 +44,34 @@ export function createBoard(contextData) {
 	container.classList.add('boardContainer');
 
 	if (contextData.length === 0) {
-		const msg = document.createElement('p');
-		msg.classList.add('empty-project-msg');
-		msg.textContent =
-			'No  projects yet. Click the + button below to get started!';
-		wrapper.appendChild(msg);
+		const ghostCard = document.createElement('div');
+		ghostCard.classList.add('project-card', 'ghost-card');
+
+		const ghostTitle = document.createElement('h3');
+		ghostTitle.textContent = 'No Projects Yet';
+
+		const ghostText = document.createElement('p');
+		ghostText.textContent =
+			'Organize your tasks by creating your first project';
+
+		const ghostBtn = document.createElement('button');
+		ghostBtn.textContent = '+ Create Project';
+		ghostBtn.classList.add('ghost-cta-btn');
+
+		ghostBtn.onclick = () => {
+			showProjectModal();
+		};
+
+		ghostCard.appendChild(ghostTitle);
+		ghostCard.appendChild(ghostText);
+		ghostCard.appendChild(ghostBtn);
+		wrapper.appendChild(ghostCard);
 
 		const fab = document.querySelector('#floating-add-btn');
 		fab.classList.add('pulse-hint');
+		setTimeout(() => {
+			(fab.classList.remove('pulse-hint'), 5000);
+		});
 		return;
 	}
 
