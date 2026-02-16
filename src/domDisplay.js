@@ -228,8 +228,9 @@ export function renderProjects() {
 	listContainer.textContent = '';
 	const overviewBtn = document.querySelector('#overview-btn');
 	const currentView = getView();
+	const activeProject = getActiveProject();
 
-	if (currentView === 'DASHBOARD') {
+	if (currentView === 'DASHBOARD' || !activeProject) {
 		overviewBtn.classList.add('active-project');
 	} else {
 		overviewBtn.classList.remove('active-project');
@@ -277,7 +278,7 @@ export function renderProjects() {
 			renderProjects();
 		});
 
-		if (project.getName() === getActiveProject().getName()) {
+		if (activeProject && project.getName() === activeProject.getName()) {
 			projectElement.classList.add('active-project');
 		}
 
@@ -301,7 +302,7 @@ export function renderTodos() {
 		if (activeProject) {
 			switchView('SINGLE', activeProject);
 		} else {
-			createBoard([]);
+			createBoard(getAllProjects());
 		}
 	}
 }

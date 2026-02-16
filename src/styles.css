@@ -540,6 +540,7 @@ input:focus {
 	text-align: center;
 	margin-top: 3rem;
 	font-size: 1.1rem;
+	color: var(--action-primary);
 }
 
 .empty-task-msg {
