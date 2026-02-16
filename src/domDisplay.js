@@ -67,11 +67,6 @@ export function createBoard(contextData) {
 		ghostCard.appendChild(ghostBtn);
 		wrapper.appendChild(ghostCard);
 
-		const fab = document.querySelector('#floating-add-btn');
-		fab.classList.add('pulse-hint');
-		setTimeout(() => {
-			(fab.classList.remove('pulse-hint'), 5000);
-		});
 		return;
 	}
 
@@ -100,6 +95,7 @@ export function createBoard(contextData) {
 		const todos = project.getTodos();
 
 		if (todos.length === 0) {
+			projectCard.classList.add('is-empty');
 			const emptyAddBtn = document.createElement('button');
 			emptyAddBtn.textContent = '+ Add your first task';
 			emptyAddBtn.classList.add('empty-task-btn');
@@ -547,6 +543,10 @@ export function showDeleteConfirmation(projectName, taskCount) {
 
 export function performDelete(projectName) {
 	deleteProject(projectName);
+	const active = getAllProjects();
+	if (!active) {
+		switchView('DASHBOARD', getAllProjects());
+	}
 	renderProjects();
 	renderTodos();
 }

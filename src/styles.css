@@ -68,7 +68,6 @@ button {
 	border: none;
 	cursor: pointer;
 	background: transparent;
-
 	transition: all 0.2s ease-in-out;
 }
 
@@ -260,6 +259,7 @@ header {
 	margin-bottom: 0.5rem;
 	font-size: 0.8rem;
 	cursor: pointer;
+	width: fit-content;
 	transition: all 0.2s ease;
 }
 
@@ -371,14 +371,11 @@ header {
 	padding-bottom: 80px;
 	display: flex;
 	flex-direction: column;
-	gap: 2rem;
 	height: 100%;
 	overflow: hidden;
-	min-height: 0;
 }
 
 .todo-wrapper {
-	margin: 0 auto;
 	display: flex;
 	gap: 1.5rem;
 	overflow: auto;
@@ -407,34 +404,59 @@ header {
 
 .boardContainer {
 	display: flex;
-	gap: 1.5rem;
-	flex-shrink: 0;
-	height: max-content;
+	align-items: flex-start;
+	padding-bottom: 2rem;
+	gap: 2rem;
+	max-width: max-content;
+	height: 100%;
 }
 
-.listContainer,
 .project-card {
 	display: flex;
 	flex-direction: column;
-	gap: 0.8rem;
-	max-width: 600px;
-	width: 100%;
+	gap: 1rem;
+	width: 320px;
 	flex-shrink: 0;
-	height: max-content;
+	height: fit-content;
+	padding: 1.5rem;
+	border-radius: 12px;
+	border: 1px solid var(--border-clr);
+	transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.project-card {
-	align-items: flex-start;
+.project-card.is-empty {
+	width: 240px;
+}
+
+.listContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+	max-width: 800px;
+	flex-shrink: 0;
+	height: fit-content;
+	margin: 0 auto;
+	padding: 1rem;
+}
+
+.listContainer .todo-item {
+	width: 100%;
+	flex-shrink: 0;
 }
 
 .todo-wrapper:has(.listContainer) {
 	justify-content: center;
+	overflow-x: hidden;
 }
 
 .todo-item {
+	display: flex;
+	align-items: center;
 	padding: 1.2rem 1.5rem;
 	position: relative;
 	overflow: hidden;
+	width: 100%;
 }
 
 .todo-item::before {
@@ -549,9 +571,9 @@ input:focus {
 .empty-task-btn {
 	display: block;
 	width: fit-content;
-	min-width: 200px;
+	min-width: 140px;
 	text-align: center;
-	padding: 1rem 2rem;
+	padding: 0.8rem 1.2rem;
 	color: var(--action-primary);
 	background: transparent;
 	border: 2px dashed var(--border-clr);
@@ -563,7 +585,6 @@ input:focus {
 
 .listContainer .empty-task-btn {
 	width: 100%;
-	max-width: none;
 	align-self: stretch;
 }
 
