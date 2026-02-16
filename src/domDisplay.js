@@ -262,14 +262,13 @@ export function renderProjects() {
 			e.stopPropagation();
 
 			const projectName = project.getName();
+			const taskCount = project.getTodos().length;
 
-			deleteProject(projectName);
-			const allProjects = getAllProjects();
-			if (allProjects.length > 0) {
-				setActiveProject(allProjects[0].getName());
+			if (taskCount > 0) {
+				showDeleteConfirmation(projectName, taskCount);
+			} else {
+				performDelete(projectName);
 			}
-			renderProjects();
-			renderTodos();
 		});
 
 		projectElement.addEventListener('click', () => {
@@ -450,4 +449,49 @@ export function handleTodoSubmit(data) {
 	} else {
 		alert('Please enter a title!');
 	}
+}
+
+export function showDeleteConfirmation(projectName, taskCount) {
+	const container = document.createElement('div');
+	container.classList.add('confirm-modal');
+
+	const deleteMsgTitle = document.createElement('h3');
+	deleteMsgTitle.textContent = 'Delete Project?';
+
+	const deleteMsgText = document.createElement('p');
+	deleteMsgText.textContent = `Are you sure you want to delete "${projectName}"?`;
+
+	const warningMsgText = document.createElement('p');
+	warningMsgText.textContent = `This will permanently remove ${taskCount} tasks.`;
+	warningMsgText.classList.add('warning');
+
+	const cancelBtn = document.createElement('button');
+	cancelBtn.textContent = 'Cancel';
+	cancelBtn.classList.add('cancel-btn');
+	cancelBtn.onclick = closeModal;
+
+	const deleteBtn = document.createElement('button');
+	deleteBtn.textContent = 'Delete Everything';
+	deleteBtn.classList.add('danger-btn');
+	deleteBtn.onclick = () => {
+		performDelete(projectName);
+		closeModal();
+	};
+
+	const btnGroup = document.createElement('div');
+	btnGroup.classList.add('confirm-btns');
+	btnGroup.appendChild(cancelBtn);
+	btnGroup.appendChild(deleteBtn);
+
+	container.appendChild(deleteMsgTitle);
+	container.appendChild(deleteMsgText);
+	container.appendChild(warningMsgText);
+	container.appendChild(btnGroup);
+	showModal(container);
+}
+
+export function performDelete(projectName) {
+	deleteProject(projectName);
+	renderProjects();
+	renderTodos();
 }
