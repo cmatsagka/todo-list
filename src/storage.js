@@ -11,12 +11,26 @@ export function save(projects) {
 export function load() {
 	const key = 'todo_app_data';
 
-	const project = localStorage.getItem(key);
+	const rawJSON = localStorage.getItem(key);
 
-	if (!project) {
-		return null;
-	}
+	if (!rawJSON) return null;
 
-	const data = JSON.parse(project);
-	return data;
+	const rawData = JSON.parse(rawJSON);
+
+	return rawData.map((projectData) => {
+		const project = createProject(projectData.name);
+
+		projectData.todos.forEach((todoData) => {
+			const todo = createTodo(
+				todoData.title,
+				todoData.description,
+				todoData.dueDate,
+				todoData.priority,
+				todoData.completed
+			);
+
+			project.addTodo(todo);
+		});
+		return project;
+	});
 }
