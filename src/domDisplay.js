@@ -162,8 +162,12 @@ export function createList(project) {
 
 	if (todos.length === 0) {
 		const emptyAddBtn = document.createElement('button');
-		emptyAddBtn.textContent = '+Add your first task';
+		emptyAddBtn.textContent = '+ Add your first task';
 		emptyAddBtn.classList.add('empty-task-btn');
+		emptyAddBtn.onclick = () => {
+			setActiveProject(project.getName());
+			showModal(getTodoForm(handleTodoSubmit));
+		};
 		projectCard.appendChild(emptyAddBtn);
 	} else {
 		const sortedTodos = [...todos].sort((a, b) => {

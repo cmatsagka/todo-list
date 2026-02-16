@@ -548,7 +548,7 @@ input:focus {
 	padding: 1.5rem;
 	color: var(--action-primary);
 	background: transparent;
-	border: 2px solid var(--border-clr);
+	border: 2px dashed var(--border-clr);
 	border-radius: 12px;
 	font-size: 0.95rem;
 	font-weight: 600;
@@ -556,7 +556,7 @@ input:focus {
 }
 
 .empty-task-btn:hover {
-	background-color: hsla(179, 41%, 32%, 0.05);
+	background-color: var(--action-primary);
 	border-color: var(--action-primary);
 	color: var(--action-light);
 	transform: translateY(-2px);
@@ -595,7 +595,7 @@ input:focus {
 .ghost-card {
 	border: 2px dashed var(--border-clr) !important;
 	background: transparent !important;
-	box-shadow: none io !important;
+	box-shadow: none !important;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
