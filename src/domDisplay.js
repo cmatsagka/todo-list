@@ -331,6 +331,7 @@ export function renderTodos() {
 			createBoard(getAllProjects());
 		}
 	}
+	window.scrollTo(0, 0);
 }
 
 export function setupFocusMode() {
