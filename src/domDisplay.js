@@ -16,7 +16,9 @@ import { createFormElement, getTodoForm } from './todoForm.js';
 import { closeModal, showModal } from './modal.js';
 import { switchView } from './viewController.js';
 import { getView } from './todoManager.js';
+import { createTodoElement } from './todoComponent.js';
 import { save } from './storage.js';
+import { createGhostCard, createSidebarItem } from './projectComponent.js';
 
 export function setUI() {
 	const sidebar = document.querySelector('#sidebar');
@@ -40,35 +42,17 @@ export function createBoard(contextData) {
 	const wrapper = document.querySelector('.todo-wrapper');
 	if (!wrapper) return;
 	wrapper.textContent = '';
-	const container = document.createElement('div');
-	container.classList.add('boardContainer');
 
 	if (contextData.length === 0) {
-		const ghostCard = document.createElement('div');
-		ghostCard.classList.add('project-card', 'ghost-card');
-
-		const ghostTitle = document.createElement('h3');
-		ghostTitle.textContent = 'No Projects Yet';
-
-		const ghostText = document.createElement('p');
-		ghostText.textContent =
-			'Organize your tasks by creating your first project';
-
-		const ghostBtn = document.createElement('button');
-		ghostBtn.textContent = '+ Create Project';
-		ghostBtn.classList.add('ghost-cta-btn');
-
-		ghostBtn.onclick = () => {
+		const ghostCard = createGhostCard(() => {
 			showProjectModal();
-		};
-
-		ghostCard.appendChild(ghostTitle);
-		ghostCard.appendChild(ghostText);
-		ghostCard.appendChild(ghostBtn);
+		});
 		wrapper.appendChild(ghostCard);
-
 		return;
 	}
+
+	const container = document.createElement('div');
+	container.classList.add('boardContainer');
 
 	contextData.forEach((project) => {
 		const projectCard = document.createElement('div');
@@ -189,152 +173,45 @@ export function createList(project) {
 	wrapper.appendChild(container);
 }
 
-export function createTodoElement(todo, index, project) {
-	if (!todo) return null;
-
-	const todoElement = document.createElement('div');
-	todoElement.classList.add('todo-item');
-
-	if (todo.completed) {
-		todoElement.classList.add('completed');
-	}
-
-	const checkBtn = document.createElement('div');
-	checkBtn.classList.add('check-circle');
-
-	if (todo.completed) {
-		checkBtn.classList.add('checked');
-	}
-
-	checkBtn.addEventListener('click', (e) => {
-		e.stopPropagation();
-		todo.completed = !todo.completed;
-
-		todoElement.classList.toggle('completed');
-		checkBtn.classList.toggle('checked');
-
-		save(getAllProjects());
-		renderTodos();
-	});
-
-	if (todo.priority === 'high') {
-		todoElement.classList.add('high-priority');
-	}
-
-	if (todo.priority === 'medium') {
-		todoElement.classList.add('medium-priority');
-	}
-
-	const todoTitle = document.createElement('div');
-	todoTitle.classList.add('todo-title');
-	todoTitle.textContent = `${todo.title}`;
-	todoTitle.setAttribute('title', todo.title);
-	todoElement.appendChild(todoTitle);
-
-	if (todo.dueDate && todo.dueDate !== '') {
-		const todoDate = document.createElement('div');
-		todoDate.classList.add('todo-date');
-
-		try {
-			const dateObj = parseISO(todo.dueDate);
-			const formattedDate = format(dateObj, 'MMM do, yyyy');
-			todoDate.textContent = `Due: ${formattedDate}`;
-
-			if (isPast(dateObj) && !isToday(dateObj) && !todo.completed) {
-				todoDate.classList.add('overdue');
-				todoDate.textContent += ' !';
-			}
-		} catch (error) {
-			todoDate.textContent = `Due: ${todo.dueDate}`;
-		}
-
-		todoElement.appendChild(todoDate);
-	}
-
-	const deleteBtn = document.createElement('button');
-	deleteBtn.classList.add('delete-btn');
-	deleteBtn.textContent = 'X';
-
-	deleteBtn.addEventListener('click', (e) => {
-		e.stopPropagation();
-		removeTodoFromProject(project, index);
-		renderTodos();
-	});
-
-	todoElement.addEventListener('click', () => {
-		if (todo.completed) return;
-		const newForm = getTodoForm((newData) => {
-			updateTodo(project, index, newData);
-		}, todo);
-		showModal(newForm);
-	});
-
-	todoElement.appendChild(checkBtn);
-	todoElement.appendChild(deleteBtn);
-	return todoElement;
-}
-
 export function renderProjects() {
 	const listContainer = document.querySelector('#project-list');
 	listContainer.textContent = '';
-	const overviewBtn = document.querySelector('#overview-btn');
-	const currentView = getView();
 	const activeProject = getActiveProject();
+	const currentView = getView();
 
-	if (currentView === 'DASHBOARD' || !activeProject) {
-		overviewBtn.classList.add('active-project');
-	} else {
-		overviewBtn.classList.remove('active-project');
-	}
+	const overviewBtn = document.querySelector('#overview-btn');
+	overviewBtn.classList.toggle(
+		'active-project',
+		currentView === 'DASHBOARD' || !activeProject
+	);
 
 	const projects = getAllProjects();
 
 	projects.forEach((project) => {
-		const projectElement = document.createElement('p');
-		projectElement.classList.add('project-item');
-		projectElement.textContent = project.getName();
-		const btnGroup = document.createElement('div');
-		btnGroup.classList.add('btn-group');
+		const isActive =
+			activeProject && project.getName() === activeProject.getName();
 
-		const editProjectBtn = document.createElement('button');
-		editProjectBtn.classList.add('edit-btn');
-		editProjectBtn.textContent = '✎';
+		const projectElement = createSidebarItem(
+			project,
+			(p) => {
+				setActiveProject(p.getName());
+				switchView('SINGLE', p);
+				renderProjects();
+			},
+			(p) => {
+				showEditProjectModal(p.getName());
+			},
+			(p) => {
+				const taskCount = p.getTodos().length;
+				if (taskCount > 0) {
+					showDeleteConfirmation(p.getName(), taskCount);
+				} else {
+					performDelete(p.getName());
+				}
+			},
+			isActive
+		);
 
-		editProjectBtn.addEventListener('click', (e) => {
-			e.stopPropagation();
-			showEditProjectModal(project.getName());
-		});
-
-		const deleteProjectBtn = document.createElement('button');
-		deleteProjectBtn.classList.add('delete-btn');
-		deleteProjectBtn.textContent = 'X';
-
-		deleteProjectBtn.addEventListener('click', (e) => {
-			e.stopPropagation();
-
-			const projectName = project.getName();
-			const taskCount = project.getTodos().length;
-
-			if (taskCount > 0) {
-				showDeleteConfirmation(projectName, taskCount);
-			} else {
-				performDelete(projectName);
-			}
-		});
-
-		projectElement.addEventListener('click', () => {
-			setActiveProject(project.getName());
-			switchView('SINGLE', project);
-			renderProjects();
-		});
-
-		if (activeProject && project.getName() === activeProject.getName()) {
-			projectElement.classList.add('active-project');
-		}
-
-		btnGroup.appendChild(editProjectBtn);
-		btnGroup.appendChild(deleteProjectBtn);
-		projectElement.appendChild(btnGroup);
 		listContainer.appendChild(projectElement);
 	});
 }
