@@ -29,6 +29,10 @@ export function showModal(contentElement) {
 		}
 	});
 
+	dialog.addEventListener('cancel', () => {
+		dialog.remove();
+	});
+
 	document.body.appendChild(dialog);
 	dialog.showModal();
 	return dialog;
