@@ -34,12 +34,10 @@ export const loadDemoStory = () => {
 		);
 	}
 
-	const addDemo = (name, task) => {
+	const addDemo = (name, ...tasks) => {
 		addProject(name);
 		const project = getActiveProject();
-		clearCompletedTasks.forEach((t) =>
-			addTodoToProject(project, createTodo(...t))
-		);
+		tasks.forEach((t) => addTodoToProject(project, createTodo(...t)));
 	};
 
 	addDemo(
