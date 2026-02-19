@@ -1,4 +1,4 @@
-import { format, parseISO, isPast, isToday, compareAsc } from 'date-fns';
+import { parseISO, compareAsc } from 'date-fns';
 import {
 	addProject,
 	getActiveProject,
@@ -268,6 +268,44 @@ export function renderTodos() {
 		}
 	}
 	window.scrollTo(0, 0);
+}
+
+export function renderTodoList(project, container) {
+	const todos = project.getTodos();
+
+	const sortedTodos = [...todos].sort((a, b) => {
+		if (a.completed !== b.completed) {
+			return a.completed - b.completed;
+		}
+		if (a.dueDate && b.dueDate) {
+			return compareAsc(parseISO(a.dueDate), parseISO(b.dueDate));
+		}
+		return 0;
+	});
+
+	sortedTodos.forEach((todo) => {
+		const todoElement = createTodoElement(
+			todo,
+			(t) => {
+				t.completed = !t.completed;
+				save(getAllProjects());
+				renderTodos();
+			},
+			(t) => {
+				removeTodoFromProject(project, t);
+				renderTodos();
+			},
+			(t) => {
+				if (t.completed) return;
+				const newForm = getTodoForm((newData) => {
+					updateTodo(project, t, newData);
+				}, t);
+				showModal(newForm);
+			}
+		);
+
+		container.appendChild(todoElement);
+	});
 }
 
 export function setupFocusMode() {
