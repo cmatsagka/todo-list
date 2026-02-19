@@ -228,6 +228,7 @@ export function createTodoElement(todo, index, project) {
 	const todoTitle = document.createElement('div');
 	todoTitle.classList.add('todo-title');
 	todoTitle.textContent = `${todo.title}`;
+	todoTitle.setAttribute('title', todo.title);
 	todoElement.appendChild(todoTitle);
 
 	if (todo.dueDate && todo.dueDate !== '') {
