@@ -1,44 +1,26 @@
-export function createTodoElement(todo, index, project) {
+export function createTodoElement(todo, onToggle, onDelete, onEdit) {
 	if (!todo) return null;
 
 	const todoElement = document.createElement('div');
 	todoElement.classList.add('todo-item');
 
-	if (todo.completed) {
-		todoElement.classList.add('completed');
-	}
+	todoElement.classList.toggle('completed', todo.completed);
+	todoElement.classList.toggle('high-priority', todo.priority === 'high');
+	todoElement.classList.toggle('medium-priority', todo.priority === 'medium');
 
 	const checkBtn = document.createElement('div');
 	checkBtn.classList.add('check-circle');
-
-	if (todo.completed) {
-		checkBtn.classList.add('checked');
-	}
+	checkBtn.classList.toggle('checked', todo.completed);
 
 	checkBtn.addEventListener('click', (e) => {
 		e.stopPropagation();
-		todo.completed = !todo.completed;
-
-		todoElement.classList.toggle('completed');
-		checkBtn.classList.toggle('checked');
-
-		save(getAllProjects());
-		renderTodos();
+		onToggle(todo);
 	});
-
-	if (todo.priority === 'high') {
-		todoElement.classList.add('high-priority');
-	}
-
-	if (todo.priority === 'medium') {
-		todoElement.classList.add('medium-priority');
-	}
 
 	const todoTitle = document.createElement('div');
 	todoTitle.classList.add('todo-title');
-	todoTitle.textContent = `${todo.title}`;
+	todoTitle.textContent = todo.title;
 	todoTitle.setAttribute('title', todo.title);
-	todoElement.appendChild(todoTitle);
 
 	if (todo.dueDate && todo.dueDate !== '') {
 		const todoDate = document.createElement('div');
@@ -56,7 +38,6 @@ export function createTodoElement(todo, index, project) {
 		} catch (error) {
 			todoDate.textContent = `Due: ${todo.dueDate}`;
 		}
-
 		todoElement.appendChild(todoDate);
 	}
 
@@ -66,19 +47,15 @@ export function createTodoElement(todo, index, project) {
 
 	deleteBtn.addEventListener('click', (e) => {
 		e.stopPropagation();
-		removeTodoFromProject(project, index);
-		renderTodos();
+		onDelete(todo);
 	});
 
 	todoElement.addEventListener('click', () => {
-		if (todo.completed) return;
-		const newForm = getTodoForm((newData) => {
-			updateTodo(project, index, newData);
-		}, todo);
-		showModal(newForm);
+		onEdit(todo);
 	});
 
 	todoElement.appendChild(checkBtn);
+	todoElement.appendChild(todoTitle);
 	todoElement.appendChild(deleteBtn);
 	return todoElement;
 }
