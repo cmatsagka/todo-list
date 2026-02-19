@@ -1,3 +1,5 @@
+import { format, parseISO, isPast, isToday } from 'date-fns';
+
 export function createTodoElement(todo, onToggle, onDelete, onEdit) {
 	if (!todo) return null;
 
@@ -9,8 +11,10 @@ export function createTodoElement(todo, onToggle, onDelete, onEdit) {
 	todoElement.classList.toggle('medium-priority', todo.priority === 'medium');
 
 	const checkBtn = document.createElement('div');
-	checkBtn.classList.add('check-circle');
-	checkBtn.classList.toggle('checked', todo.completed);
+	checkBtn.classList.add(
+		'check-circle',
+		todo.completed ? 'checked' : 'unchecked'
+	);
 
 	checkBtn.addEventListener('click', (e) => {
 		e.stopPropagation();
@@ -21,25 +25,6 @@ export function createTodoElement(todo, onToggle, onDelete, onEdit) {
 	todoTitle.classList.add('todo-title');
 	todoTitle.textContent = todo.title;
 	todoTitle.setAttribute('title', todo.title);
-
-	if (todo.dueDate && todo.dueDate !== '') {
-		const todoDate = document.createElement('div');
-		todoDate.classList.add('todo-date');
-
-		try {
-			const dateObj = parseISO(todo.dueDate);
-			const formattedDate = format(dateObj, 'MMM do, yyyy');
-			todoDate.textContent = `Due: ${formattedDate}`;
-
-			if (isPast(dateObj) && !isToday(dateObj) && !todo.completed) {
-				todoDate.classList.add('overdue');
-				todoDate.textContent += ' !';
-			}
-		} catch (error) {
-			todoDate.textContent = `Due: ${todo.dueDate}`;
-		}
-		todoElement.appendChild(todoDate);
-	}
 
 	const deleteBtn = document.createElement('button');
 	deleteBtn.classList.add('delete-btn');
@@ -53,6 +38,25 @@ export function createTodoElement(todo, onToggle, onDelete, onEdit) {
 	todoElement.addEventListener('click', () => {
 		onEdit(todo);
 	});
+
+	if (todo.dueDate) {
+		const todoDate = document.createElement('div');
+		todoDate.classList.add('todo-date');
+
+		try {
+			const dateObj = parseISO(todo.dueDate);
+			const formattedDate = format(dateObj, 'MMM do, yyyy');
+			todoDate.textContent = `Due: ${formattedDate}`;
+
+			if (isPast(dateObj) && !isToday(dateObj) && !todo.completed) {
+				todoDate.classList.add('overdue');
+				todoDate.textContent += ' !';
+			}
+		} catch (e) {
+			todoDate.textContent = `Due: ${todo.dueDate}`;
+		}
+		todoElement.appendChild(todoDate);
+	}
 
 	todoElement.appendChild(checkBtn);
 	todoElement.appendChild(todoTitle);
