@@ -545,7 +545,7 @@ export function showDeleteConfirmation(projectName, taskCount) {
 export function performDelete(projectName) {
 	deleteProject(projectName);
 	const active = getAllProjects();
-	if (!active) {
+	if (active.length === 0) {
 		switchView('DASHBOARD', getAllProjects());
 	}
 	renderProjects();
