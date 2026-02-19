@@ -34,7 +34,7 @@
 body {
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
+	height: 100vh;
 	overflow: hidden;
 	background-color: var(--bg-main);
 	color: var(--txt-main);
@@ -207,24 +207,33 @@ header {
 .app-container {
 	display: grid;
 	grid-template-columns: var(--sidebar-width) 1fr;
-	transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	height: calc(100vh - 60px);
+	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	min-height: 0;
+	flex: 1;
 }
 
 .app-container.focus-mode {
 	grid-template-columns: 0px 1fr;
 }
 
+.app-container.focus-mode ~ .site-footer {
+	width: 100%;
+}
+
 #sidebar {
 	border-right: 1px solid var(--border-clr);
 	padding: 2rem;
 	padding-bottom: 1rem;
-	overflow: hidden;
 	gap: 1.5rem;
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 	transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#sidebar,
+#todo-display {
+	height: 100%;
+	overflow-y: auto;
 }
 
 .app-container.focus-mode #sidebar {
@@ -377,8 +386,6 @@ header {
 	padding-bottom: 80px;
 	display: flex;
 	flex-direction: column;
-	height: 100%;
-	overflow: hidden;
 }
 
 .todo-wrapper {
@@ -564,19 +571,13 @@ input:focus {
 
 .site-footer {
 	color: var(--action-primary);
-	height: 50px;
+	height: 40px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	width: calc(100% - var(--sidebar-width));
-	transition: width 0.4s ease;
-}
-
-.app-container.focus-mode ~ .site-footer {
-	width: 100%;
+	flex-shrink: 0;
+	z-index: 10;
+	font-size: 0.9rem;
 }
 
 .empty-task-btn {
