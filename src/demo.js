@@ -2,6 +2,8 @@ import { createTodo } from './todo.js';
 import {
 	addProject,
 	addTodoToProject,
+	clearCompletedTasks,
+	getActiveProject,
 	getAllProjects,
 	setActiveProject,
 } from './todoManager.js';
@@ -32,74 +34,52 @@ export const loadDemoStory = () => {
 		);
 	}
 
-	addProject('The Architect');
-	const storyProject = getAllProjects().find(
-		(p) => p.getName() === 'The Architect'
+	const addDemo = (name, task) => {
+		addProject(name);
+		const project = getActiveProject();
+		clearCompletedTasks.forEach((t) =>
+			addTodoToProject(project, createTodo(...t))
+		);
+	};
+
+	addDemo(
+		'The Architect',
+		[
+			'Lay the Ethereal Foundation',
+			'Define the core purpose of this digital space.',
+			'2026-02-15',
+			'high',
+		],
+		[
+			'Polish the Keystone',
+			'Ensure the interface reflects clean design.',
+			'2026-03-01',
+			'low',
+		]
 	);
 
-	if (storyProject) {
-		addTodoToProject(
-			storyProject,
-			createTodo(
-				'Lay the Ethereal Foundation',
-				'Define the core purpose of this digital space.',
-				'2026-02-15',
-				'high'
-			)
-		);
-		addTodoToProject(
-			storyProject,
-			createTodo(
-				'Polish the Keystone',
-				'Ensure the interface reflects clean design.',
-				'2026-03-01',
-				'low'
-			)
-		);
-	}
-
-	addProject('The Quarry');
-	const quarryProject = getAllProjects().find((p) =>
-		p.getName().includes('Quarry')
+	addDemo(
+		'The Quarry',
+		[
+			'Extract Pure Logic',
+			'Mine the deepest functions for performance.',
+			'2026-02-20',
+			'medium',
+		],
+		[
+			'Refine Raw Data',
+			'Transform JSON strings into beautiful UI elements.',
+			'2026-02-22',
+			'high',
+		]
 	);
 
-	if (quarryProject) {
-		addTodoToProject(
-			quarryProject,
-			createTodo(
-				'Extract Pure Logic',
-				'Mine the deepest functions for performance.',
-				'2026-02-20',
-				'medium'
-			)
-		);
-		addTodoToProject(
-			quarryProject,
-			createTodo(
-				'Refine Raw Data',
-				'Transform JSON strings into beautiful UI elements.',
-				'2026-02-22',
-				'high'
-			)
-		);
-	}
-
-	addProject('The Observatory');
-	const observatoryProject = getAllProjects().find((p) =>
-		p.getName().includes('Observatory')
-	);
-
-	if (observatoryProject) {
-		addTodoToProject(
-			observatoryProject,
-			createTodo(
-				'Watch the Horizon',
-				'Identify upcoming features and tech debt.',
-				'2026-04-10',
-				'low'
-			)
-		);
-	}
+	addDemo('The Observatory', [
+		'Watch the Horizon',
+		'Identify upcoming features and tech debt.',
+		'2026-04-10',
+		'low',
+	]);
 
 	setActiveProject('The Architect');
 };
