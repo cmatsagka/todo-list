@@ -356,8 +356,8 @@ export function showEditProjectModal(oldName) {
 	showModal(container);
 }
 
-export function updateTodo(project, index, newData) {
-	updateTodoFromProject(project, index, newData);
+export function updateTodo(project, todo, newData) {
+	updateTodoFromProject(project, todo, newData);
 	renderTodos();
 	closeModal();
 }
