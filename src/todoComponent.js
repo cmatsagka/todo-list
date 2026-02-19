@@ -25,6 +25,7 @@ export function createTodoElement(todo, onToggle, onDelete, onEdit) {
 	todoTitle.classList.add('todo-title');
 	todoTitle.textContent = todo.title;
 	todoTitle.setAttribute('title', todo.title);
+	todoElement.appendChild(todoTitle);
 
 	const deleteBtn = document.createElement('button');
 	deleteBtn.classList.add('delete-btn');
@@ -59,7 +60,6 @@ export function createTodoElement(todo, onToggle, onDelete, onEdit) {
 	}
 
 	todoElement.appendChild(checkBtn);
-	todoElement.appendChild(todoTitle);
 	todoElement.appendChild(deleteBtn);
 	return todoElement;
 }

@@ -366,7 +366,7 @@ export function handleTodoSubmit(data) {
 	let activeProject = getActiveProject();
 
 	if (!activeProject) {
-		alert('Please create a project firs before adding tasks!');
+		alert('Please create a project first before adding tasks!');
 		return;
 	}
 
