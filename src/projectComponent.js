@@ -29,9 +29,12 @@ export function createSidebarItem(
 	onDelete,
 	isActive
 ) {
-	const item = document.createElement('p');
+	const item = document.createElement('div');
 	item.classList.add('project-item');
-	item.textContent = project.getName();
+
+	const itemTitle = document.createElement('h3');
+	itemTitle.textContent = project.getName();
+	itemTitle.classList.add('project-name');
 
 	item.classList.toggle('active-project', isActive);
 
@@ -60,6 +63,7 @@ export function createSidebarItem(
 		onSelect(project);
 	});
 
+	item.appendChild(itemTitle);
 	btnGroup.appendChild(editBtn);
 	btnGroup.appendChild(deleteBtn);
 	item.appendChild(btnGroup);
