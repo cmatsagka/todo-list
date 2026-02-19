@@ -17,7 +17,13 @@ export function switchView(viewType, contextData) {
 
 	const wrapper = document.querySelector('.todo-wrapper');
 	if (!wrapper) return;
-	if (wrapper) wrapper.textContent = '';
+
+	wrapper.className = 'todo-wrapper';
+	wrapper.classList.add(
+		viewType === 'DASHBOARD' ? 'view-dashboard' : 'view-single'
+	);
+
+	wrapper.textContent = '';
 	window.scrollTo(0, 0);
 
 	if (viewType === 'DASHBOARD' && renderers.board) {
