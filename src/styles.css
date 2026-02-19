@@ -455,7 +455,8 @@ header {
 	position: relative;
 	overflow: hidden;
 	width: 100%;
-	min-height: 3.5rem;
+	height: 4rem;
+	flex-shrink: 0;
 }
 
 .todo-item::before {
@@ -513,14 +514,19 @@ header {
 .todo-title {
 	font-weight: 600;
 	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-right: 1rem;
 }
 
 .todo-date {
-	font-size: 0.9rem;
+	font-size: 0.85rem;
 	color: var(--action-primary);
 	white-space: nowrap;
 	opacity: 0.8;
 	margin: 0 1.5rem;
+	flex-shrink: 0;
 }
 
 .form-group {
