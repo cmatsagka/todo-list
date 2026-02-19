@@ -366,10 +366,10 @@ export function setupFocusMode() {
 		const isFocus = container.classList.toggle('focus-mode');
 
 		if (isFocus) {
-			toggleFocusBtn.textContent = 'X';
+			toggleFocusBtn.textContent = '[	|]';
 			toggleFocusBtn.dataset.state = 'exit';
 		} else {
-			toggleFocusBtn.textContent = 'Focus Mode';
+			toggleFocusBtn.textContent = '[| ]';
 			toggleFocusBtn.dataset.state = 'focus';
 		}
 	});

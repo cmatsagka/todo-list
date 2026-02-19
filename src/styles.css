@@ -172,8 +172,36 @@ dialog:has(.choice-container) .close-dialog-btn {
 }
 
 header {
-	padding-left: 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 2rem;
+	height: 60px;
 	color: var(--action-primary);
+}
+
+#toggle-focus-btn {
+	color: var(--action-primary);
+	min-width: auto;
+	padding: 0.4rem 0.6rem;
+	font-size: 1.2rem;
+	font-weight: 500;
+	border-radius: 6px;
+	border: 1px solid var(--border-clr);
+	transition: all 0.4s ease;
+}
+
+#toggle-focus-btn[data-state='exit'] {
+	color: var(--priority-high-soft);
+}
+
+#toggle-focus-btn:hover {
+	background: var(--gradient-action);
+	color: var(--action-light) !important;
+}
+
+#toggle-focus-btn:hover[data-state='exit'] {
+	background: var(--priority-high-soft);
 }
 
 .app-container {
@@ -222,25 +250,6 @@ header {
 	opacity: 0;
 	padding: 0;
 	border-right: none;
-}
-
-#toggle-focus-btn {
-	color: var(--action-primary);
-	min-width: 100px;
-	transition: all 0.4s ease;
-}
-
-#toggle-focus-btn[data-state='exit'] {
-	color: var(--priority-high-soft);
-}
-
-#toggle-focus-btn:hover {
-	background: var(--gradient-action);
-	color: var(--action-light) !important;
-}
-
-#toggle-focus-btn:hover[data-state='exit'] {
-	background: var(--priority-high-soft);
 }
 
 .project-header {
