@@ -220,13 +220,16 @@ header {
 	padding: 2rem;
 	padding-bottom: 1rem;
 	overflow: hidden;
-	transition:
-		opacity 0.3s ease,
-		padding 0.5s ease;
 	gap: 1.5rem;
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-container.focus-mode #sidebar {
+	margin-left: calc(var(--sidebar-width) * -1);
+	border-right: none;
 }
 
 .reset-demo-btn {
@@ -244,12 +247,6 @@ header {
 	opacity: 1;
 	background: hsla(358, 33%, 59%, 0.1);
 	color: var(--priority-high-soft);
-}
-
-.app-container.focus-mode #sidebar {
-	opacity: 0;
-	padding: 0;
-	border-right: none;
 }
 
 .project-header {
