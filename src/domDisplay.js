@@ -89,39 +89,7 @@ export function createBoard(contextData) {
 			};
 			projectCard.appendChild(emptyAddBtn);
 		} else {
-			const sortedTodos = [...todos].sort((a, b) => {
-				if (a.completed !== b.completed) {
-					return a.completed - b.completed;
-				}
-				if (a.dueDate && b.dueDate) {
-					return compareAsc(parseISO(a.dueDate), parseISO(b.dueDate));
-				}
-				return 0;
-			});
-
-			sortedTodos.forEach((todo) => {
-				const realIndex = todos.indexOf(todo);
-
-				const todoElement = createTodoElement(
-					todo,
-					(t) => {
-						t.completed = !t.completed;
-						save(getAllProjects());
-						renderTodos();
-					},
-					(t) => {
-						removeTodoFromProject(project, t);
-						renderTodos();
-					},
-					(t) => {
-						if (t.completed) return;
-						const newForm = getTodoForm((newData) => {
-							updateTodo(project, t, newData);
-						}, t);
-						showModal(newForm);
-					}
-				);
-			});
+			renderTodoList(project, projectCard);
 		}
 
 		container.appendChild(projectCard);
@@ -167,41 +135,7 @@ export function createList(project) {
 		};
 		projectCard.appendChild(emptyAddBtn);
 	} else {
-		const sortedTodos = [...todos].sort((a, b) => {
-			if (a.completed !== b.completed) {
-				return a.completed - b.completed;
-			}
-			if (a.dueDate && b.dueDate) {
-				return compareAsc(parseISO(a.dueDate), parseISO(b.dueDate));
-			}
-			return 0;
-		});
-
-		sortedTodos.forEach((todo) => {
-			const realIndex = todos.indexOf(todo);
-
-			const todoElement = createTodoElement(
-				todo,
-				(t) => {
-					t.completed = !t.completed;
-					save(getAllProjects());
-					renderTodos();
-				},
-				(t) => {
-					removeTodoFromProject(project, t);
-					renderTodos();
-				},
-				(t) => {
-					if (t.completed) return;
-					const newForm = getTodoForm((newData) => {
-						updateTodo(project, t, newData);
-					}, t);
-					showModal(newForm);
-				}
-			);
-
-			projectCard.appendChild(todoElement);
-		});
+		renderTodoList(project, projectCard);
 	}
 	container.appendChild(headerContainer);
 	container.appendChild(projectCard);
