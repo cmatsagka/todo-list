@@ -12,9 +12,13 @@ export function registerRenderers(fns) {
 
 export function switchView(viewType, contextData) {
 	if (!viewType) return getView();
+
 	setView(viewType);
+
 	const wrapper = document.querySelector('.todo-wrapper');
+	if (!wrapper) return;
 	if (wrapper) wrapper.textContent = '';
+	window.scrollTo(0, 0);
 
 	if (viewType === 'DASHBOARD' && renderers.board) {
 		renderers.board(contextData);
