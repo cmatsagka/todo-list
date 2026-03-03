@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Todo App</title>
+	<script defer src="main.js"></script></head>
+	<body>
+		<header>
+			<h1>Preppy</h1>
+			<div class="focus-mode-wrapper">
+				<button id="toggle-focus-btn">[| ]</button>
+			</div>
+		</header>
+		<div class="app-container">
+			<aside id="sidebar">
+				<button id="overview-btn">Overview</button>
+				<h2 id="projects-heading">Projects</h2>
+				<nav id="project-list" aria-labelledby="projects-heading"></nav>
+			</aside>
+			<main id="todo-display">
+				<div class="todo-wrapper"></div>
+			</main>
+		</div>
+		<footer class="site-footer">
+			<p>Build with care and vanilla</p>
+		</footer>
+		<button id="floating-add-btn" aria-label="Add new task or project">
+			+
+		</button>
+	</body>
+</html>
