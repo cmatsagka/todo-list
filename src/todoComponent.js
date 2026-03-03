@@ -53,7 +53,7 @@ export function createTodoElement(todo, onToggle, onDelete, onEdit) {
 				todoDate.classList.add('overdue');
 				todoDate.textContent += ' !';
 			}
-		} catch (e) {
+		} catch {
 			todoDate.textContent = `Due: ${todo.dueDate}`;
 		}
 		todoElement.appendChild(todoDate);
