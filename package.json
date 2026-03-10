@@ -1,5 +1,5 @@
 {
-	"name": "vanilla-js-template",
+	"name": "todo-list",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -13,16 +13,16 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/cmatsagka/vanilla-js-template.git"
+		"url": "git+https://github.com/cmatsagka/todo-list.git"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"type": "module",
 	"bugs": {
-		"url": "https://github.com/cmatsagka/vanilla-js-template/issues"
+		"url": "https://github.com/cmatsagka/todo-list/issues"
 	},
-	"homepage": "https://github.com/cmatsagka/vanilla-js-template#readme",
+	"homepage": "https://github.com/cmatsagka/todo-list#readme",
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
 		"css-loader": "^7.1.3",
